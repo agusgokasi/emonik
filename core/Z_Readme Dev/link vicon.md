@@ -1,0 +1,2 @@
+vicon 1 (13-5-2020):
+https://unjac-my.sharepoint.com/personal/agus-agung_unj_ac_id/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fagus-agung_unj_ac_id%2FDocuments%2Femonik&originalPath=aHR0cHM6Ly91bmphYy1teS5zaGFyZXBvaW50LmNvbS86ZjovZy9wZXJzb25hbC9hZ3VzLWFndW5nX3Vual9hY19pZC9FbURvMVI1bDZ3NUVpemNrbTlpOXotTUJ4Tlhtd1l2YVRFRWFfNFBNRGFwMWhBP3J0aW1lPXBuYk5QUVAzMTBn
