@@ -65,7 +65,7 @@ class PermissionsTableSeeder extends Seeder
         $Permissions->dispo3p_status = false;
         $Permissions->dispo4p_status = false;
         $Permissions->dispo1s_status = false;
-        $Permissions->dispo2s_status = true;
+        $Permissions->dispo2s_status = false;
         $Permissions->status = true;
         $Permissions->created_by = 1;
         $Permissions->save();
@@ -100,10 +100,10 @@ class PermissionsTableSeeder extends Seeder
         $Permissions->permohonan_status = false;
         $Permissions->dispo1p_status = false;
         $Permissions->dispo2p_status = false;
-        $Permissions->dispo3p_status = true;
-        $Permissions->dispo4p_status = false;
+        $Permissions->dispo3p_status = false;
+        $Permissions->dispo4p_status = true;
         $Permissions->dispo1s_status = false;
-        $Permissions->dispo2s_status = false;
+        $Permissions->dispo2s_status = true;
         $Permissions->status = true;
         $Permissions->created_by = 1;
         $Permissions->save();
@@ -119,8 +119,8 @@ class PermissionsTableSeeder extends Seeder
         $Permissions->permohonan_status = false;
         $Permissions->dispo1p_status = false;
         $Permissions->dispo2p_status = false;
-        $Permissions->dispo3p_status = false;
-        $Permissions->dispo4p_status = true;
+        $Permissions->dispo3p_status = true;
+        $Permissions->dispo4p_status = false;
         $Permissions->dispo1s_status = true;
         $Permissions->dispo2s_status = false;
         $Permissions->status = true;

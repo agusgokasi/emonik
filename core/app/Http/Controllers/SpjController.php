@@ -71,7 +71,7 @@ class SpjController extends Controller
     public function submit(Request $request, $slug){
         $permohonan = Permohonan::where('slug',$slug)->first();
         $permohonan->status = 6;
-        $permohonan->keterangan = 'spj sedang berada di disposisi 1';
+        $permohonan->keterangan = 'spj sedang berada di Kasubag';
         $permohonan->save();
         return redirect()->action('SpjController@index')->with('msg', 'SPJ berhasil disubmit!');
     }

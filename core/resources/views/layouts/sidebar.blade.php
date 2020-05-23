@@ -73,12 +73,21 @@
     <li class="nav-item dropdown {{ (request()->is('dis1')) ? 'active' : '' }} {{ (request()->is('dis2')) ? 'active' : '' }} {{ (request()->is('dis3')) ? 'active' : '' }} {{ (request()->is('dis4')) ? 'active' : '' }}">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <small><i class="fas fa-fw fa-book-open"></i>
-            <span><small>&nbsp;Disposisi Permohonan&nbsp;</small></span></small>
+            <span><small>&nbsp;Disposisi Permohonan</small></span></small>
+            @if(Auth::user()->permissionsGroup->dispo1p_status)
+                @if (auth()->user()->unreadNotifications()->where("type", "App\Notifications\SubmitPermohonan")->count() != 0)
+                    <span class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications()->where("type", "App\Notifications\SubmitPermohonan")->count() }}</span>
+                @endif
+            @endif
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <small>
                 @if(Auth::user()->permissionsGroup->dispo1p_status)
-                    <a class="dropdown-item {{ (request()->is('dis1')) ? 'active' : '' }}" href="{{ url('dis1') }}">Disposisi 1</a>
+                    <a class="dropdown-item {{ (request()->is('dis1')) ? 'active' : '' }}" href="{{ url('dis1') }}">Disposisi 1&nbsp;
+                    @if (auth()->user()->unreadNotifications()->where("type", "App\Notifications\SubmitPermohonan")->count() != 0)
+                    <span class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications()->where("type", "App\Notifications\SubmitPermohonan")->count() }}</span>
+                    @endif
+                    </a>
                 @endif
                 @if(Auth::user()->permissionsGroup->dispo2p_status)
                     <a class="dropdown-item {{ (request()->is('dis2')) ? 'active' : '' }}" href="{{ url('dis2') }}">Disposisi 2</a>

@@ -13,6 +13,7 @@ use App\Kegiatan;
 use App\Unit;
 use App\Permohonan;
 use App\Rincian;
+use App\Notifications\SubmitPermohonan;
 use Illuminate\Support\Facades\Validator;
 
 class DisposisiController extends Controller
@@ -20,6 +21,12 @@ class DisposisiController extends Controller
     public function dis1(){
     	if (Auth::user()->permissionsGroup->dispo1p_status) {
     	$permohonans = permohonan::where('status', 1)->orderBy('updated_at', 'desc')->get();
+        $users = User::all();
+        if (auth()->user()->permissionsGroup->dispo1p_status == 1) {
+            foreach ($users as $user) {
+                $user->unreadNotifications->where('type', 'App\Notifications\SubmitPermohonan')->markAsRead();
+            }
+        }
         return view('disposisi.index_disposisi', compact('permohonans'));
     	} 
     	return abort(403);
@@ -29,7 +36,7 @@ class DisposisiController extends Controller
     	if (Auth::user()->permissionsGroup->dispo1p_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
         $permohonan->status = 2;
-        $permohonan->keterangan = 'permohonan sedang berada di disposisi 2';
+        $permohonan->keterangan = 'permohonan sedang berada di PPK';
         $permohonan->save();
         return redirect()->action('DisposisiController@dis1')->with('msg', 'Permohonan berhasil dilanjutkan!');
     	}
@@ -80,7 +87,7 @@ class DisposisiController extends Controller
     	if (Auth::user()->permissionsGroup->dispo2p_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
         $permohonan->status = 3;
-        $permohonan->keterangan = 'permohonan sedang berada di disposisi 3';
+        $permohonan->keterangan = 'permohonan sedang berada di kasubag';
         $permohonan->save();
         return redirect()->action('DisposisiController@dis2')->with('msg', 'Permohonan berhasil dilanjutkan!');
     	}
@@ -99,7 +106,7 @@ class DisposisiController extends Controller
     	if (Auth::user()->permissionsGroup->dispo3p_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
         $permohonan->status = 4;
-        $permohonan->keterangan = 'permohonan diterima, silahkan ambil dana di kasubag keuangan';
+        $permohonan->keterangan = 'permohonan sudah disetujui Kasubag, silahkan ambil dana di BPP';
         $permohonan->save();
         return redirect()->action('DisposisiController@dis3')->with('msg', 'Permohonan berhasil dilanjutkan!');
     	}
@@ -118,7 +125,7 @@ class DisposisiController extends Controller
     	if (Auth::user()->permissionsGroup->dispo4p_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
         $permohonan->status = 5;
-        $permohonan->keterangan = 'dana diterima, segera buat spj jika sudah selesai!';
+        $permohonan->keterangan = 'dana diterima, segera buat spj paling lambat 1 minggu setelah dana diterima';
         $permohonan->save();
         return redirect()->action('DisposisiController@dis4')->with('msg', 'Permohonan berhasil dilanjutkan!');
     	}
@@ -177,7 +184,7 @@ class DisposisiController extends Controller
         if (Auth::user()->permissionsGroup->dispo1s_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
         $permohonan->status = 7;
-        $permohonan->keterangan = 'spj sedang berada di disposisi 2';
+        $permohonan->keterangan = 'spj sedang berada di BPP';
         $permohonan->save();
         return redirect()->action('DisposisiController@dis5')->with('msg', 'SPJ berhasil dilanjutkan!');
         }

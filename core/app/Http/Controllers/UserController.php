@@ -23,7 +23,7 @@ class UserController extends Controller
     }
 
     public function index() {
-    	$users = User::get();
+    	$users = User::where('id', '!=', 1)->get();
         $permissions = Permission::get();
         return view('user.index_user', compact('users', 'permissions'));
     }

@@ -13,6 +13,7 @@ use App\Kegiatan;
 use App\Unit;
 use App\Permohonan;
 use App\Rincian;
+use App\Notifications\SubmitPermohonan;
 use Illuminate\Support\Facades\Validator;
 
 class PermohonanController extends Controller
@@ -280,10 +281,16 @@ class PermohonanController extends Controller
     }
 
     public function submit(Request $request, $slug){
+        $users = User::all();
         $permohonan = Permohonan::where('slug',$slug)->first();
         $permohonan->status = 1;
-        $permohonan->keterangan = 'permohonan sedang berada di disposisi 1';
+        $permohonan->keterangan = 'permohonan sedang berada di WD2';
         $permohonan->save();
+        foreach ($users as $user) {
+            if ($user->permissionsGroup->dispo1p_status == 1) {
+                $user->notify(new SubmitPermohonan);
+            }
+        }
         return redirect()->action('PermohonanController@index')->with('msg', 'Permohonan berhasil disubmit!');
     }
 
