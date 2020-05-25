@@ -4,9 +4,9 @@ UML (Activity) :
 1. BPP : Pencairan uang
 
 Website :
-1. Nama permohonan diganti menjadi Nama Kegiatan di form buat permohonan (v)
+1. Nama permohonan diganti menjadi Nama Kegiatan di form buat permohonan (done)
 2. Kategori dikosongin (optional / gak usah)
-3. Table Mangement Permohonan tiap disposisi dikasih letaknya ada dimana contoh wd2 di diposisi 1
+3. Table Mangement Permohonan tiap disposisi dikasih letaknya ada dimana contoh wd2 di diposisi 1 (done)
 4. Notifikasi di website tiap ada sesuatu(permohonan/spj) baru yang masuk
 5. Masa waktu pengajuan (berapa lama/ 1 minggu setelah pengajuan/penolakan)
 6. Ada 2 penyaringan spj di ppk dengan kasubag, ppk terakhir

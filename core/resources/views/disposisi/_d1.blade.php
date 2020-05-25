@@ -11,7 +11,7 @@
                         <br>
                         <strong>[ {{ $permohonan->nama }} ]</strong>
                         <br>
-                        <small>*Melanjukan ke disposisi 2!</small>
+                        <small>*Melanjukan ke PPK (disposisi 2)!</small>
                     </p>
                 </div>
                 <div class="modal-footer">

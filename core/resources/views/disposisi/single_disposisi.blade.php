@@ -81,11 +81,11 @@
                             <textarea type="text" class="form-control" id="susunanpanitia" placeholder="{{ $permohonan->susunanpanitia }}" disabled></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="biayarincian"><i class="fa fa-money-bill-wave"> Total Biaya</i></label>
+                            <label for="biayarincian"><i class="fa fa-money-bill-wave"> Total Usulan</i></label>
                             <input type="text" class="form-control" id="biayarincian" placeholder="Rp{{format_uang($permohonan->biayarincian)}}" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="totalbiaya"><i class="fa fa-money-bill-alt"> Maksimal Dana</i></label>
+                            <label for="totalbiaya"><i class="fa fa-money-bill-alt"> Biaya Perencanaan/i></label>
                             <input type="text" class="form-control" id="totalbiaya" placeholder="Rp{{format_uang($permohonan->totalbiaya)}}" disabled>
                         </div>
                         <div class="form-group">
@@ -118,15 +118,15 @@
                                             <th scope="col">Biaya Satuan</th>
                                             <th scope="col">Volume</th>
                                             <th scope="col">Satuan</th>
-                                            <th scope="col">Biaya Total</th>
+                                            <th scope="col">Biaya usulan</th>
                                         </tr>
                                     </thead>
                                     <tfoot class="">
                                         <tr>
-                                            <th class="table-info" colspan="3">Maksimal Dana : Rp{{format_uang($permohonan->totalbiaya)}}</th>
+                                            <th class="table-info" colspan="3">Biaya Perencanaan : Rp{{format_uang($permohonan->totalbiaya)}}</th>
                                             {{-- <th scope="col">Maksimal Dana</th> --}}
                                             {{-- <th>Rp.{{format_uang($permohonan->totalbiaya)}}</th> --}}
-                                            <th class="table-info" colspan="3">Total Biaya : Rp{{format_uang($permohonan->biayarincian)}}</th>
+                                            <th class="table-info" colspan="3">Total Usulan : Rp{{format_uang($permohonan->biayarincian)}}</th>
                                             {{-- <th scope="col">Rp.{{format_uang($permohonan->biayarincian)}}</th> --}}
                                         </tr>
                                     </tfoot>

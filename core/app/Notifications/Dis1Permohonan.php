@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class SubmitPermohonan extends Notification
+class Dis1Permohonan extends Notification
 {
     use Queueable;
 
@@ -40,7 +40,7 @@ class SubmitPermohonan extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = (config('app.url').'dis1');
+        $url = (config('app.url').'dis2');
         return (new MailMessage)
                     ->subject('Permohonan Baru')
                     ->greeting('Hello!')
@@ -59,7 +59,7 @@ class SubmitPermohonan extends Notification
     {
         return [
             'submited_by' => auth()->user()->id,
-            'message' => '1 permohonan baru disubmit'
+            'message' => '1 permohonan baru diteruskan dari PPK'
         ];
     }
 }

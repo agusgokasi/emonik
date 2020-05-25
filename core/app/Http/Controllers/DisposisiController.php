@@ -14,6 +14,9 @@ use App\Unit;
 use App\Permohonan;
 use App\Rincian;
 use App\Notifications\SubmitPermohonan;
+use App\Notifications\Dis1Permohonan;
+use App\Notifications\Dis2Permohonan;
+use App\Notifications\Dt2Permohonan;
 use Illuminate\Support\Facades\Validator;
 
 class DisposisiController extends Controller
@@ -21,7 +24,7 @@ class DisposisiController extends Controller
     public function dis1(){
     	if (Auth::user()->permissionsGroup->dispo1p_status) {
     	$permohonans = permohonan::where('status', 1)->orderBy('updated_at', 'desc')->get();
-        $users = User::all();
+        $users = User::where('id', '!=', 1)->get();
         if (auth()->user()->permissionsGroup->dispo1p_status == 1) {
             foreach ($users as $user) {
                 $user->unreadNotifications->where('type', 'App\Notifications\SubmitPermohonan')->markAsRead();
@@ -34,10 +37,16 @@ class DisposisiController extends Controller
 
     public function di1(Request $request, $slug) {
     	if (Auth::user()->permissionsGroup->dispo1p_status) {
+        $users = User::where('id', '!=', 1)->get();
         $permohonan = Permohonan::where('slug',$slug)->first();
         $permohonan->status = 2;
         $permohonan->keterangan = 'permohonan sedang berada di PPK';
         $permohonan->save();
+        foreach ($users as $user) {
+            if ($user->permissionsGroup->dispo2p_status == 1) {
+                $user->notify(new Dis1Permohonan);
+            }
+        }
         return redirect()->action('DisposisiController@dis1')->with('msg', 'Permohonan berhasil dilanjutkan!');
     	}
     	return abort(403);
@@ -46,6 +55,12 @@ class DisposisiController extends Controller
     public function dis2(){
     	if (Auth::user()->permissionsGroup->dispo2p_status) {
     	$permohonans = permohonan::where('status', 2)->orderBy('updated_at', 'desc')->get();
+        $users = User::where('id', '!=', 1)->get();
+        if (auth()->user()->permissionsGroup->dispo2p_status == 1) {
+            foreach ($users as $user) {
+                $user->unreadNotifications->where('type', 'App\Notifications\Dis1Permohonan')->markAsRead();
+            }
+        }
         return view('disposisi.index_disposisi', compact('permohonans'));
     	}
     	return abort(403);
@@ -54,6 +69,10 @@ class DisposisiController extends Controller
     public function dt2(Request $request, $slug) {
     	if (Auth::user()->permissionsGroup->dispo2p_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
+        $user = User::where('id', $permohonan->created_by)->first();
+        if ($user->permissionsGroup->permohonan_status == 1) {
+            $user->notify(new Dt2Permohonan);
+        }
         $validator = Validator::make($request->all(), [
         'keterangan'              => 'required|min:3|max:1000',
         'revisi'                 => 'required|mimes:pdf|max:10000kb'
@@ -85,10 +104,16 @@ class DisposisiController extends Controller
 
     public function di2(Request $request, $slug) {
     	if (Auth::user()->permissionsGroup->dispo2p_status) {
+        $users = User::where('id', '!=', 1)->get();
         $permohonan = Permohonan::where('slug',$slug)->first();
         $permohonan->status = 3;
         $permohonan->keterangan = 'permohonan sedang berada di kasubag';
         $permohonan->save();
+        foreach ($users as $user) {
+            if ($user->permissionsGroup->dispo3p_status == 1) {
+                $user->notify(new Dis2Permohonan);
+            }
+        }
         return redirect()->action('DisposisiController@dis2')->with('msg', 'Permohonan berhasil dilanjutkan!');
     	}
     	return abort(403);
@@ -97,6 +122,12 @@ class DisposisiController extends Controller
     public function dis3(){
     	if (Auth::user()->permissionsGroup->dispo3p_status) {
     	$permohonans = permohonan::where('status', 3)->orderBy('updated_at', 'desc')->get();
+        $users = User::where('id', '!=', 1)->get();
+        if (auth()->user()->permissionsGroup->dispo3p_status == 1) {
+            foreach ($users as $user) {
+                $user->unreadNotifications->where('type', 'App\Notifications\Dis2Permohonan')->markAsRead();
+            }
+        }
         return view('disposisi.index_disposisi', compact('permohonans'));
     	} 
     	return abort(403);

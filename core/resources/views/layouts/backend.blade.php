@@ -73,7 +73,7 @@
             @endif @else
             <li class="nav-item dropdown">
                 <a id="navbarDropdown" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    <i class="fas fa-user-circle"></i>
+                    {{strlen(Auth::user()->name) > 9 ? substr(Auth::user()->name,0,8)."...":Auth::user()->name}}&nbsp;<i class="fas fa-user-circle"></i>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
