@@ -13,6 +13,7 @@ use App\Kegiatan;
 use App\Unit;
 use App\Permohonan;
 use App\Rincian;
+use App\Notifications\Dis4Permohonan;
 use Illuminate\Support\Facades\Validator;
 
 class SpjController extends Controller
@@ -30,6 +31,9 @@ class SpjController extends Controller
     	$user = Auth::user();
     	$kegiatans = Kegiatan::where('unit_id', $user->unit_id)->where('status', 1)->where('keterangan', null)->get();
     	$permohonans = permohonan::where('created_by', $user->id)->where('status', '!=' ,0)->where('status', '!=' ,1)->where('status', '!=' ,2)->where('status', '!=' ,3)->where('status', '!=' ,4)->where('status', '!=' ,9)->orderBy('updated_at', 'desc')->get();
+        if (auth()->user()->id != 1) {
+            $user->unreadNotifications->where('type', 'App\Notifications\Dis4Permohonan')->markAsRead();
+        }
         return view('spj.index_spj', compact('kegiatans', 'user', 'permohonans'));
     }
 

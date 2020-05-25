@@ -17,6 +17,10 @@ use App\Notifications\SubmitPermohonan;
 use App\Notifications\Dis1Permohonan;
 use App\Notifications\Dis2Permohonan;
 use App\Notifications\Dt2Permohonan;
+use App\Notifications\Dis3Permohonan;
+use App\Notifications\Dt3Permohonan;
+use App\Notifications\Dp3Permohonan;
+use App\Notifications\Dis4Permohonan;
 use Illuminate\Support\Facades\Validator;
 
 class DisposisiController extends Controller
@@ -70,9 +74,6 @@ class DisposisiController extends Controller
     	if (Auth::user()->permissionsGroup->dispo2p_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
         $user = User::where('id', $permohonan->created_by)->first();
-        if ($user->permissionsGroup->permohonan_status == 1) {
-            $user->notify(new Dt2Permohonan);
-        }
         $validator = Validator::make($request->all(), [
         'keterangan'              => 'required|min:3|max:1000',
         'revisi'                 => 'required|mimes:pdf|max:10000kb'
@@ -97,6 +98,9 @@ class DisposisiController extends Controller
         $permohonan->revisi = $revisi;
         $permohonan->keterangan = $request['keterangan'];
         $permohonan->save();
+        if ($user->permissionsGroup->permohonan_status == 1) {
+            $user->notify(new Dt2Permohonan);
+        }
         return redirect()->action('DisposisiController@dis2')->with('msg', 'Permohonan berhasil ditolak!');
     	}
     	return abort(403);
@@ -133,12 +137,58 @@ class DisposisiController extends Controller
     	return abort(403);
     }
 
+    public function dt3(Request $request, $slug) {
+        if (Auth::user()->permissionsGroup->dispo3p_status) {
+        $permohonan = Permohonan::where('slug',$slug)->first();
+        $user = User::where('id', $permohonan->created_by)->first();
+        $validator = Validator::make($request->all(), [
+        'keterangan'              => 'required|min:3|max:1000',
+        'revisi2'              => 'required|mimes:pdf|max:10000kb'
+        ],[
+            'keterangan.required'=>'Keterangan harus diisi',
+            'keterangan.min'=>'Keterangan minimal 3 huruf',
+            'keterangan.max'=>'Keterangan minimal 1000 huruf',
+
+            'revisi2.required'=>'Bukti Penolakan harus diisi',
+            'revisi2.mimes'=>'Bukti Penolakan berformat .pdf',
+            'revisi2.max'=>'Bukti Penolakan maksimal 10Mb',
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput()->with('error_code', 'dt3'.$slug);
+        }
+        //file
+        $file = $request->file('revisi2');
+        $revisi2 = time().rand(1000,9999).'.'.$file->getClientOriginalExtension();
+        $request->file('revisi2')->move(public_path('/revisi2'), $revisi2);
+
+        $permohonan->status = 9;
+        $permohonan->revisi2 = $revisi2;
+        $permohonan->keterangan = $request['keterangan'];
+        $permohonan->save();
+        if ($user->permissionsGroup->permohonan_status == 1) {
+            $user->notify(new Dt3Permohonan);
+        }
+        return redirect()->action('DisposisiController@dis3')->with('msg', 'Permohonan berhasil ditolak!');
+        }
+        return abort(403);
+    }
+
     public function di3(Request $request, $slug) {
     	if (Auth::user()->permissionsGroup->dispo3p_status) {
+        $users = User::where('id', '!=', 1)->get();
         $permohonan = Permohonan::where('slug',$slug)->first();
+        $pemohon = User::where('id', $permohonan->created_by)->first();
         $permohonan->status = 4;
-        $permohonan->keterangan = 'permohonan sudah disetujui Kasubag, silahkan ambil dana di BPP';
+        $permohonan->keterangan = 'Permohonan sudah disetujui Kasubag, silahkan ambil dana di BPP';
         $permohonan->save();
+        foreach ($users as $user) {
+            if ($user->permissionsGroup->dispo4p_status == 1) {
+                $user->notify(new Dis3Permohonan);
+            }
+        }
+        if ($pemohon->permissionsGroup->permohonan_status == 1) {
+            $pemohon->notify(new Dp3Permohonan);
+        }
         return redirect()->action('DisposisiController@dis3')->with('msg', 'Permohonan berhasil dilanjutkan!');
     	}
     	return abort(403);
@@ -147,6 +197,12 @@ class DisposisiController extends Controller
     public function dis4(){
     	if (Auth::user()->permissionsGroup->dispo4p_status) {
     	$permohonans = permohonan::where('status', 4)->orderBy('updated_at', 'desc')->get();
+        $users = User::where('id', '!=', 1)->get();
+        if (auth()->user()->permissionsGroup->dispo4p_status == 1) {
+            foreach ($users as $user) {
+                $user->unreadNotifications->where('type', 'App\Notifications\Dis3Permohonan')->markAsRead();
+            }
+        }
         return view('disposisi.index_disposisi', compact('permohonans'));
     	} 
     	return abort(403);
@@ -155,9 +211,13 @@ class DisposisiController extends Controller
     public function di4(Request $request, $slug) {
     	if (Auth::user()->permissionsGroup->dispo4p_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
+        $user = User::where('id', $permohonan->created_by)->first();
         $permohonan->status = 5;
         $permohonan->keterangan = 'dana diterima, segera buat spj paling lambat 1 minggu setelah dana diterima';
         $permohonan->save();
+        if ($user->permissionsGroup->permohonan_status == 1) {
+            $user->notify(new Dis4Permohonan);
+        }
         return redirect()->action('DisposisiController@dis4')->with('msg', 'Permohonan berhasil dilanjutkan!');
     	}
     	return abort(403);

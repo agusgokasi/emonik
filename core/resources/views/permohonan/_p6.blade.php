@@ -9,7 +9,7 @@
                     <p>
                         Permohonan Anda Telah Selesai Diproses
                         <br>
-                        <strong>[ Silahkan ambil dana di Kasubag Keuangan! ]</strong>
+                        <strong>[ Silahkan ambil dana di BPP! ]</strong>
                     </p>
                 </div>
                 <div class="modal-footer">

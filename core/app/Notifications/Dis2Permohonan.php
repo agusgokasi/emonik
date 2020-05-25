@@ -58,7 +58,8 @@ class Dis2Permohonan extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'submited_by' => auth()->user()->id,
+            'message' => '1 permohonan baru diteruskan dari PPK'
         ];
     }
 }

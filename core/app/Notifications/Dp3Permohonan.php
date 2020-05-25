@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class Dis1Permohonan extends Notification
+class Dp3Permohonan extends Notification
 {
     use Queueable;
 
@@ -40,11 +40,11 @@ class Dis1Permohonan extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = (config('app.url').'dis2');
+        $url = (config('app.url').'permohonan');
         return (new MailMessage)
-                    ->subject('Permohonan Baru')
+                    ->subject('Permohonan Diterima')
                     ->greeting('Hello!')
-                    ->line('Ada permohonan baru yang masuk.')
+                    ->line('Permohonan sudah disetujui Kasubag, silahkan ambil dana di BPP.')
                     ->action('Lihat Website', $url)
                     ->line('Thank you for using our application!');
     }
@@ -59,7 +59,7 @@ class Dis1Permohonan extends Notification
     {
         return [
             'submited_by' => auth()->user()->id,
-            'message' => '1 permohonan baru diteruskan dari WD2'
+            'message' => 'Permohonan sudah disetujui Kasubag, silahkan ambil dana di BPP'
         ];
     }
 }

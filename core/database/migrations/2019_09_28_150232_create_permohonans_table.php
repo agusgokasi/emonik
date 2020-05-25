@@ -40,6 +40,7 @@ class CreatePermohonansTable extends Migration
             $table->smallInteger('totalspj')->default(0);
             $table->text('keterangan')->nullable();
             $table->string('revisi')->nullable();
+            $table->string('revisi2')->nullable();
             $table->string('spj_tolak_kas')->nullable();
             $table->string('spj_tolak_ppk')->nullable();
             $table->integer('created_by')->nullable();

@@ -100,6 +100,7 @@ Route::Group(['middleware' => ['auth']], function () {
     Route::post('/dis2/tolak/{permohonan}', 'DisposisiController@dt2')->name('dis2Tolak');
     Route::get('/dis2/submit/{permohonan}', 'DisposisiController@di2')->name('dis2Submit');
     Route::get('/dis3', 'DisposisiController@dis3')->name('dis3');
+    Route::post('/dis3/tolak/{permohonan}', 'DisposisiController@dt3')->name('dis3Tolak');
     Route::get('/dis3/submit/{permohonan}', 'DisposisiController@di3')->name('dis3Submit');
     Route::get('/dis4', 'DisposisiController@dis4')->name('dis4');
     Route::get('/dis4/submit/{permohonan}', 'DisposisiController@di4')->name('dis4Submit');

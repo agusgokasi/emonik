@@ -58,7 +58,8 @@ class Dt2Permohonan extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'rejected_by' => auth()->user()->id,
+            'message' => 'Permohonan anda ditolak'
         ];
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class Dis1Permohonan extends Notification
+class Dt3Permohonan extends Notification
 {
     use Queueable;
 
@@ -40,11 +40,11 @@ class Dis1Permohonan extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = (config('app.url').'dis2');
+        $url = (config('app.url').'permohonan');
         return (new MailMessage)
-                    ->subject('Permohonan Baru')
+                    ->subject('Permohonan Ditolak')
                     ->greeting('Hello!')
-                    ->line('Ada permohonan baru yang masuk.')
+                    ->line('Permohonan yang anda ajukan ditolak! Periksa kembali kesalahan anda.')
                     ->action('Lihat Website', $url)
                     ->line('Thank you for using our application!');
     }
@@ -58,8 +58,8 @@ class Dis1Permohonan extends Notification
     public function toArray($notifiable)
     {
         return [
-            'submited_by' => auth()->user()->id,
-            'message' => '1 permohonan baru diteruskan dari WD2'
+            'rejected_by' => auth()->user()->id,
+            'message' => 'Permohonan anda ditolak'
         ];
     }
 }

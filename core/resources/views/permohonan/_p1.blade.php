@@ -9,7 +9,7 @@
                     <p>
                         Anda belum memasukkan rincian biaya untuk permohonan ini!
                         <br>
-                        <strong>[ Silahkan Masukkan rincian biaya terlebih dahulu! ]</strong>
+                        <strong>[ Klik <a href="{{ route('permohonanShow' , ['permohonan' => $permohonan->slug]) }}">Disini</a> untuk mengisi rincian biaya! ]</strong>
                     </p>
                 </div>
                 <div class="modal-footer">

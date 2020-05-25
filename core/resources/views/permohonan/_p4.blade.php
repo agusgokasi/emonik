@@ -11,7 +11,7 @@
                         <br>
                         <strong>[ {{ $permohonan->nama }} ]</strong>
                         <br>
-                        <small>*Total Biaya sama dengan maksimal dana!</small>
+                        <small>*Total usulan sama dengan Biaya perencanaan!</small>
                     </p>
                 </div>
                 <div class="modal-footer">

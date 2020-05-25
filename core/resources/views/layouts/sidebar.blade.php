@@ -62,14 +62,28 @@
         <a href="{{ url('permohonan') }}" class="nav-link">
           <small><i class="fas fa-fw fa-book-open"></i>
             <span><small>&nbsp;Management Permohonan&nbsp;</small></span></small>
-            @if (auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dt2Permohonan")->count() != 0)
-                <span class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dt2Permohonan")->count() }}</span>
-            @endif
+            @php
+            $tolak1 = auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dt2Permohonan")->count();
+            $tolak2 = auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dt3Permohonan")->count();
+            $acc = auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dp3Permohonan")->count();
+            $badge_count = $tolak1+$tolak2+$acc;
+            if ($badge_count != 0){
+              echo '<span class="badge badge-pill badge-danger">' . $badge_count . '</span>';
+            }
+            @endphp
         </a>
     </li>
-    <li class="nav-item {{ request()->is('spj') ? 'active' : '' }}">
+    <li class="nav-item dropdown {{ request()->is('spj') ? 'active' : '' }}">
         <a href="{{ url('spj') }}" class="nav-link">
-          <small><i class="fa fa-fw fa-book"></i><span><small>&nbsp;Management SPJ&nbsp;</small></span></small>
+          <small><i class="fa fa-fw fa-book"></i>
+            <span><small>&nbsp;Management SPJ&nbsp;</small></span></small>
+            @php
+            $spj = auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis4Permohonan")->count();
+            $badge_count = $spj;
+            if ($badge_count != 0){
+              echo '<span class="badge badge-pill badge-danger">' . $badge_count . '</span>';
+            }
+            @endphp
         </a>
     </li>
     @endif
@@ -89,6 +103,10 @@
             @elseif(Auth::user()->permissionsGroup->dispo3p_status)
                 @if (auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis2Permohonan")->count() != 0)
                     <span class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis2Permohonan")->count() }}</span>
+                @endif
+            @elseif(Auth::user()->permissionsGroup->dispo4p_status)
+                @if (auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis3Permohonan")->count() != 0)
+                    <span class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis3Permohonan")->count() }}</span>
                 @endif
             @endif
         </a>
@@ -116,7 +134,11 @@
                     </a>
                 @endif
                 @if(Auth::user()->permissionsGroup->dispo4p_status)
-                    <a class="dropdown-item {{ (request()->is('dis4')) ? 'active' : '' }}" href="{{ url('dis4') }}">Disposisi 4</a>
+                    <a class="dropdown-item {{ (request()->is('dis4')) ? 'active' : '' }}" href="{{ url('dis4') }}">Disposisi 4&nbsp;
+                    @if (auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis3Permohonan")->count() != 0)
+                    <span class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis3Permohonan")->count() }}</span>
+                    @endif
+                </a>
                 @endif
             </small>
         </div>

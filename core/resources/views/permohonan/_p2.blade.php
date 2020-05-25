@@ -6,10 +6,10 @@
                     <h5 class="modal-title"><strong>Peringatan Submit Permohonan!</strong></h5>
                 </div>
                 <div class="modal-body text-center p-lg">
-                    <p>
-                        Total Biaya yang anda masukkan lebih besar dari maksimal dana
+                    <p> 
+                        Total usulan yang anda masukkan lebih besar dari Biaya perencanaan
                         <br>
-                        <strong>[ Silahkan dikoreksi kembali! ]</strong>
+                        <strong>[ Klik <a href="{{ route('permohonanShow' , ['permohonan' => $permohonan->slug]) }}">Disini</a> untuk mengubah rincian biaya! ]</strong>
                     </p>
                 </div>
                 <div class="modal-footer">

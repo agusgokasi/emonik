@@ -15,6 +15,8 @@ use App\Permohonan;
 use App\Rincian;
 use App\Notifications\SubmitPermohonan;
 use App\Notifications\Dt2Permohonan;
+use App\Notifications\Dt3Permohonan;
+use App\Notifications\Dp3Permohonan;
 use Illuminate\Support\Facades\Validator;
 
 class PermohonanController extends Controller
@@ -32,11 +34,10 @@ class PermohonanController extends Controller
     	$user = Auth::user();
     	$kegiatans = Kegiatan::where('unit_id', $user->unit_id)->where('status', 1)->where('keterangan', null)->get();
     	$permohonans = permohonan::where('created_by', $user->id)->where('status', '!=' ,5)->where('status', '!=' ,6)->where('status', '!=' ,7)->where('status', '!=' ,8)->where('status', '!=' ,10)->orderBy('updated_at', 'desc')->get();
-        $useres = User::where('id', '!=', 1)->get();
-        if (auth()->user()->permissionsGroup->permohonan_status == 1) {
-            foreach ($useres as $usere) {
-                $user->unreadNotifications->where('type', 'App\Notifications\Dt2Permohonan')->markAsRead();
-            }
+        if (auth()->user()->id != 1) {
+            $user->unreadNotifications->where('type', 'App\Notifications\Dt2Permohonan')->markAsRead();
+            $user->unreadNotifications->where('type', 'App\Notifications\Dt3Permohonan')->markAsRead();
+            $user->unreadNotifications->where('type', 'App\Notifications\Dp3Permohonan')->markAsRead();
         }
         return view('permohonan.index_permohonan', compact('kegiatans', 'user', 'permohonans'));
     }

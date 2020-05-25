@@ -69,6 +69,8 @@
                                         <button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#m-d2{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: green; color: white; border-radius: 2em"><i class="fa fa-forward" style="font-size: 15px"> Lanjutkan</i></button>
                                         @include('disposisi._d2')
                                         @elseif($permohonan->status==3)
+                                        <button class="btn btn-sm btn-danger btn-block" data-toggle="modal" data-target="#m-dt3{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: red; color: white; border-radius: 2em"><i class="far fa-times-circle" style="font-size: 15px"> Tolak</i></button>
+                                        @include('disposisi._dt3')
                                         <button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#m-d3{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: green; color: white; border-radius: 2em"><i class="fa fa-forward" style="font-size: 15px"> Lanjutkan</i></button>
                                         @include('disposisi._d3')
                                         @elseif($permohonan->status==4)
@@ -87,6 +89,10 @@
                                         @else
                                         <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi/'.$permohonan->revisi) }}" download="{{$permohonan->revisi}}"><i class="fa fa-file-download "> Download keterangan</i></a><br>
                                         @endif
+                                        @if( $permohonan->revisi2 == null )
+                                        @else
+                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi2/'.$permohonan->revisi2) }}" download="{{$permohonan->revisi2}}"><i class="fa fa-file-download "> Download Keterangan 2</i></a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
@@ -104,6 +110,11 @@
     @if (count($errors) > 0 && Session::get('error_code') == $permohonan->slug)
         $(document).ready(function(){
             $('#m-dt2{{$permohonan->slug}}').modal('show');
+        });
+    @endif
+    @if (count($errors) > 0 && Session::get('error_code') == 'dt3'.$permohonan->slug)
+        $(document).ready(function(){
+            $('#m-dt3{{$permohonan->slug}}').modal('show');
         });
     @endif
 @endforeach

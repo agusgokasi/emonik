@@ -11,7 +11,7 @@
                         <br>
                         <strong>[ {{ $permohonan->nama }} ]</strong>
                         <br>
-                        <small>*Melanjukan ke SPJ!</small>
+                        <small>*Melanjukan ke SPJ pemohon!</small>
                     </p>
                 </div>
                 <div class="modal-footer">
