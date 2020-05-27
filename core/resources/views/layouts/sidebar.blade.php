@@ -79,7 +79,10 @@
             <span><small>&nbsp;Management SPJ&nbsp;</small></span></small>
             @php
             $spj = auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis4Permohonan")->count();
-            $badge_count = $spj;
+            $reject1 = auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dt1SPJ")->count();
+            $reject2 = auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dt2SPJ")->count();
+            $selesai = auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis2SPJ")->count();
+            $badge_count = $spj+$reject1+$reject2+$selesai;
             if ($badge_count != 0){
               echo '<span class="badge badge-pill badge-danger">' . $badge_count . '</span>';
             }
@@ -149,15 +152,32 @@
     <li class="nav-item dropdown {{ (request()->is('dis5')) ? 'active' : '' }} {{ (request()->is('dis6')) ? 'active' : '' }}">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <small><i class="fa fa-fw fa-book"></i>
-            <span><small>&nbsp;Disposisi SPJ&nbsp;</small></span></small>
+            <span><small>&nbsp;Disposisi SPJ</small></span></small>
+            @if(Auth::user()->permissionsGroup->dispo1s_status)
+                @if (auth()->user()->unreadNotifications()->where("type", "App\Notifications\SubmitSPJ")->count() != 0)
+                    <span class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications()->where("type", "App\Notifications\SubmitSPJ")->count() }}</span>
+                @endif
+            @elseif(Auth::user()->permissionsGroup->dispo2s_status)
+                @if (auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis1SPJ")->count() != 0)
+                    <span class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis1SPJ")->count() }}</span>
+                @endif
+            @endif
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <small>
                 @if(Auth::user()->permissionsGroup->dispo1s_status)
-                    <a class="dropdown-item {{ (request()->is('dis5')) ? 'active' : '' }}" href="{{ url('dis5') }}">Disposisi 1</a>
+                    <a class="dropdown-item {{ (request()->is('dis5')) ? 'active' : '' }}" href="{{ url('dis5') }}">Disposisi 1&nbsp;
+                    @if (auth()->user()->unreadNotifications()->where("type", "App\Notifications\SubmitSPJ")->count() != 0)
+                    <span class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications()->where("type", "App\Notifications\SubmitSPJ")->count() }}</span>
+                    @endif
+                    </a>
                 @endif
                 @if(Auth::user()->permissionsGroup->dispo2s_status)
-                    <a class="dropdown-item {{ (request()->is('dis6')) ? 'active' : '' }}" href="{{ url('dis6') }}">Disposisi 2</a>
+                    <a class="dropdown-item {{ (request()->is('dis6')) ? 'active' : '' }}" href="{{ url('dis6') }}">Disposisi 2&nbsp;
+                    @if (auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis1SPJ")->count() != 0)
+                    <span class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis1SPJ")->count() }}</span>
+                    @endif
+                    </a>
                 @endif
             </small>
         </div>

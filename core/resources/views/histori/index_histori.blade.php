@@ -78,7 +78,11 @@
                                         <br>
                                         @if( $permohonan->revisi == null )
                                         @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi/'.$permohonan->revisi) }}" download="{{$permohonan->revisi}}"><i class="fa fa-file-download "> Download keterangan</i></a><br>
+                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi/'.$permohonan->revisi) }}" download="{{$permohonan->revisi}}"><i class="fa fa-file-download "> Download keterangan</i></a>
+                                        @endif
+                                        @if( $permohonan->revisi2 == null )
+                                        @else
+                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi2/'.$permohonan->revisi2) }}" download="{{$permohonan->revisi2}}"><i class="fa fa-file-download "> Download Keterangan 2</i></a>
                                         @endif
                                         @if($permohonan->spj_tolak_kas == null)
                                         @else

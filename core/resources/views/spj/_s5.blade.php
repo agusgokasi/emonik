@@ -7,9 +7,9 @@
                 </div>
                 <div class="modal-body text-center p-lg">
                     <p>
-                        Anda belum memasukkan semua file bukti rincian
+                        Anda belum memasukkan semua File Bukti rincian SPJ
                         <br>
-                        <strong>[ Silahkan Masukkan semua file bukti rincian terlebih dahulu! ]</strong>
+                        <strong>[ Klik <a href="{{ route('spjShow' , ['permohonan' => $permohonan->slug]) }}">Disini</a> untuk mengisi File Bukti rincian SPJ! ]</strong>
                     </p>
                 </div>
                 <div class="modal-footer">

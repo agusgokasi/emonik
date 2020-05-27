@@ -21,6 +21,11 @@ use App\Notifications\Dis3Permohonan;
 use App\Notifications\Dt3Permohonan;
 use App\Notifications\Dp3Permohonan;
 use App\Notifications\Dis4Permohonan;
+use App\Notifications\SubmitSPJ;
+use App\Notifications\Dis1SPJ;
+use App\Notifications\Dt1SPJ;
+use App\Notifications\Dis2SPJ;
+use App\Notifications\Dt2SPJ;
 use Illuminate\Support\Facades\Validator;
 
 class DisposisiController extends Controller
@@ -73,14 +78,14 @@ class DisposisiController extends Controller
     public function dt2(Request $request, $slug) {
     	if (Auth::user()->permissionsGroup->dispo2p_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
-        $user = User::where('id', $permohonan->created_by)->first();
+        $pemohon = User::where('id', $permohonan->created_by)->first();
         $validator = Validator::make($request->all(), [
         'keterangan'              => 'required|min:3|max:1000',
         'revisi'                 => 'required|mimes:pdf|max:10000kb'
         ],[
-            'keterangan.required'=>'Keterangan harus diisi',
-            'keterangan.min'=>'Keterangan minimal 3 huruf',
-            'keterangan.max'=>'Keterangan minimal 1000 huruf',
+            'keterangan.required'=>'Alasan ditolak harus diisi',
+            'keterangan.min'=>'Alasan ditolak minimal 3 huruf',
+            'keterangan.max'=>'Alasan ditolak minimal 1000 huruf',
 
             'revisi.required'=>'Bukti Penolakan harus diisi',
             'revisi.mimes'=>'Bukti Penolakan berformat .pdf',
@@ -98,8 +103,8 @@ class DisposisiController extends Controller
         $permohonan->revisi = $revisi;
         $permohonan->keterangan = $request['keterangan'];
         $permohonan->save();
-        if ($user->permissionsGroup->permohonan_status == 1) {
-            $user->notify(new Dt2Permohonan);
+        if ($pemohon->permissionsGroup->permohonan_status == 1) {
+            $pemohon->notify(new Dt2Permohonan);
         }
         return redirect()->action('DisposisiController@dis2')->with('msg', 'Permohonan berhasil ditolak!');
     	}
@@ -140,14 +145,14 @@ class DisposisiController extends Controller
     public function dt3(Request $request, $slug) {
         if (Auth::user()->permissionsGroup->dispo3p_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
-        $user = User::where('id', $permohonan->created_by)->first();
+        $pemohon = User::where('id', $permohonan->created_by)->first();
         $validator = Validator::make($request->all(), [
         'keterangan'              => 'required|min:3|max:1000',
         'revisi2'              => 'required|mimes:pdf|max:10000kb'
         ],[
-            'keterangan.required'=>'Keterangan harus diisi',
-            'keterangan.min'=>'Keterangan minimal 3 huruf',
-            'keterangan.max'=>'Keterangan minimal 1000 huruf',
+            'keterangan.required'=>'Alasan ditolak harus diisi',
+            'keterangan.min'=>'Alasan ditolak minimal 3 huruf',
+            'keterangan.max'=>'Alasan ditolak minimal 1000 huruf',
 
             'revisi2.required'=>'Bukti Penolakan harus diisi',
             'revisi2.mimes'=>'Bukti Penolakan berformat .pdf',
@@ -165,8 +170,8 @@ class DisposisiController extends Controller
         $permohonan->revisi2 = $revisi2;
         $permohonan->keterangan = $request['keterangan'];
         $permohonan->save();
-        if ($user->permissionsGroup->permohonan_status == 1) {
-            $user->notify(new Dt3Permohonan);
+        if ($pemohon->permissionsGroup->permohonan_status == 1) {
+            $pemohon->notify(new Dt3Permohonan);
         }
         return redirect()->action('DisposisiController@dis3')->with('msg', 'Permohonan berhasil ditolak!');
         }
@@ -234,6 +239,12 @@ class DisposisiController extends Controller
     public function dis5(){
         if (Auth::user()->permissionsGroup->dispo1s_status) {
         $permohonans = permohonan::where('status', 6)->orderBy('updated_at', 'desc')->get();
+        $users = User::where('id', '!=', 1)->get();
+        if (auth()->user()->permissionsGroup->dispo1s_status == 1) {
+            foreach ($users as $user) {
+                $user->unreadNotifications->where('type', 'App\Notifications\SubmitSPJ')->markAsRead();
+            }
+        }
         return view('disposisi.index_dispj', compact('permohonans'));
         }
         return abort(403);
@@ -242,13 +253,14 @@ class DisposisiController extends Controller
     public function dt5(Request $request, $slug) {
         if (Auth::user()->permissionsGroup->dispo1s_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
+        $pemohon = User::where('id', $permohonan->created_by)->first();
         $validator = Validator::make($request->all(), [
         'keterangan'              => 'required|min:3|max:1000',
         'spj_tolak_kas'                 => 'required|mimes:pdf|max:10000kb'
         ],[
-            'keterangan.required'=>'Keterangan harus diisi',
-            'keterangan.min'=>'Keterangan minimal 3 huruf',
-            'keterangan.max'=>'Keterangan minimal 1000 huruf',
+            'keterangan.required'=>'Alasan ditolak harus diisi',
+            'keterangan.min'=>'Alasan ditolak minimal 3 huruf',
+            'keterangan.max'=>'Alasan ditolak minimal 1000 huruf',
 
             'spj_tolak_kas.required'=>'Bukti Penolakan harus diisi',
             'spj_tolak_kas.mimes'=>'Bukti Penolakan berformat .pdf',
@@ -266,6 +278,9 @@ class DisposisiController extends Controller
         $permohonan->spj_tolak_kas = $spj_tolak_kas;
         $permohonan->keterangan = $request['keterangan'];
         $permohonan->save();
+        if ($pemohon->permissionsGroup->permohonan_status == 1) {
+            $pemohon->notify(new Dt1SPJ);
+        }
         return redirect()->action('DisposisiController@dis5')->with('msg', 'SPJ berhasil ditolak!');
         }
         return abort(403);
@@ -274,9 +289,15 @@ class DisposisiController extends Controller
     public function di5(Request $request, $slug) {
         if (Auth::user()->permissionsGroup->dispo1s_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
+        $users = User::where('id', '!=', 1)->get();
         $permohonan->status = 7;
         $permohonan->keterangan = 'spj sedang berada di BPP';
         $permohonan->save();
+        foreach ($users as $user) {
+            if ($user->permissionsGroup->dispo2s_status == 1) {
+                $user->notify(new Dis1SPJ);
+            }
+        }
         return redirect()->action('DisposisiController@dis5')->with('msg', 'SPJ berhasil dilanjutkan!');
         }
         return abort(403);
@@ -285,6 +306,12 @@ class DisposisiController extends Controller
     public function dis6(){
         if (Auth::user()->permissionsGroup->dispo2s_status) {
         $permohonans = permohonan::where('status', 7)->orderBy('updated_at', 'desc')->get();
+        $users = User::where('id', '!=', 1)->get();
+        if (auth()->user()->permissionsGroup->dispo2s_status == 1) {
+            foreach ($users as $user) {
+                $user->unreadNotifications->where('type', 'App\Notifications\Dis1SPJ')->markAsRead();
+            }
+        }
         return view('disposisi.index_dispj', compact('permohonans'));
         }
         return abort(403);
@@ -293,13 +320,14 @@ class DisposisiController extends Controller
     public function dt6(Request $request, $slug) {
         if (Auth::user()->permissionsGroup->dispo2s_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
+        $pemohon = User::where('id', $permohonan->created_by)->first();
         $validator = Validator::make($request->all(), [
         'keterangan'              => 'required|min:3|max:1000',
         'spj_tolak_ppk'                 => 'required|mimes:pdf|max:10000kb'
         ],[
-            'keterangan.required'=>'Keterangan harus diisi',
-            'keterangan.min'=>'Keterangan minimal 3 huruf',
-            'keterangan.max'=>'Keterangan minimal 1000 huruf',
+            'keterangan.required'=>'Alasan ditolak harus diisi',
+            'keterangan.min'=>'Alasan ditolak minimal 3 huruf',
+            'keterangan.max'=>'Alasan ditolak minimal 1000 huruf',
 
             'spj_tolak_ppk.required'=>'Bukti Penolakan harus diisi',
             'spj_tolak_ppk.mimes'=>'Bukti Penolakan berformat .pdf',
@@ -317,6 +345,9 @@ class DisposisiController extends Controller
         $permohonan->spj_tolak_ppk = $spj_tolak_ppk;
         $permohonan->keterangan = $request['keterangan'];
         $permohonan->save();
+        if ($pemohon->permissionsGroup->permohonan_status == 1) {
+            $pemohon->notify(new Dt2SPJ);
+        }
         return redirect()->action('DisposisiController@dis6')->with('msg', 'SPJ berhasil ditolak!');
         }
         return abort(403);
@@ -325,13 +356,26 @@ class DisposisiController extends Controller
     public function di6(Request $request, $slug) {
         if (Auth::user()->permissionsGroup->dispo2s_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
+        $validator = Validator::make($request->all(), [
+        'keterangan'              => 'required|min:3|max:1000',
+        ],[
+            'keterangan.required'=>'Catatan Untuk Pemohon harus diisi',
+            'keterangan.min'=>'Catatan Untuk Pemohon minimal 3 huruf',
+            'keterangan.max'=>'Catatan Untuk Pemohon minimal 1000 huruf',
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput()->with('error_code', $slug);
+        }
         if($permohonan->created_by){
             $user = User::where('id', $permohonan->created_by)->first();
             $user->tor = null;
             $user->save();
+            if ($user->permissionsGroup->permohonan_status == 1) {
+            $user->notify(new Dis2SPJ);
+            }
         }
         $permohonan->status = 10;
-        $permohonan->keterangan = 'spj selesai';
+        $permohonan->keterangan = $request['keterangan'];
         $permohonan->save();
         return redirect()->action('DisposisiController@dis6')->with('msg', 'SPJ berhasil dilanjutkan!');
         }

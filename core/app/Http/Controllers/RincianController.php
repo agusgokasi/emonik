@@ -158,16 +158,16 @@ class RincianController extends Controller
 
         $validator = Validator::make($request->all(), [
             'file'           =>  'required|mimes:pdf|max:10000kb',
-            'biayaterpakai'  =>  'required|numeric|min:1|max:100000000',
+            'biayaterpakai'  =>  'required|numeric|min:1|max:'.$rincian->biayatotal,
         ],
         [
             'file.required'=>'file harus diisi',
             'file.mimes'=>'file berformat .pdf',
             'file.max'=>'file berukuran maksimal 10Mb',
 
-            'biayaterpakai.required'=>'biaya terpakai harus diisi',
-            'biayaterpakai.min'=>'biaya terpakai minimal Rp1',
-            'biayaterpakai.max'=>'biaya terpakai maksimal Rp100.000.000',
+            'biayaterpakai.required'=>'biaya realisasi harus diisi',
+            'biayaterpakai.min'=>'biaya realisasi minimal Rp1',
+            'biayaterpakai.max'=>'biaya realisasi maksimal Rp'.format_uang($rincian->biayatotal),
         ]);
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput(['tab'=>'profile'])->with('error_code', $id);
@@ -200,15 +200,15 @@ class RincianController extends Controller
 
         $validator = Validator::make($request->all(), [
             'file'           =>  'nullable|mimes:pdf|max:10000kb',
-            'biayaterpakai'  =>  'nullable|numeric|min:1|max:100000000',
+            'biayaterpakai'  =>  'nullable|numeric|min:1|max:'.$rincian->biayatotal,
         ],
         [
             'file.mimes'=>'file berformat .pdf',
             'file.max'=>'file berukuran maksimal 10Mb',
 
-            'biayaterpakai.required'=>'biaya terpakai harus diisi',
-            'biayaterpakai.min'=>'biaya terpakai minimal Rp1',
-            'biayaterpakai.max'=>'biaya terpakai maksimal Rp100.000.000',
+            'biayaterpakai.required'=>'biaya realisasi harus diisi',
+            'biayaterpakai.min'=>'biaya realisasi minimal Rp1',
+            'biayaterpakai.max'=>'biaya realisasi maksimal Rp'.format_uang($rincian->biayatotal),
         ]);
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput(['tab'=>'profile'])->with('error_code', $id);

@@ -87,7 +87,7 @@
                                         <br>
                                         @if( $permohonan->revisi == null )
                                         @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi/'.$permohonan->revisi) }}" download="{{$permohonan->revisi}}"><i class="fa fa-file-download "> Download keterangan</i></a><br>
+                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi/'.$permohonan->revisi) }}" download="{{$permohonan->revisi}}"><i class="fa fa-file-download "> Download keterangan</i></a>
                                         @endif
                                         @if( $permohonan->revisi2 == null )
                                         @else

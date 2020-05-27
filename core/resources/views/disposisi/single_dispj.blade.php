@@ -36,9 +36,9 @@
                             <li class="nav-item nav-justified">
                                 <a class="flex-sm-fill text-sm-center nav-link" data-toggle="tab" href="#report" role="tab"><i class="fa fa-file-download"> File TOR</i></a>
                             </li>
-                            <li class="nav-item nav-justified">
+                            {{-- <li class="nav-item nav-justified">
                                 <a class="flex-sm-fill text-sm-center nav-link" data-toggle="tab" href="#spj" role="tab"><i class="fa fa-file-upload"> File SPJ</i></a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>
@@ -80,23 +80,23 @@
                             <textarea type="text" class="form-control" id="susunanpanitia" placeholder="{{ $permohonan->susunanpanitia }}" disabled></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="biayarincian"><i class="fa fa-money-bill-wave"> Total Biaya</i></label>
+                            <label for="biayarincian"><i class="fa fa-money-bill-wave"> Total Usulan</i></label>
                             <input type="text" class="form-control" id="biayarincian" placeholder="Rp{{format_uang($permohonan->biayarincian)}}" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="totalbiaya"><i class="fa fa-money-bill-alt"> Maksimal Dana</i></label>
+                            <label for="totalbiaya"><i class="fa fa-money-bill-alt"> Biaya Perencanaan</i></label>
                             <input type="text" class="form-control" id="totalbiaya" placeholder="Rp{{format_uang($permohonan->totalbiaya)}}" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="danaterpakai"><i class="fa fa-money-bill-alt"> Biaya Terpakai</i></label>
+                            <label for="danaterpakai"><i class="fa fa-money-bill-alt"> Total Realisasi</i></label>
                             <input type="text" class="form-control" id="danaterpakai" placeholder="Rp{{format_uang($permohonan->danaterpakai)}}" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="sisarincian"><i class="fa fa-money-bill-alt"> Sisa Rancangan Biaya</i></label>
+                            <label for="sisarincian"><i class="fa fa-money-bill-alt"> Total Sisa Usulan</i></label>
                             <input type="text" class="form-control" id="sisarincian" placeholder="Rp{{format_uang($permohonan->sisarincian)}}" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="sisadana"><i class="fa fa-money-bill-alt"> Sisa Biaya Real</i></label>
+                            <label for="sisadana"><i class="fa fa-money-bill-alt"> Total Sisa Perencanaan</i></label>
                             <input type="text" class="form-control" id="sisadana" placeholder="Rp{{format_uang($permohonan->sisadana)}}" disabled>
                         </div>
                         <div class="form-group">
@@ -129,9 +129,9 @@
                                             <th scope="col">Biaya Satuan</th>
                                             <th scope="col">Volume</th>
                                             <th scope="col">Satuan</th>
-                                            <th scope="col">Biaya Total</th>
-                                            <th scope="col">Biaya Terpakai</th>
-                                            <th scope="col">Biaya Sisa</th>
+                                            <th scope="col">Biaya Usulan</th>
+                                            <th scope="col">Biaya Realisasi</th>
+                                            <th scope="col">Sisa Usulan</th>
                                             <th scope="col">File Bukti</th>
                                             @if ($permohonan->status == 5)
                                             <th scope="col">Action</th>
@@ -140,11 +140,11 @@
                                     </thead>
                                     <tfoot class="">
                                         <tr>
-                                            <th class="table-info" colspan="2">Maks Dana : Rp.{{format_uang($permohonan->totalbiaya)}}</th>
-                                            <th class="table-info" colspan="1">Total Biaya : Rp.{{format_uang($permohonan->biayarincian)}}</th>
-                                            <th class="table-info" colspan="2">Biaya Terpakai : Rp.{{format_uang($permohonan->danaterpakai)}}</th>
-                                            <th class="table-info" colspan="2">Sisa Biaya Real : Rp.{{format_uang($permohonan->sisadana)}}</th>
-                                            <th class="table-info" colspan="2">Sisa Rancangan Biaya : Rp.{{format_uang($permohonan->sisarincian)}}</th>
+                                            <th class="table-info" colspan="2">Biaya Perencanaan : Rp.{{format_uang($permohonan->totalbiaya)}}</th>
+                                            <th class="table-info" colspan="1">Total Usulan : Rp.{{format_uang($permohonan->biayarincian)}}</th>
+                                            <th class="table-info" colspan="2">Total Realisasi : Rp.{{format_uang($permohonan->danaterpakai)}}</th>
+                                            <th class="table-info" colspan="2">Total Sisa Usulan : Rp.{{format_uang($permohonan->sisadana)}}</th>
+                                            <th class="table-info" colspan="2">Total Sisa Perencanaan : Rp.{{format_uang($permohonan->sisarincian)}}</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -186,10 +186,10 @@
                     <p class="text-center"><a class="btn btn-outline-primary" href="{{ asset('filetor/'.$permohonan->filetor) }}" download="{{$permohonan->filetor}}"><i class="fa fa-file-download "> Download file TOR</i></a></p>
                     @endif
                 </div>
-                <div class="tab-pane" id="spj" role="tabpanel">
+                {{-- <div class="tab-pane" id="spj" role="tabpanel">
                     <br>
                     <p class="text-center"><a class="btn btn-outline-secondary" href="{{ asset('filespj/'.$permohonan->filespj) }}" download="{{$permohonan->filespj}}"><i class="fa fa-file-download"> Download File SPJ</i></a></p>
-                </div>
+                </div> --}}
             </div>
             <br>
             <p class="d-flex justify-content-center">

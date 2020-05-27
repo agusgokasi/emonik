@@ -60,11 +60,10 @@
                                     <td><a href="{{ route('spjShow' , ['permohonan' => $permohonan->slug]) }}" class="btn btn-outline-primary btn-sm">Lihat Detail SPJ</a></td>
                                     <td>
                                         @if($permohonan->status==5 || $permohonan->status==8)
-                                            @if($permohonan->filespj == null)
+                                            {{-- @if($permohonan->filespj == null)
                                             <button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#m-s1{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: red; color: white; border-radius: 2em"><i class="fas fa-ban" style="font-size: 15px"> Submit</i></button>
                                             @include('spj._s1')
-
-                                            @else
+                                            @else --}}
                                             @if($permohonan->totalrincian == $permohonan->totalspj)
                                                 @if($permohonan->danaterpakai < $permohonan->biayarincian)
                                                 <button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#m-s2{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: green; color: white; border-radius: 2em"><i class="fa fa-forward" style="font-size: 15px"> Submit</i></button>
@@ -77,21 +76,19 @@
                                                 @elseif($permohonan->danaterpakai > $permohonan->biayarincian)
                                                 <button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#m-s4{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: red; color: white; border-radius: 2em"><i class="fas fa-ban" style="font-size: 15px"> Submit</i></button>
                                                 @include('spj._s4')
-
                                                 @endif
                                             @else
                                             <button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#m-s5{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: red; color: white; border-radius: 2em"><i class="fas fa-ban" style="font-size: 15px"> Submit</i></button>
                                             @include('spj._s5')
 
                                             @endif
-                                            @endif
-
-                                            @elseif($permohonan->status==10)
-                                            <button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#m-s6{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: green; color: white; border-radius: 2em"><i class="far fa-check-circle" style="font-size: 15px"> Selesai</i></button>
-                                            @include('spj._s6')
-                                            @else
-                                            <button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#m-s7{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: blue; color: white; border-radius: 2em"><i class="fas fa-hourglass-half" style="font-size: 15px"> Diproses</i></button>
-                                            @include('spj._s7')
+                                            {{-- @endif --}}
+                                        @elseif($permohonan->status==10)
+                                        <button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#m-s6{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: green; color: white; border-radius: 2em"><i class="far fa-check-circle" style="font-size: 15px"> Selesai</i></button>
+                                        @include('spj._s6')
+                                        @else
+                                        <button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#m-s7{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: blue; color: white; border-radius: 2em"><i class="fas fa-hourglass-half" style="font-size: 15px"> Diproses</i></button>
+                                        @include('spj._s7')
                                         @endif
                                     </td>
                                     <td>

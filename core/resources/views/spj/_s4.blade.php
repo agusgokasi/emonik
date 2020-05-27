@@ -7,9 +7,9 @@
                 </div>
                 <div class="modal-body text-center p-lg">
                     <p>
-                        Biaya Terpakai yang anda masukkan lebih besar dari Total Biaya
+                        Total realisasi yang anda masukkan lebih besar dari Total usulan
                         <br>
-                        <strong>[ Silahkan dikoreksi kembali! ]</strong>
+                        <strong>[ Klik <a href="{{ route('spjShow' , ['permohonan' => $permohonan->slug]) }}">Disini</a> untuk mengubah File Bukti rincian SPJ! ]</strong>
                     </p>
                 </div>
                 <div class="modal-footer">

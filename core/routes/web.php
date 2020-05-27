@@ -109,7 +109,7 @@ Route::Group(['middleware' => ['auth']], function () {
     //SPJ
     Route::get('/spj', 'SpjController@index')->name('spj');
     Route::get('/spj/{permohonan}', 'SpjController@show')->name('spjShow');
-    Route::post('/spj/{permohonan}/spjFile', 'SpjController@submitFile')->name('spjFile');
+    // Route::post('/spj/{permohonan}/spjFile', 'SpjController@submitFile')->name('spjFile');
     Route::get('/spj/submit/{permohonan}', 'SpjController@submit')->name('spjSubmit');
     //Rincian
     Route::post('/rincian/{id}/fileBukti', 'RincianController@fileBukti')->name('fileBukti');
@@ -120,7 +120,7 @@ Route::Group(['middleware' => ['auth']], function () {
     Route::get('/dis5/submit/{permohonan}', 'DisposisiController@di5')->name('dis5Submit');
     Route::get('/dis6', 'DisposisiController@dis6')->name('dis6');
     Route::post('/dis6/tolak/{permohonan}', 'DisposisiController@dt6')->name('dis6Tolak');
-    Route::get('/dis6/submit/{permohonan}', 'DisposisiController@di6')->name('dis6Submit');
+    Route::post('/dis6/submit/{permohonan}', 'DisposisiController@di6')->name('dis6Submit');
     Route::get('/disposis/{permohonan}', 'DisposisiController@spjShow')->name('dissShow');
 
     //History Permohonan

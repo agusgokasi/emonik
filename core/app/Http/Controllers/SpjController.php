@@ -14,6 +14,10 @@ use App\Unit;
 use App\Permohonan;
 use App\Rincian;
 use App\Notifications\Dis4Permohonan;
+use App\Notifications\SubmitSPJ;
+use App\Notifications\Dt1SPJ;
+use App\Notifications\Dis2SPJ;
+use App\Notifications\Dt2SPJ;
 use Illuminate\Support\Facades\Validator;
 
 class SpjController extends Controller
@@ -33,6 +37,9 @@ class SpjController extends Controller
     	$permohonans = permohonan::where('created_by', $user->id)->where('status', '!=' ,0)->where('status', '!=' ,1)->where('status', '!=' ,2)->where('status', '!=' ,3)->where('status', '!=' ,4)->where('status', '!=' ,9)->orderBy('updated_at', 'desc')->get();
         if (auth()->user()->id != 1) {
             $user->unreadNotifications->where('type', 'App\Notifications\Dis4Permohonan')->markAsRead();
+            $user->unreadNotifications->where('type', 'App\Notifications\Dt1SPJ')->markAsRead();
+            $user->unreadNotifications->where('type', 'App\Notifications\Dt2SPJ')->markAsRead();
+            $user->unreadNotifications->where('type', 'App\Notifications\Dis2SPJ')->markAsRead();
         }
         return view('spj.index_spj', compact('kegiatans', 'user', 'permohonans'));
     }
@@ -43,6 +50,20 @@ class SpjController extends Controller
         if(empty($permohonan)) abort (404);
         $rincians = Rincian::where('permohonan_id',$permohonan->id)->get();
         return view('spj.single_spj', compact('user', 'permohonan', 'rincians'));
+    }
+
+    public function submit(Request $request, $slug){
+        $permohonan = Permohonan::where('slug',$slug)->first();
+        $users = User::where('id', '!=', 1)->get();
+        $permohonan->status = 6;
+        $permohonan->keterangan = 'spj sedang berada di Kasubag';
+        $permohonan->save();
+        foreach ($users as $user) {
+            if ($user->permissionsGroup->dispo1s_status == 1) {
+                $user->notify(new SubmitSPJ);
+            }
+        }
+        return redirect()->action('SpjController@index')->with('msg', 'SPJ berhasil disubmit!');
     }
 
     public function submitFile(Request $request, $slug)
@@ -70,13 +91,5 @@ class SpjController extends Controller
         $permohonan->save();
 
         return back()->withInput(['tab'=>'spj'])->with('msg', 'SPJ berhasil di submit!');
-    }
-
-    public function submit(Request $request, $slug){
-        $permohonan = Permohonan::where('slug',$slug)->first();
-        $permohonan->status = 6;
-        $permohonan->keterangan = 'spj sedang berada di Kasubag';
-        $permohonan->save();
-        return redirect()->action('SpjController@index')->with('msg', 'SPJ berhasil disubmit!');
     }
 }

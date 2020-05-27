@@ -9,10 +9,10 @@
                 {{ csrf_field() }}
                 <div class="modal-body text-left p-lg">
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label text-md-left">{{ __('Biaya Terpakai (Rp)') }}</label>
+                        <label class="col-sm-4 col-form-label text-md-left">{{ __('Biaya Realisasi (Rp)') }}</label>
                         <div class="col-md-8">
 
-                            <input id="biayaterpakai{{$rincian->id}}" type="text" placeholder="Masukkan Dana Terpakai" class="form-control {{ $errors->has('biayaterpakai') ? ' is-invalid' : '' }}" name="biayaterpakai" value="{{ $rincian->biayaterpakai }}" required autofocus>
+                            <input id="biayaterpakai{{$rincian->id}}" type="text" placeholder="Masukkan Biaya Realisasi" class="form-control {{ $errors->has('biayaterpakai') ? ' is-invalid' : '' }}" name="biayaterpakai" value="{{ $rincian->biayaterpakai }}" required autofocus>
 
                             @if ($errors->has('biayaterpakai'))
                             <span class="invalid-feedback" role="alert">

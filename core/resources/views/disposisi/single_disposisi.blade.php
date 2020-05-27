@@ -85,7 +85,7 @@
                             <input type="text" class="form-control" id="biayarincian" placeholder="Rp{{format_uang($permohonan->biayarincian)}}" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="totalbiaya"><i class="fa fa-money-bill-alt"> Biaya Perencanaan/i></label>
+                            <label for="totalbiaya"><i class="fa fa-money-bill-alt"> Biaya Perencanaan</i></label>
                             <input type="text" class="form-control" id="totalbiaya" placeholder="Rp{{format_uang($permohonan->totalbiaya)}}" disabled>
                         </div>
                         <div class="form-group">

@@ -29,7 +29,7 @@ class CreatePermohonansTable extends Migration
             $table->text('strategipencapaiankeluaran');
             $table->text('susunanpanitia');
             $table->string('filetor');
-            $table->string('filespj')->nullable();
+            // $table->string('filespj')->nullable();
             $table->smallInteger('status')->default(0);
             $table->bigInteger('totalbiaya');
             $table->bigInteger('biayarincian')->default(0);

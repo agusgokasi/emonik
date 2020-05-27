@@ -11,7 +11,7 @@
                         <br>
                         <strong>[ {{ $permohonan->nama }} ]</strong>
                         <br>
-                        <small>*Biaya Terpakai lebih kecil daripada Total Biaya!</small>
+                        <small>*Total realisasi lebih kecil daripada Total usulan!</small>
                     </p>
                 </div>
                 <div class="modal-footer">
