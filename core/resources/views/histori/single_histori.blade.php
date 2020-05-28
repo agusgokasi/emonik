@@ -112,8 +112,10 @@
                 <div class="tab-pane" id="profile" role="tabpanel">
                     <div class="panel panel-default">
                     <br>
-
                         <div class="panel-body">
+                            @if($permohonan->status == 10)
+                            <a href="{{ route('export' , ['permohonan' => $permohonan->slug]) }}" class="btn btn-success my-3" target="_blank"><i class="fa fa-file-download">{{ __(' EXPORT EXCEL') }}</i></a>
+                            @endif
                             <div class="table-responsive">
                             <table class="table table-striped" border="solid">
                                 <table class="table table-bordered table-responsive">

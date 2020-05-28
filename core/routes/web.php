@@ -126,6 +126,9 @@ Route::Group(['middleware' => ['auth']], function () {
     //History Permohonan
     Route::get('/histori', 'HistoriController@index')->name('histori');
     Route::get('/histori/{permohonan}', 'HistoriController@show')->name('historiShow');
+
+    //Export Excel
+    Route::get('importExcel/{permohonan}', 'RincianController@export')->name('export');
 });
 
 

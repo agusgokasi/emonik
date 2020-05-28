@@ -13,6 +13,8 @@ use App\Kegiatan;
 use App\Unit;
 use App\Permohonan;
 use App\Rincian;
+use App\Exports\RinciansExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 
 class RincianController extends Controller
@@ -240,6 +242,18 @@ class RincianController extends Controller
         $permohonan->save();
         
         return back()->withInput(['tab'=>'profile'])->with('msg', 'Bukti berhasil di edit!');
+    }
+
+    //export excel
+    public function export($slug) 
+    {
+        $permohonan = Permohonan::where('slug',$slug)->first();
+        $id = $permohonan->id;
+        // $rincians = $export->where('permohonan_id',$permohonan->id)->get();
+        // return Excel::download($export::query()->whereYear('created_at', $this->year), 'rincians.xlsx');
+        // return Excel::download($export, 'rincians.xlsx');
+        // return Excel::download(new RinciansExport, 'rincians.xlsx');
+        return (new RinciansExport)->forId($id)->download($slug.'Rincian.xlsx');
     }
 
 }
