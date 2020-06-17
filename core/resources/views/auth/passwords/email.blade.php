@@ -1,47 +1,67 @@
-@extends('layouts.app')
+@extends('layouts.app1')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
-
-                <div class="card-body">
+    <div class="limiter">
+        <div class="container-login100" >
+            <div class="wrap-login100" >
+                <div class="login100-pic js-tilt"  data-tilt>
+                    <img src="{{ asset('Login/images/logo-unj.png') }}" alt="IMG">
+                    <h5 style="text-align:center"><strong>E-Monitoring Keuangan Fakultas MIPA</strong></h5>
+                </div>
+                <form class="login100-form" method="POST" action="{{ route('password.email') }}">
+                    {{ csrf_field() }}
+                    <span class="login100-form-title">
+                        Reset Password
+                    </span>
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
                     @endif
+                    <div class="wrap-input100">
+                        <input class="input100 form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="Email" id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    @error('email')
+                        <span class="small text-danger" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Reset password
+                        </button>
+                    </div>
+                    <!-- <div class="container-login101-form-btn">
+                        <a class="login101-form-btn" href="{{ route('login') }}">
+                            Kembali
+                        </a>
+                    </div> -->
+                    <div class="text-center p-t-12">
+                        <span class="txt1">
+                            
+                        </span>
+                        <a style="color:cornflowerblue" class="txt2" href="{{ route('login') }}">
+                            <i class="fa fa-arrow-left m-l-5" aria-hidden="true"> Kembali ke halaman login</i>
+                        </a>
+                    </div>
 
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                    <div class="text-center p-t-140">
+                    <footer class="sticky-footer">
+                        <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span style="color:#e25555"><i class="fa fa-heart" aria-hidden="true"></i></span> Development by DEFAULT UNJ <br>
+                            Design by <a href="https://colorlib.com/wp/template/login-form-v1/">Colorlib</a>
                         </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
                         </div>
-                    </form>
-                </div>
+                    </footer>
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>
-</div>
 @endsection
