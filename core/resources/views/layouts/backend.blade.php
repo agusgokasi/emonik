@@ -92,7 +92,8 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{strlen(Auth::user()->name) > 9 ? substr(Auth::user()->name,0,8)."...":Auth::user()->name}}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{strlen(Auth::user()->name) > 24 ? substr(Auth::user()->name,0,24)."...":Auth::user()->name}}</span>
+                                <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{strlen(Auth::user()->name) > 9 ? substr(Auth::user()->name,0,8)."...":Auth::user()->name}}</span> -->
                                 <i class="fas fa-user-circle fa-2x"></i>
                             </a>
                             <!-- Dropdown - User Information -->
@@ -136,6 +137,7 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
+                        &nbsp;&nbsp;&nbsp;Design by <a href="https://startbootstrap.com/themes/sb-admin-2/">SB ADMIN 2</a>
                     </span>
                 </div>
                 </div>

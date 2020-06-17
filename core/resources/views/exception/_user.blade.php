@@ -13,7 +13,7 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn dark-white p-x-md"
+                    <button type="button" class="btn btn-outline-secondary p-x-md"
                             data-dismiss="modal">Tidak</button>
                     <a href="{{ route("exceptionBuka",["id"=>$user->id]) }}"
                        class="btn btn-success p-x-md">&nbsp;Ya&nbsp;</a>

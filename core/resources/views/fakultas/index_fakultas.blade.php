@@ -55,7 +55,7 @@
                                         <button class="btn btn-sm btn-block btn-danger" data-toggle="modal"
                                                 data-target="#m-{{ $fakultase->id }}" ui-toggle-class="bounce"
                                                 ui-target="#animate">
-                                            <small> Delete</small>
+                                            <small> Hapus</small>
                                         </button>
                                         @include('fakultas._delete_fakultas')
                                     </td>

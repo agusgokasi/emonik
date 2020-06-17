@@ -36,8 +36,8 @@
 @if(Auth::user()->permissionsGroup->exception_status)
 <li class="nav-item {{ request()->is('exception') ? 'active' : '' }}">
     <a class="nav-link" href="{{ url('exception') }}">
-        <i class="fas fa-fw fa-tasks"></i>
-        <span>Buka Permohonan</span>
+        <i class="fas fa-fw fa-unlock-alt"></i>
+        <span>Buka Akses</span>
     </a>
 </li>
 @endif
@@ -100,20 +100,20 @@
 <hr class="sidebar-divider">
 
 <div class="sidebar-heading">
-    Permohonan
+    Manajemen Permohonan
 </div>
 
 <li class="nav-item {{ request()->is('kategoripermohonan') ? 'active' : '' }}">
     <a href="{{ url('kategoripermohonan') }}" class="nav-link">
       <i class="fas fa-fw fa-list"></i>
-      <span>Permohonan</span>
+      <span>Kategori</span>
     </a>
 </li>
 
 <li class="nav-item {{ request()->is('permohonan') ? 'active' : '' }}">
     <a href="{{ url('permohonan') }}" class="nav-link">
         <i class="fas fa-fw fa-book-open"></i>
-        <span>Manajemen</span>
+        <span>Permohonan</span>
         @php
         $tolak1 = auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dt2Permohonan")->count();
         $tolak2 = auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dt3Permohonan")->count();
@@ -128,7 +128,7 @@
 <li class="nav-item {{ request()->is('spj') ? 'active' : '' }}">
     <a href="{{ url('spj') }}" class="nav-link">
         <i class="fa fa-fw fa-book"></i>
-        <span>Manajemen SPJ</span>
+        <span>SPJ</span>
         @php
         $spj = auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis4Permohonan")->count();
         $reject1 = auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dt1SPJ")->count();
@@ -215,7 +215,7 @@
 <li class="nav-item {{ (request()->is('dis5')) ? 'active' : '' }} {{ (request()->is('dis6')) ? 'active' : '' }}">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo_3" aria-expanded="true" aria-controls="collapseTwo_3">
         <i class="fa fa-fw fa-book"></i>
-        <span>Disposisi SPJ</span>
+        <span>SPJ</span>
         @if(Auth::user()->permissionsGroup->dispo1s_status)
             @if (auth()->user()->unreadNotifications()->where("type", "App\Notifications\SubmitSPJ")->count() != 0)
                 <span class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications()->where("type", "App\Notifications\SubmitSPJ")->count() }}</span>

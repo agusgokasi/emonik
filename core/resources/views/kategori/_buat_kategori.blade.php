@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn dark-white p-x-md"
+                    <button type="button" class="btn btn-outline-secondary p-x-md"
                             data-dismiss="modal">Tidak</button>
                     <button type="submit" class="btn btn-primary p-x-md">
                             {{ __('Simpan' ) }}

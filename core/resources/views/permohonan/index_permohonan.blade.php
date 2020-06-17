@@ -7,7 +7,7 @@
             <a href="{{ route('home') }}">Dashboard</a>
         </li>
         <li class="breadcrumb-item active">
-            Management Permohonan
+            Manajemen Permohonan
         </li>
     </ol>
 
@@ -40,7 +40,7 @@
     <div class="card border border-info">
         <div class="card mb-3">
             <div class="card-header">
-            <i class="fas fa-table">&nbsp;Management Permohonan</i>
+            <i class="fas fa-table">&nbsp;Manajemen Permohonan</i>
             </div>
 
             <div class="card-body">
@@ -49,7 +49,7 @@
                         <thead>
                             <tr>
                             	<th>No</th>
-                            	<th>Nama Permohonan</th>
+                            	<th>Nama Kegiatan</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Tanggal Dibuat</th>
                                 <th>Tanggal Diedit</th>

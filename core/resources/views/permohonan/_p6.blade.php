@@ -13,7 +13,7 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn dark-white p-x-md"
+                    <button type="button" class="btn btn-outline-secondary p-x-md"
                             data-dismiss="modal">Close</button>
                 </div>
             </div><!-- /.modal-content -->

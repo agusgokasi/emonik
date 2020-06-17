@@ -236,7 +236,6 @@ class PermohonanController extends Controller
         ]);
 
         $permohonan = Permohonan::where('slug',$slug)->first();
-
         $kegiatan = Kegiatan::where('id', $permohonan->kegiatan_id)->first();
         $kegiatan->keterangan = null;
         $kegiatan->save();
@@ -264,6 +263,9 @@ class PermohonanController extends Controller
         $permohonan->susunanpanitia = $request['susunanpanitia'];
         if($request->file('filetor')){
         //file
+        if(is_file('filetor/'.$permohonan->filetor)){
+        unlink(public_path('filetor/'.$permohonan->filetor));
+        }
         $file = $request->file('filetor');
         $filetor = time().rand(1000,9999).'.'.$file->getClientOriginalExtension();
         $request->file('filetor')->move(public_path('/filetor'), $filetor);
@@ -281,6 +283,9 @@ class PermohonanController extends Controller
     public function destroy($slug){
         $permohonan = Permohonan::where('slug',$slug)->first();
         $kegiatan = Kegiatan::where('id', $permohonan->kegiatan_id)->first();
+        if(is_file('filetor/'.$permohonan->filetor)){
+        unlink(public_path('filetor/'.$permohonan->filetor));
+        }
         $kegiatan->keterangan = null;
         $kegiatan->save();
         Auth::user()->update(['tor'=>null]);

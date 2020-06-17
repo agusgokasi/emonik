@@ -193,11 +193,11 @@
                 <br style="margin-bottom: 10px">
                 <div class="form-group d-flex justify-content-end" style="margin-bottom: 50px">
                     <div>
+                        <a class="btn btn-outline-secondary rounded" href="{{ route('permohonan') }}">{{ __('Kembali') }}</a>
+                        <span>&nbsp;&nbsp;</span>
                         <button type="submit" class="btn btn-primary rounded" style="padding-left: 30px; padding-right: 30px">
                             {{ __('Simpan' ) }}
                         </button>
-                        <span>&nbsp;&nbsp;</span>
-                        <a class="btn btn-light border border-dark rounded" href="{{ route('permohonan') }}">{{ __('Kembali') }}</a>
                     </div>
                 </div>
             </div>
