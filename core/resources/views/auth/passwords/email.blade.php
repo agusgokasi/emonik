@@ -6,7 +6,7 @@
             <div class="wrap-login100" >
                 <div class="login100-pic js-tilt"  data-tilt>
                     <img src="{{ asset('Login/images/logo-unj.png') }}" alt="IMG">
-                    <h5 style="text-align:center"><strong>E-Monitoring Keuangan Fakultas MIPA</strong></h5>
+                    <a href="{{ route('home') }}"><h5  style="text-align:center;"><strong>E-Monitoring Keuangan Fakultas MIPA UNJ</strong></h5></a>
                 </div>
                 <form class="login100-form" method="POST" action="{{ route('password.email') }}">
                     {{ csrf_field() }}
