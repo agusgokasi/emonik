@@ -1,6 +1,6 @@
 <!-- .modal -->
     <div id="r-c" class="modal fade" data-backdrop="true">
-        <div class="modal-dialog modal-lg" id="animate">
+        <div class="modal-dialog modal-md" id="animate">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Buat Rincian</h5>
@@ -9,8 +9,8 @@
                 {{ csrf_field() }}
                 <div class="modal-body text-left p-lg">
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label text-md-left">{{ __('Nama Rincian Biaya') }}</label>
-                        <div class="col-md-8">
+                        <label class="col-sm-5 col-form-label text-md-left">{{ __('Nama Rincian Biaya') }}</label>
+                        <div class="col-md-7">
 
                             <input id="jenisbelanja" type="text" placeholder="Masukkan Rincian Biaya" class="form-control {{ $errors->has('jenisbelanja') ? ' is-invalid' : '' }}" name="jenisbelanja" value="{{ old('jenisbelanja') }}" required autofocus>
 
@@ -23,8 +23,8 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label text-md-left">{{ __('Biaya Satuan (Rp)') }}</label>
-                        <div class="col-md-8">
+                        <label class="col-sm-5 col-form-label text-md-left">{{ __('Biaya Satuan (Rp)') }}</label>
+                        <div class="col-md-7">
 
                             <input id="biayasatuan" type="text" placeholder="Masukkan Biaya Satuan" class="form-control {{ $errors->has('biayasatuan') ? ' is-invalid' : '' }}" name="biayasatuan" value="{{ old('biayasatuan') }}" required autofocus>
 
@@ -37,8 +37,8 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label text-md-left">{{ __('Volume yang dibutuhkan') }}</label>
-                        <div class="col-md-8">
+                        <label class="col-sm-5 col-form-label text-md-left">{{ __('Volume yang dibutuhkan') }}</label>
+                        <div class="col-md-7">
 
                             <input id="volume" type="text" placeholder="Masukkan volume" class="form-control {{ $errors->has('volume') ? ' is-invalid' : '' }}" name="volume" value="{{ old('volume') }}" required autofocus>
 
@@ -51,8 +51,8 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label text-md-left">{{ __('Satuan') }}</label>
-                        <div class="col-md-8">
+                        <label class="col-sm-5 col-form-label text-md-left">{{ __('Satuan') }}</label>
+                        <div class="col-md-7">
 
                             <input id="satuan" type="text" placeholder="Masukkan Satuan" class="form-control {{ $errors->has('satuan') ? ' is-invalid' : '' }}" name="satuan" value="{{ old('satuan') }}" required autofocus>
 

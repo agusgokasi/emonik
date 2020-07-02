@@ -53,8 +53,9 @@ class RinciansExport implements FromQuery, WithHeadings, WithMapping, ShouldAuto
 
     public function map($rincian): array
     {
+        $key=0;
     	$this->results = [
-        	$rincian->id,
+        	++$key,
             $rincian->jenisbelanja,
             'Rp'.format_uang($rincian->biayasatuan),
             $rincian->volume,
@@ -65,6 +66,7 @@ class RinciansExport implements FromQuery, WithHeadings, WithMapping, ShouldAuto
             with($rincian->created_at)->format('D, d-m-Y H:i:s'),
             with($rincian->updated_at)->format('D, d-m-Y H:i:s'),
         ];
+        // dd($this->results);
         return $this->results;
     }
 
