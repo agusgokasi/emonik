@@ -133,8 +133,7 @@
         $spj = auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis4Permohonan")->count();
         $reject1 = auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dt1SPJ")->count();
         $reject2 = auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dt2SPJ")->count();
-        $selesai = auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis2SPJ")->count();
-        $badge_count = $spj+$reject1+$reject2+$selesai;
+        $badge_count = $spj+$reject1+$reject2;
         if ($badge_count != 0){
           echo '<span class="badge badge-pill badge-danger">' . $badge_count . '</span>';
         }
@@ -254,6 +253,9 @@
     <a href="{{ url('histori') }}" class="nav-link">
       <i class="fas fa-fw fa-history"></i>
       <span>Histori Permohonan</span>
+      @if (auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis2SPJ")->count() != 0)
+        <span class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications()->where("type", "App\Notifications\Dis2SPJ")->count() }}</span>
+      @endif
     </a>
 </li>
 {{-- ! Histori --}}

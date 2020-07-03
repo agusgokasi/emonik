@@ -99,6 +99,12 @@ class DisposisiController extends Controller
         $revisi = time().rand(1000,9999).'.'.$file->getClientOriginalExtension();
         $request->file('revisi')->move(public_path('/revisi'), $revisi);
 
+        if ($permohonan->revisi) {
+            if(is_file('revisi/'.$permohonan->revisi)){
+            unlink(public_path('revisi/'.$permohonan->revisi));
+            }
+        }
+        
         $permohonan->status = 9;
         $permohonan->revisi = $revisi;
         $permohonan->keterangan = $request['keterangan'];
@@ -165,6 +171,12 @@ class DisposisiController extends Controller
         $file = $request->file('revisi2');
         $revisi2 = time().rand(1000,9999).'.'.$file->getClientOriginalExtension();
         $request->file('revisi2')->move(public_path('/revisi2'), $revisi2);
+
+        if ($permohonan->revisi2) {
+            if(is_file('revisi2/'.$permohonan->revisi2)){
+            unlink(public_path('revisi2/'.$permohonan->revisi2));
+            }
+        }
 
         $permohonan->status = 9;
         $permohonan->revisi2 = $revisi2;
@@ -274,6 +286,12 @@ class DisposisiController extends Controller
         $spj_tolak_kas = time().rand(1000,9999).'.'.$file->getClientOriginalExtension();
         $request->file('spj_tolak_kas')->move(public_path('/spj_tolak_kas'), $spj_tolak_kas);
 
+        if ($permohonan->spj_tolak_kas) {
+            if(is_file('spj_tolak_kas/'.$permohonan->spj_tolak_kas)){
+            unlink(public_path('spj_tolak_kas/'.$permohonan->spj_tolak_kas));
+            }
+        }
+
         $permohonan->status = 8;
         $permohonan->spj_tolak_kas = $spj_tolak_kas;
         $permohonan->keterangan = $request['keterangan'];
@@ -341,6 +359,12 @@ class DisposisiController extends Controller
         $spj_tolak_ppk = time().rand(1000,9999).'.'.$file->getClientOriginalExtension();
         $request->file('spj_tolak_ppk')->move(public_path('/spj_tolak_ppk'), $spj_tolak_ppk);
 
+        if ($permohonan->spj_tolak_ppk) {
+            if(is_file('spj_tolak_ppk/'.$permohonan->spj_tolak_ppk)){
+            unlink(public_path('spj_tolak_ppk/'.$permohonan->spj_tolak_ppk));
+            }
+        }
+        
         $permohonan->status = 8;
         $permohonan->spj_tolak_ppk = $spj_tolak_ppk;
         $permohonan->keterangan = $request['keterangan'];

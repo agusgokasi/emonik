@@ -16,7 +16,6 @@ use App\Rincian;
 use App\Notifications\Dis4Permohonan;
 use App\Notifications\SubmitSPJ;
 use App\Notifications\Dt1SPJ;
-use App\Notifications\Dis2SPJ;
 use App\Notifications\Dt2SPJ;
 use Illuminate\Support\Facades\Validator;
 
@@ -34,12 +33,11 @@ class SpjController extends Controller
     public function index() {
     	$user = Auth::user();
     	$kegiatans = Kegiatan::where('unit_id', $user->unit_id)->where('status', 1)->where('keterangan', null)->get();
-    	$permohonans = permohonan::where('created_by', $user->id)->where('status', '!=' ,0)->where('status', '!=' ,1)->where('status', '!=' ,2)->where('status', '!=' ,3)->where('status', '!=' ,4)->where('status', '!=' ,9)->orderBy('updated_at', 'desc')->get();
+    	$permohonans = permohonan::where('created_by', $user->id)->where('status', '!=' ,0)->where('status', '!=' ,1)->where('status', '!=' ,2)->where('status', '!=' ,3)->where('status', '!=' ,4)->where('status', '!=' ,9)->where('status', '!=' ,10)->orderBy('updated_at', 'desc')->get();
         if (auth()->user()->id != 1) {
             $user->unreadNotifications->where('type', 'App\Notifications\Dis4Permohonan')->markAsRead();
             $user->unreadNotifications->where('type', 'App\Notifications\Dt1SPJ')->markAsRead();
             $user->unreadNotifications->where('type', 'App\Notifications\Dt2SPJ')->markAsRead();
-            $user->unreadNotifications->where('type', 'App\Notifications\Dis2SPJ')->markAsRead();
         }
         return view('spj.index_spj', compact('kegiatans', 'user', 'permohonans'));
     }

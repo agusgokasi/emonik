@@ -15,6 +15,7 @@ use App\Permohonan;
 use App\Rincian;
 use App\Exports\RinciansExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Notifications\Dis2SPJ;
 use Illuminate\Support\Facades\Validator;
 
 class HistoriController extends Controller
@@ -26,6 +27,9 @@ class HistoriController extends Controller
     		$permohonans = permohonan::orderBy('updated_at', 'desc')->get();
     	}else{
     		$permohonans = permohonan::where('created_by', $user->id)->orderBy('updated_at', 'desc')->get();
+            if (auth()->user()->id != 1) {
+                $user->unreadNotifications->where('type', 'App\Notifications\Dis2SPJ')->markAsRead();
+            }
     	}
         return view('histori.index_histori', compact('kegiatans', 'user', 'permohonans'));
     }

@@ -173,6 +173,9 @@ class RincianController extends Controller
             return back()->withErrors($validator)->withInput(['tab'=>'profile'])->with('error_code', $id);
         }
         //file
+        if(is_file('file/'.$rincian->file)){
+        unlink(public_path('file/'.$rincian->file));
+        }
         $filename = $request->file('file');
         $file = time().rand(1000,9999).'.'.$filename->getClientOriginalExtension();
         $request->file('file')->move(public_path('/file'), $file);

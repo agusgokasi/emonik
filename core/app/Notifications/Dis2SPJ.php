@@ -40,7 +40,7 @@ class Dis2SPJ extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = (config('app.url').'spj');
+        $url = (config('app.url').'histori');
         return (new MailMessage)
                     ->subject('SPJ Selesai')
                     ->greeting('Hello!')
