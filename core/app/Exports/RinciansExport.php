@@ -119,7 +119,8 @@ class RinciansExport implements FromQuery, WithHeadings, WithMapping, ShouldAuto
                         ]
                     ]
                 );
-
+                // hide first rcolomn
+                // $event->sheet->getColumnDimension('A')->setVisible(false);
 	            // merge cells for full-width
 	            $event->sheet->mergeCells(sprintf('A1:%s1',$last_column));
 	            $event->sheet->mergeCells(sprintf('A2:%s2',$last_column));

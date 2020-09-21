@@ -103,7 +103,7 @@
         var unitID = $(this).val();
         if(unitID) {
             $.ajax({
-                url: '/getUnits/'+unitID,
+                url: 'getUnits/'+unitID,
                 type:"GET",
                 dataType:"json",
                 beforeSend: function(){

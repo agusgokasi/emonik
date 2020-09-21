@@ -9,7 +9,7 @@
     <meta name="author" content="">
 
     <!-- Bootstrap core CSS-->
-    {{-- <link href="{{ asset('sb/vendors/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"> --}}
+    {{-- <link href="{{ asset('sb2/vendors/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"> --}}
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('sb2/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
