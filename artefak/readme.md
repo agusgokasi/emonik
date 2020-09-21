@@ -1,0 +1,1 @@
+Pada dokumen ini disusun artefak tiap iterasi dan perubahan tiap iterasi akan dicatatat
