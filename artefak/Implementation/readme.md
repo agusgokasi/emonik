@@ -7,3 +7,55 @@ Target pada proses Implementation ini diharapkan sudah mencapai 10% pada iterasi
 - Sampel kode Halaman Login.jpg
 - Implementation Model.docx
 - Tampilan Halaman Login.jpg
+
+Target pada proses Implementation ini diharapkan sudah mencapai 30% pada iterasi construction C1 ini dan mencapai target 50% pada target development plan. Iterasi 3 Implementation ditambahkan :
+- lanjutan dari (Integration build plan.docx)
+- lanjutan dari (Component.docx)
+- lanjutan dari (Implementation Model.docx)
+- Sampel kode PermissionModel.jpg
+- Sampel kode PermissionController.jpg
+- Sampel kode Halaman Permission.jpg
+- Sampel kode UserModel.jpg
+- Sampel kode UserController.jpg
+- Sampel kode Halaman Manajemen User.jpg
+- Sampel kode PermohonanModel.jpg
+- Sampel kode PermohonanController.jpg
+- Sampel kode Halaman Permohonan.jpg
+- Sampel kode RincianModel.jpg
+- Sampel kode RincianController.jpg
+- Sampel kode SinglePermohonan.jpg
+- Sampel kode Modal Buat Rincian.jpg
+- Sampel kode DisposisiController.jpg
+- Sampel kode Halaman Disposisi Permohonan.jpg
+- Sampel kode SingleDisposisi.jpg
+- Sampel kode Modal Tolak Permohonan pada PPK.jpg
+- Sampel kode Modal Tolak Permohonan pada Kasubag.jpg
+- Tampilan Halaman Dashboard Pemohon.jpg
+- Tampilan Halaman Menu Permohonan.jpg
+- Tampilan Halaman Formulir Buat Permohonan.jpg
+- Tampilan Tombol Simpan Formulir Buat Permohonan.jpg
+- Tampilan Notifikasi Permohonan berhasil dibuat.jpg
+- Tampilan Halaman Menu Rincian Biaya.jpg
+- Tampilan Modal Buat Rincian.jpg
+- Tampilan Halaman Rincian dengan Notifikasi Berhasil.jpg
+- Tampilan Menu Submit pada Permohonan.jpg
+- Tampilan Konfirmasi Submit Permohonan.jpg
+- Tampilan Notifikasi Permohonan berhasil di submit.jpg
+- Tampilan Halaman Dashboard WD 2.jpg
+- Tampilan Halaman Menu Disposisi Permohonan WD 2.jpg
+- Tampilan Konfirmasi Lanjutkan Permohonan WD 2.jpg
+- Tampilan Notifikasi Permohonan berhasil di lanjutkan WD 2.jpg
+- Tampilan Halaman Dashboard PPK.jpg
+- Tampilan Halaman Menu Disposisi Permohonan PPK.jpg
+- Tampilan Konfirmasi Tolak Permohonan.jpg
+- Tampilan Konfirmasi Lanjutkan Permohonan PPK.jpg
+- Tampilan Notifikasi Permohonan berhasil di lanjutkan PPK.jpg
+- Tampilan Halaman Dashboard Kasubag.jpg
+- Tampilan Halaman Menu Disposisi Permohonan Kasubag.jpg
+- Tampilan Konfirmasi Lanjutkan Permohonan Kasubag.jpg
+- Tampilan Notifikasi Permohonan berhasil di lanjutkan Kasubag.jpg
+- Tampilan Halaman Dashboard BPP.jpg
+- Tampilan Halaman Menu Disposisi Permohonan BPP.jpg
+- Tampilan Halaman Menu Rincian Biaya pada Disposisi Permohonan.jpg
+- Tampilan Konfirmasi Lanjutkan Permohonan BPP.jpg
+- Tampilan Notifikasi Permohonan berhasil di lanjutkan BPP.jpg

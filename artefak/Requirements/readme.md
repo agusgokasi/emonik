@@ -19,3 +19,9 @@ Target pada proses Requirements ini diharapkan sudah mencapai 35% pada iterasi e
 - lanjutan dari (Use Case Model.docx)
 - Use Case pada iterasi E2.jpg
 - Use Case Model pada iterasi E2.jpg
+
+Target pada proses Requirements ini diharapkan sudah mencapai 10% pada iterasi construction C1 ini dan mencapai target 100% pada target development plan.  Iterasi 4 Requirements ditambahkan :
+- lanjutan dari (Use Case.docx)
+- lanjutan dari (Use Case Model.docx)
+- Use Case Final.jpg
+- Use Case Model Final.jpg

@@ -19,3 +19,9 @@ Target pada proses Business Modelling ini diharapkan sudah mencapai 20% pada ite
 - Penambahan Business use case pada iterasi E1.jpg
 - lanjutan dari (Business use case model.docx)
 - Business use case model pada iterasi E2.jpg
+
+Target pada proses Business Modelling ini diharapkan sudah mencapai 10% pada iterasi construction C1 ini dan mencapai target 100% pada target development plan.  Iterasi 4 Business Modelling ditambahkan :
+- lanjutan dari (Business use case.docx)
+- Business use case Final.jpg
+- lanjutan dari (Business use case model.docx)
+- Business use case model Final.jpg

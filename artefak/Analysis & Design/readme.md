@@ -17,3 +17,11 @@ Target pada proses Analysis & Design ini diharapkan sudah mencapai 30% pada iter
 - Sequence diagram SPJ.jpg
 - Class Diagram Sistem.jpg
 - Entity Relationship Diagram Sistem.jpg
+
+Target pada proses Analysis & Design ini diharapkan sudah mencapai 20% pada iterasi construction C1 ini dan mencapai target 90% pada target development plan. Iterasi 4 Analysis & Design ditambahkan :
+- lanjutan dari (Design model.docx)
+- Sequence diagram pengajuan permohonan pemohon.jpg
+- Sequence diagram disposisi permohonan WD 2.jpg
+- Sequence diagram disposisi permohonan PPK.jpg
+- Sequence diagram disposisi permohonan Kasubagjpg
+- Sequence diagram disposisi permohonan BPP.jpg
