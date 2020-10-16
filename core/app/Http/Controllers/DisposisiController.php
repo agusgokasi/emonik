@@ -25,7 +25,7 @@ use App\Notifications\SubmitSPJ;
 use App\Notifications\Dis1SPJ;
 use App\Notifications\Dt1SPJ;
 use App\Notifications\Dis2SPJ;
-use App\Notifications\Dt2SPJ;
+// use App\Notifications\Dt2SPJ;
 use Illuminate\Support\Facades\Validator;
 
 class DisposisiController extends Controller
@@ -335,7 +335,7 @@ class DisposisiController extends Controller
         return abort(403);
     }
 
-    public function dt6(Request $request, $slug) {
+    /* public function dt6(Request $request, $slug) {
         if (Auth::user()->permissionsGroup->dispo2s_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
         $pemohon = User::where('id', $permohonan->created_by)->first();
@@ -354,7 +354,7 @@ class DisposisiController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput()->with('error_code', $slug);
         }
-        //file
+
         $file = $request->file('spj_tolak_ppk');
         $spj_tolak_ppk = time().rand(1000,9999).'.'.$file->getClientOriginalExtension();
         $request->file('spj_tolak_ppk')->move(public_path('/spj_tolak_ppk'), $spj_tolak_ppk);
@@ -375,7 +375,7 @@ class DisposisiController extends Controller
         return redirect()->action('DisposisiController@dis6')->with('msg', 'SPJ berhasil ditolak!');
         }
         return abort(403);
-    }
+    } */
 
     public function di6(Request $request, $slug) {
         if (Auth::user()->permissionsGroup->dispo2s_status) {

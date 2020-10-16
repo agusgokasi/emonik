@@ -20,7 +20,7 @@ Website :
 	- Maks Dana = Biaya Perencanaan
 	- Sisa Biaya Real = Sisa perencanaan (Sisa Biaya)
 	- Sisa Rancangan Biaya = Total Usulan Dikurang Realisasi
-11. Alur SPJ : Pemohon -> KASUBAG (Filter/Menilai) -> BPP (Filter/Menilai)-(download-terima & kasih catatan ke pemohon)-{pedoman spj akhir}-(konfirmasi)
+11. Alur SPJ : Pemohon -> KASUBAG (Filter/Menilai) -> BPP (download-terima & kasih catatan ke pemohon)-{pedoman spj akhir}-(konfirmasi)
 12. Tambahkan Batas Akhir pengajuan SPJ : 3 hari setelah acaranya di adakan atau 1 minggu setelah dana dicairkan
 13. Setiap pemohon(prodi/bem) harus mensubmit kalender kegiatan (proker kegiatan perbulan selama setahun) dan ppk menentukan angkanya dananya (tambahan)
 14. Masukkan sisa dana/rincian biaya kegiatan ke table kategori dalam bentuk excel dan juga di spj akhirnya

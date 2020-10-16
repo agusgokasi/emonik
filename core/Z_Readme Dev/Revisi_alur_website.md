@@ -30,6 +30,5 @@ Alur website :
 12. Prodi/Ormawa menekan tombol submit untuk memproses spj ke disposisi 1 spj
 13. Kasubag memeriksa spj : - menolak spj : menekan tombol Tolak dan memasukkan alasan penolakan+file penolakan dan mengembalikan spj ke user yang bersangkutan
 							 - menerima spj : menekan tombol terima dan melanjutkan ke disposisi 2 spj
-14. BPP memeriksa spj : - menolak spj : menekan tombol Tolak dan memasukkan alasan penolakan+file penolakan dan mengembalikan spj ke user yang bersangakutan
-							 - menerima spj : menekan tombol terima dan spj telah selesai, pemohon bisa membuat permohonan lainnya
+14. BPP memeriksa spj : 	- menerima spj : menekan tombol terima dan spj telah selesai, pemohon bisa membuat permohonan lainnya
 BPP (Filter/Menilai)-(download-kasih catatan ke pemohon)-{pedoman spj akhir}-(konfirmasi)

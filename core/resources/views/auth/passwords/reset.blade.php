@@ -15,7 +15,7 @@
                     </span>
                     <input type="hidden" name="token" value="{{ $token }}">
                     <div class="wrap-input100  ">
-                        <input class="input100 form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="Email" id="email" type="email" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+                        <input class="input100 {{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="Email" id="email" type="email" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -28,7 +28,7 @@
                     @enderror
 
                     <div class="wrap-input100  ">
-                        <input class="input100 form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" type="password" placeholder="New Password" id="password" type="password" name="password" required autocomplete="new-password" autofocus>
+                        <input class="input100 {{ $errors->has('password') ? ' is-invalid' : '' }}" type="password" placeholder="New Password" id="password" type="password" name="password" required autocomplete="new-password" autofocus>
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>

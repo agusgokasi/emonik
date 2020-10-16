@@ -64,8 +64,8 @@
                                         <button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#m-d5{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: green; color: white; border-radius: 2em"><i class="fa fa-forward" style="font-size: 15px"> Lanjutkan</i></button>
                                         @include('disposisi._d5')
                                         @elseif($permohonan->status==7)
-                                        <button class="btn btn-sm btn-danger btn-block" data-toggle="modal" data-target="#m-dt6{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: red; color: white; border-radius: 2em"><i class="far fa-times-circle" style="font-size: 15px"> Tolak</i></button>
-                                        @include('disposisi._dt6')
+                                        {{-- <button class="btn btn-sm btn-danger btn-block" data-toggle="modal" data-target="#m-dt6{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: red; color: white; border-radius: 2em"><i class="far fa-times-circle" style="font-size: 15px"> Tolak</i></button> --}}
+                                        {{-- @include('disposisi._dt6') --}}
                                         <button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#m-d6{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: green; color: white; border-radius: 2em"><i class="fa fa-forward" style="font-size: 15px"> Lanjutkan</i></button>
                                         @include('disposisi._d6')
                                         @endif
@@ -81,10 +81,10 @@
                                         @else
                                         <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_kas/'.$permohonan->spj_tolak_kas) }}" download="{{$permohonan->spj_tolak_kas}}"><i class="fa fa-file-download "> Download penolakan 1</i></a>
                                         @endif
-                                        @if($permohonan->spj_tolak_ppk == null)
+                                        {{-- @if($permohonan->spj_tolak_ppk == null)
                                         @else
                                         <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_ppk/'.$permohonan->spj_tolak_ppk) }}" download="{{$permohonan->spj_tolak_ppk}}"><i class="fa fa-file-download "> Download penolakan 2</i></a>
-                                        @endif
+                                        @endif --}}
                                     </td>
                                 </tr>
                             @endforeach
