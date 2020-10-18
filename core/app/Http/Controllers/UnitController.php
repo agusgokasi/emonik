@@ -26,14 +26,14 @@ class UnitController extends Controller
     }
 
     public function getUnits($id) {
-        $prodis = Prodi::Where('fakultas_id', $id)->pluck("nama","id");
+        $prodis = Prodi::Where('fakultas_id', $id)->where('status', 1)->pluck("nama","id");
         return json_encode($prodis);
     }
 
     public function index() {
-    	$fakultases = Fakultase::get();
+    	$fakultases = Fakultase::where('status', 1)->get();
     	$prodis = Prodi::where('status', 1)->get();
-    	$units = Unit::where('status', 1)->get();
+    	$units = Unit::get();
         return view('unit.index_unit', compact('units', 'fakultases', 'prodis'));
     }
 
@@ -62,14 +62,10 @@ class UnitController extends Controller
         $units = Unit::findOrFail($id);
         $validator = Validator::make($request->all(), [
             'nama' => 'required|string|max:150',
-            'fakultas' => 'required',
-            'prodi' => 'required',
             'status'=> 'required|in:1,0',
         ],[
             'nama.required'=>'Nama harus diisi',
             'nama.max'=>'Nama maksimal 150 huruf',
-            'fakultas.required'=>'Fakultas harus diisi',
-            'prodi.required'=>'Prodi harus diisi',
             'status.required'=>'status harus diisi',
         ]);
 

@@ -25,7 +25,7 @@ class FakultasController extends Controller
     }
 
     public function index() {
-    	$fakultases = Fakultase::orderBy('updated_at', 'desc')->get();
+    	$fakultases = Fakultase::get();
         return view('fakultas.index_fakultas', compact('fakultases'));
     }
 

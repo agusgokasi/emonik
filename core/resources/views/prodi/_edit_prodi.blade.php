@@ -26,7 +26,7 @@
 
                         <div class="col-md-8">
                             <select name="fakultas" id="fakultas" class="form-control">
-                                <option value="" {!! (!$prodi->fakultas_id) ? "selected='selected'":"" !!}>Tidak Punya Fakultas</option>
+                                {{-- <option value="" {!! (!$prodi->fakultas_id) ? "selected='selected'":"" !!}>Tidak Punya Fakultas</option> --}}
                                 @foreach($fakultases as $fakultas)
                                 <option value="{{$fakultas->id}}" {!! ($prodi->fakultas_id==$fakultas->id) ? "selected='selected'":"" !!}>{{$fakultas->nama}}</option>
                                 @endforeach
