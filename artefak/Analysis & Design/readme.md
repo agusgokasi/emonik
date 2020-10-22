@@ -25,3 +25,9 @@ Target pada proses Analysis & Design ini diharapkan sudah mencapai 20% pada iter
 - Sequence diagram disposisi permohonan PPK.jpg
 - Sequence diagram disposisi permohonan Kasubagjpg
 - Sequence diagram disposisi permohonan BPP.jpg
+
+Target pada proses Analysis & Design ini diharapkan sudah mencapai 10% pada iterasi construction C2 ini dan mencapai target 100% pada target development plan. Iterasi 5 Analysis & Design ditambahkan :
+- lanjutan dari (Design model.docx)
+- Sequence diagram pengajuan SPJ pemohon.jpg
+- Sequence diagram disposisi SPJ Kasubag.jpg
+- Sequence diagram disposisi SPJ BPP.jpg

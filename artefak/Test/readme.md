@@ -3,3 +3,6 @@ Target pada proses Test ini diharapkan sudah mencapai 10% pada iterasi elaborati
 
 Target pada proses Test ini diharapkan sudah mencapai 10% pada iterasi construction C1 ini dan mencapai target 20% pada target development plan. Iterasi 2 Test ditambahkan :
 - lanjutan dari (Test Plan.docx)
+
+Target pada proses Test ini diharapkan sudah mencapai 10% pada iterasi construction C1 ini dan mencapai target 30% pada target development plan. Iterasi 3 Test ditambahkan :
+- lanjutan dari (Test Plan.docx)

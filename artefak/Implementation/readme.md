@@ -3,59 +3,93 @@ Target pada proses Implementation ini diharapkan sudah mencapai 10% pada iterasi
 
 Target pada proses Implementation ini diharapkan sudah mencapai 10% pada iterasi elaboration E2 ini dan mencapai target 20% pada target development plan. Iterasi 2 Implementation ditambahkan :
 - Component.docx
-- Sampel kode LoginController.jpg
-- Sampel kode Halaman Login.jpg
+- Sampel kode LoginController.png
+- Sampel kode Halaman Login.png
 - Implementation Model.docx
-- Tampilan Halaman Login.jpg
+- Tampilan Halaman Login.png
 
 Target pada proses Implementation ini diharapkan sudah mencapai 30% pada iterasi construction C1 ini dan mencapai target 50% pada target development plan. Iterasi 3 Implementation ditambahkan :
 - lanjutan dari (Integration build plan.docx)
 - lanjutan dari (Component.docx)
 - lanjutan dari (Implementation Model.docx)
-- Sampel kode PermissionModel.jpg
-- Sampel kode PermissionController.jpg
-- Sampel kode Halaman Permission.jpg
-- Sampel kode UserModel.jpg
-- Sampel kode UserController.jpg
-- Sampel kode Halaman Manajemen User.jpg
-- Sampel kode PermohonanModel.jpg
-- Sampel kode PermohonanController.jpg
-- Sampel kode Halaman Permohonan.jpg
-- Sampel kode RincianModel.jpg
-- Sampel kode RincianController.jpg
-- Sampel kode SinglePermohonan.jpg
-- Sampel kode Modal Buat Rincian.jpg
-- Sampel kode DisposisiController.jpg
-- Sampel kode Halaman Disposisi Permohonan.jpg
-- Sampel kode SingleDisposisi.jpg
-- Sampel kode Modal Tolak Permohonan pada PPK.jpg
-- Sampel kode Modal Tolak Permohonan pada Kasubag.jpg
-- Tampilan Halaman Dashboard Pemohon.jpg
-- Tampilan Halaman Menu Permohonan.jpg
-- Tampilan Halaman Formulir Buat Permohonan.jpg
-- Tampilan Tombol Simpan Formulir Buat Permohonan.jpg
-- Tampilan Notifikasi Permohonan berhasil dibuat.jpg
-- Tampilan Halaman Menu Rincian Biaya.jpg
-- Tampilan Modal Buat Rincian.jpg
-- Tampilan Halaman Rincian dengan Notifikasi Berhasil.jpg
-- Tampilan Menu Submit pada Permohonan.jpg
-- Tampilan Konfirmasi Submit Permohonan.jpg
-- Tampilan Notifikasi Permohonan berhasil di submit.jpg
-- Tampilan Halaman Dashboard WD 2.jpg
-- Tampilan Halaman Menu Disposisi Permohonan WD 2.jpg
-- Tampilan Konfirmasi Lanjutkan Permohonan WD 2.jpg
-- Tampilan Notifikasi Permohonan berhasil di lanjutkan WD 2.jpg
-- Tampilan Halaman Dashboard PPK.jpg
-- Tampilan Halaman Menu Disposisi Permohonan PPK.jpg
-- Tampilan Konfirmasi Tolak Permohonan.jpg
-- Tampilan Konfirmasi Lanjutkan Permohonan PPK.jpg
-- Tampilan Notifikasi Permohonan berhasil di lanjutkan PPK.jpg
-- Tampilan Halaman Dashboard Kasubag.jpg
-- Tampilan Halaman Menu Disposisi Permohonan Kasubag.jpg
-- Tampilan Konfirmasi Lanjutkan Permohonan Kasubag.jpg
-- Tampilan Notifikasi Permohonan berhasil di lanjutkan Kasubag.jpg
-- Tampilan Halaman Dashboard BPP.jpg
-- Tampilan Halaman Menu Disposisi Permohonan BPP.jpg
-- Tampilan Halaman Menu Rincian Biaya pada Disposisi Permohonan.jpg
-- Tampilan Konfirmasi Lanjutkan Permohonan BPP.jpg
-- Tampilan Notifikasi Permohonan berhasil di lanjutkan BPP.jpg
+- Sampel kode PermissionModel.png
+- Sampel kode PermissionController.png
+- Sampel kode Halaman Permission.png
+- Sampel kode UserModel.png
+- Sampel kode UserController.png
+- Sampel kode Halaman Manajemen User.png
+- Sampel kode PermohonanModel.png
+- Sampel kode PermohonanController.png
+- Sampel kode Halaman Permohonan.png
+- Sampel kode RincianModel.png
+- Sampel kode RincianController.png
+- Sampel kode SinglePermohonan.png
+- Sampel kode Modal Buat Rincian.png
+- Sampel kode DisposisiController.png
+- Sampel kode Halaman Disposisi Permohonan.png
+- Sampel kode SingleDisposisi.png
+- Sampel kode Modal Tolak Permohonan pada PPK.png
+- Sampel kode Modal Tolak Permohonan pada Kasubag.png
+- Tampilan Halaman Dashboard Pemohon.png
+- Tampilan Halaman Menu Permohonan.png
+- Tampilan Halaman Formulir Buat Permohonan.png
+- Tampilan Tombol Simpan Formulir Buat Permohonan.png
+- Tampilan Notifikasi Permohonan berhasil dibuat.png
+- Tampilan Halaman Menu Rincian Biaya.png
+- Tampilan Modal Buat Rincian.png
+- Tampilan Halaman Rincian dengan Notifikasi Berhasil.png
+- Tampilan Menu Submit pada Permohonan.png
+- Tampilan Konfirmasi Submit Permohonan.png
+- Tampilan Notifikasi Permohonan berhasil di submit.png
+- Tampilan Halaman Dashboard WD 2.png
+- Tampilan Halaman Menu Disposisi Permohonan WD 2.png
+- Tampilan Konfirmasi Lanjutkan Permohonan WD 2.png
+- Tampilan Notifikasi Permohonan berhasil di lanjutkan WD 2.png
+- Tampilan Halaman Dashboard PPK.png
+- Tampilan Halaman Menu Disposisi Permohonan PPK.png
+- Tampilan Konfirmasi Tolak Permohonan.png
+- Tampilan Konfirmasi Lanjutkan Permohonan PPK.png
+- Tampilan Notifikasi Permohonan berhasil di lanjutkan PPK.png
+- Tampilan Halaman Dashboard Kasubag.png
+- Tampilan Halaman Menu Disposisi Permohonan Kasubag.png
+- Tampilan Konfirmasi Lanjutkan Permohonan Kasubag.png
+- Tampilan Notifikasi Permohonan berhasil di lanjutkan Kasubag.png
+- Tampilan Halaman Dashboard BPP.png
+- Tampilan Halaman Menu Disposisi Permohonan BPP.png
+- Tampilan Halaman Menu Rincian Biaya pada Disposisi Permohonan.png
+- Tampilan Konfirmasi Lanjutkan Permohonan BPP.png
+- Tampilan Notifikasi Permohonan berhasil di lanjutkan BPP.png
+
+Target pada proses Implementation ini diharapkan sudah mencapai 20% pada iterasi construction C2 ini dan mencapai target 70% pada target development plan. Iterasi 4 Implementation ditambahkan :
+- lanjutan dari (Component.docx)
+- lanjutan dari (Implementation Model.docx)
+- Sampel kode SpjController.png
+- Sampel kode Halaman SPJ.png
+- Sampel kode SingleSPJ.png
+- Sampel kode Modal Submit Bukti Rincian.png
+- Sampel kode Fungsi SPJ pada DisposisiController.png
+- Sampel kode Halaman Disposisi SPJ.png
+- Sampel kode SingleDisposisiSpj.png
+- Sampel kode Modal Tolak SPJ pada Kasubag.png
+- Sampel kode Modal Konfirmasi SPJ pada BPP.png
+- Tampilan Notifikasi SPJ pada Dashboard Pemohon.png
+- Tampilan Halaman Menu SPJ.png
+- Tampilan Halaman Menu Submit Bukti Rincian.png
+- Tampilan Modal Submit Bukti Rincian.png
+- Tampilan Notifikasi Berhasil pada Submit Bukti Rincian.png
+- Tampilan Menu Submit pada SPJ.png
+- Tampilan Konfirmasi Submit SPJ.png
+- Tampilan Notifikasi SPJ berhasil di submit.png
+- Tampilan Notifikasi diposisi SPJ pada Dashboard Kasubag.png
+- Tampilan Halaman Menu Disposisi SPJ Kasubag.png
+- Tampilan Konfirmasi Tolak SPJ.png
+- Tampilan Konfirmasi Lanjutkan SPJ Kasubag.png
+- Tampilan Notifikasi SPJ berhasil di lanjutkan Kasubag.png
+- Tampilan Notifikasi diposisi SPJ pada Dashboard BPP.png
+- Tampilan Halaman Menu Disposisi SPJ BPP.png
+- Tampilan Konfirmasi Lanjutkan SPJ BPP.png
+- Tampilan Notifikasi SPJ berhasil di lanjutkan BPP.png
+- Tampilan Notifikasi SPJ Selesai pada Dashboard Pemohon.png
+- Tampilan Halaman Menu Histori Permohonan.png
+- Tampilan Halaman Menu Rincian pada Hisori Permohonan.png
+- Tampilan Laporan Serapan Anggaran pada Excel.png
