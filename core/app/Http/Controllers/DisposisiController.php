@@ -335,6 +335,43 @@ class DisposisiController extends Controller
         return abort(403);
     }
 
+    public function di6(Request $request, $slug) {
+        if (Auth::user()->permissionsGroup->dispo2s_status) {
+        $permohonan = Permohonan::where('slug',$slug)->first();
+        $validator = Validator::make($request->all(), [
+        'keterangan'              => 'required|min:3|max:1000',
+        ],[
+            'keterangan.required'=>'Catatan Untuk Pemohon harus diisi',
+            'keterangan.min'=>'Catatan Untuk Pemohon minimal 3 huruf',
+            'keterangan.max'=>'Catatan Untuk Pemohon minimal 1000 huruf',
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput()->with('error_code', $slug);
+        }
+        if($permohonan->created_by){
+            $user = User::where('id', $permohonan->created_by)->first();
+            $user->tor = null;
+            $user->save();
+            if ($user->permissionsGroup->permohonan_status == 1) {
+            $user->notify(new Dis2SPJ);
+            }
+        }
+        $permohonan->status = 10;
+        $permohonan->keterangan = $request['keterangan'];
+        $permohonan->save();
+        return redirect()->action('DisposisiController@dis6')->with('msg', 'SPJ berhasil dilanjutkan!');
+        }
+        return abort(403);
+    }
+
+    public function spjShow($slug) {
+        $user = Auth::user();
+        $permohonan = Permohonan::where('slug',$slug)->first();
+        if(empty($permohonan)) abort (404);
+        $rincians = Rincian::where('permohonan_id',$permohonan->id)->get();
+        return view('disposisi.single_dispj', compact('user', 'permohonan', 'rincians'));
+    }
+
     /* public function dt6(Request $request, $slug) {
         if (Auth::user()->permissionsGroup->dispo2s_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
@@ -376,41 +413,4 @@ class DisposisiController extends Controller
         }
         return abort(403);
     } */
-
-    public function di6(Request $request, $slug) {
-        if (Auth::user()->permissionsGroup->dispo2s_status) {
-        $permohonan = Permohonan::where('slug',$slug)->first();
-        $validator = Validator::make($request->all(), [
-        'keterangan'              => 'required|min:3|max:1000',
-        ],[
-            'keterangan.required'=>'Catatan Untuk Pemohon harus diisi',
-            'keterangan.min'=>'Catatan Untuk Pemohon minimal 3 huruf',
-            'keterangan.max'=>'Catatan Untuk Pemohon minimal 1000 huruf',
-        ]);
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput()->with('error_code', $slug);
-        }
-        if($permohonan->created_by){
-            $user = User::where('id', $permohonan->created_by)->first();
-            $user->tor = null;
-            $user->save();
-            if ($user->permissionsGroup->permohonan_status == 1) {
-            $user->notify(new Dis2SPJ);
-            }
-        }
-        $permohonan->status = 10;
-        $permohonan->keterangan = $request['keterangan'];
-        $permohonan->save();
-        return redirect()->action('DisposisiController@dis6')->with('msg', 'SPJ berhasil dilanjutkan!');
-        }
-        return abort(403);
-    }
-
-    public function spjShow($slug) {
-        $user = Auth::user();
-        $permohonan = Permohonan::where('slug',$slug)->first();
-        if(empty($permohonan)) abort (404);
-        $rincians = Rincian::where('permohonan_id',$permohonan->id)->get();
-        return view('disposisi.single_dispj', compact('user', 'permohonan', 'rincians'));
-    }
 }

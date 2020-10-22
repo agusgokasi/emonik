@@ -133,12 +133,12 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; DEFAULT UNJ
+                    {{-- <span>Copyright &copy; DEFAULT UNJ
                         <script>
                             document.write(new Date().getFullYear())
                         </script>
                         &nbsp;&nbsp;&nbsp;Design by <a href="https://startbootstrap.com/themes/sb-admin-2/">SB ADMIN 2</a>
-                    </span>
+                    </span> --}}
                 </div>
                 </div>
             </footer>

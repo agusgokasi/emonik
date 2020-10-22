@@ -50,14 +50,14 @@
                     </div>
 
                     <div class="text-center p-t-140">
-                    <footer class="sticky-footer">
+                    {{-- <footer class="sticky-footer">
                         <div class="container my-auto">
                         <div class="copyright text-center my-auto">
                             <span style="color:#e25555"><i class="fa fa-heart" aria-hidden="true"></i></span> Development by DEFAULT UNJ <br>
                             Design by <a href="https://colorlib.com/wp/template/login-form-v1/">Colorlib</a>
                         </div>
                         </div>
-                    </footer>
+                    </footer> --}}
                     </div>
 
                 </form>
