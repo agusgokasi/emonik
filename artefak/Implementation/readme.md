@@ -93,3 +93,19 @@ Target pada proses Implementation ini diharapkan sudah mencapai 20% pada iterasi
 - Tampilan Halaman Menu Histori Permohonan.png
 - Tampilan Halaman Menu Rincian pada Hisori Permohonan.png
 - Tampilan Laporan Serapan Anggaran pada Excel.png
+
+Target pada proses Implementation ini diharapkan sudah mencapai 20% pada iterasi construction C2 ini dan mencapai target 90% pada target development plan. Iterasi 5 Implementation ditambahkan :
+- build.docx
+- lanjutan dari (Component.docx)
+- lanjutan dari (Implementation Model.docx)
+- Perubahan kode pada FakultasController.png
+- Perubahan kode pada HomeController.png
+- Perubahan kode pada UnitController.png
+- Perubahan kode pada file _edit_prodi.blade.png
+- Perubahan kode pada file login.blade.png
+- Perubahan kode pada file email.blade.png
+- Perubahan kode pada file reset.blade.png
+- Perubahan kode pada file backend.blade.png
+- Tampilan Halaman Login tanpa footer.png
+- Tampilan Halaman Reset Password tanpa footer.png
+- Tampilan Halaman Dashboard Admin tanpa footer.png
