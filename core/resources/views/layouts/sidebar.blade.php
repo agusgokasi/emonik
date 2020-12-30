@@ -47,7 +47,7 @@
 
 {{-- menu --}}
 
-@if (Auth::user()->permissionsGroup->unit_status || Auth::user()->permissionsGroup->kategori_status || Auth::user()->permissionsGroup->kegiatan_status)
+@if (Auth::user()->permissionsGroup->unit_status ||  Auth::user()->permissionsGroup->kegiatan_status)
     <hr class="sidebar-divider">
 
     <div class="sidebar-heading">
@@ -72,22 +72,41 @@
 </li>
 @endif
 
-@if(Auth::user()->permissionsGroup->kategori_status)
+{{-- @if(Auth::user()->permissionsGroup->kategori_status)
 <li class="nav-item {{ request()->is('kategori') ? 'active' : '' }}">
     <a class="nav-link" href="{{ url('kategori') }}">
         <i class="fas fa-fw fa-code-branch"></i>
         <span>Kategori</span>
     </a>
 </li>
-@endif
+@endif --}}
 
 @if(Auth::user()->permissionsGroup->kegiatan_status)
-<li class="nav-item {{ request()->is('kegiatan') ? 'active' : '' }}">
+<li class="nav-item {{ (request()->is('proker')) ? 'active' : '' }} {{ (request()->is('kegiatan')) ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo_4" aria-expanded="true" aria-controls="collapseTwo_4">
+        <i class="fas fa-fw fa-tasks"></i>
+        <span>Proker & Kegiatan</span>
+        @if (auth()->user()->unreadNotifications()->where("type", "App\Notifications\SubmitProker")->count() != 0)
+            <span class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications()->where("type", "App\Notifications\SubmitProker")->count() }}</span>
+        @endif
+</a>
+    <div id="collapseTwo_4" class="collapse" aria-labelledby="headingTwo_4" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item {{ (request()->is('proker')) ? 'active' : '' }}" href="{{ url('proker') }}">Proker
+            @if (auth()->user()->unreadNotifications()->where("type", "App\Notifications\SubmitProker")->count() != 0)
+                <span class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications()->where("type", "App\Notifications\SubmitProker")->count() }}</span>
+            @endif
+            </a>
+            <a class="collapse-item {{ (request()->is('kegiatan')) ? 'active' : '' }}" href="{{ url('kegiatan') }}">Kalender Kegiatan</a>
+        </div>
+    </div>
+</li>
+{{-- <li class="nav-item {{ request()->is('kegiatan') ? 'active' : '' }}">
     <a class="nav-link" href="{{ url('kegiatan') }}">
         <i class="fas fa-fw fa-tasks"></i>
-        <span>Kegiatan</span>
+        <span>Kalender Kegiatan</span>
     </a>
-</li>
+</li> --}}
 @endif
 
 {{-- ! menu --}}
@@ -103,10 +122,18 @@
     Manajemen Permohonan
 </div>
 
-<li class="nav-item {{ request()->is('kategoripermohonan') ? 'active' : '' }}">
-    <a href="{{ url('kategoripermohonan') }}" class="nav-link">
+<li class="nav-item {{ request()->is('prokerpermohonan') ? 'active' : '' }}">
+    <a href="{{ url('prokerpermohonan') }}" class="nav-link">
       <i class="fas fa-fw fa-list"></i>
-      <span>Kategori</span>
+      <span>Proker</span>
+        @php
+        $terima = auth()->user()->unreadNotifications()->where("type", "App\Notifications\TerimaProker")->count();
+        $tolak = auth()->user()->unreadNotifications()->where("type", "App\Notifications\TolakProker")->count();
+        $badge_count = $terima+$tolak;
+        if ($badge_count != 0){
+          echo '<span class="badge badge-pill badge-danger">' . $badge_count . '</span>';
+        }
+        @endphp
     </a>
 </li>
 

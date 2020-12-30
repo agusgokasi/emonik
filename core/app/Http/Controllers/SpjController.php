@@ -8,7 +8,7 @@ use Auth;
 use File;
 use Illuminate\Http\Request;
 use Redirect;
-use App\Kategori;
+// use App\Kategori;
 use App\Kegiatan;
 use App\Unit;
 use App\Permohonan;
@@ -33,7 +33,7 @@ class SpjController extends Controller
     public function index() {
     	$user = Auth::user();
     	$kegiatans = Kegiatan::where('unit_id', $user->unit_id)->where('status', 1)->where('keterangan', null)->get();
-    	$permohonans = permohonan::where('created_by', $user->id)->where('status', '!=' ,0)->where('status', '!=' ,1)->where('status', '!=' ,2)->where('status', '!=' ,3)->where('status', '!=' ,4)->where('status', '!=' ,9)->where('status', '!=' ,10)->orderBy('updated_at', 'desc')->get();
+    	$permohonans = permohonan::where('created_by', $user->id)->where('status', '!=' ,0)->where('status', '!=' ,1)->where('status', '!=' ,2)->where('status', '!=' ,3)->where('status', '!=' ,4)->where('status', '!=' ,9)->where('status', '!=' ,10)->where('status', '!=' ,11)->orderBy('updated_at', 'desc')->get();
         if (auth()->user()->id != 1) {
             $user->unreadNotifications->where('type', 'App\Notifications\Dis4Permohonan')->markAsRead();
             $user->unreadNotifications->where('type', 'App\Notifications\Dt1SPJ')->markAsRead();
@@ -54,7 +54,7 @@ class SpjController extends Controller
         $permohonan = Permohonan::where('slug',$slug)->first();
         $users = User::where('id', '!=', 1)->get();
         $permohonan->status = 6;
-        $permohonan->keterangan = 'spj sedang berada di Kasubag';
+        $permohonan->keterangan = 'SPJ sedang berada di Kasubag';
         $permohonan->save();
         foreach ($users as $user) {
             if ($user->permissionsGroup->dispo1s_status == 1) {

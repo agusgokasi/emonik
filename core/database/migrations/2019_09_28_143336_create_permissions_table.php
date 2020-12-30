@@ -19,7 +19,7 @@ class CreatePermissionsTable extends Migration
             $table->tinyInteger('view_status')->default(false);
             $table->tinyInteger('permission_status')->default(false);
             $table->tinyInteger('unit_status')->default(false);
-            $table->tinyInteger('kategori_status')->default(false);
+            // $table->tinyInteger('kategori_status')->default(false);
             $table->tinyInteger('kegiatan_status')->default(false);
             $table->tinyInteger('exception_status')->default(false);
             $table->tinyInteger('permohonan_status')->default(false);
@@ -32,8 +32,8 @@ class CreatePermissionsTable extends Migration
 
             // $table->string('data_sections')->nullable();
             $table->tinyInteger('status');
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

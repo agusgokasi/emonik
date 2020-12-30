@@ -7,27 +7,26 @@
             <a href="{{ route('home') }}">Dashboard</a>
         </li>
         <li class="breadcrumb-item active">
-            Kalender Kegiatan
+            Program Kerja
         </li>
     </ol>
 
     @include('layouts.pesan')
-    
-    {{-- <button class="btn btn-primary" data-toggle="modal" data-target="#m-c" ui-toggle-class="bounce" ui-target="#animate">
+    <button class="btn btn-primary" data-toggle="modal" data-target="#m-c" ui-toggle-class="bounce" ui-target="#animate">
         <i class="fa fa-plus"></i>
-        Buat Kegiatan
+        Buat Proker
     </button>
-    @include('kegiatan._buat_kegiatan') 
-    <br><br> --}}
+    @include('permohonan._proker_buat')
+    <br><br>
     <div class="card border border-info">
         <div class="card mb-3">
             <div class="card-header">
-            <i class="fas fa-table">&nbsp;Kalender Kegiatan</i>
+            <i class="fas fa-table">&nbsp;Program Kerja Untuk Anda</i>
             </div>
 
             <div class="card-body">
             	<div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                             	<th>No</th>
@@ -37,8 +36,8 @@
                             	{{-- <th>Kategori</th> --}}
                                 <th>Unit</th>
                                 <th class="text-center" style="width:50px;">Status</th>
-                                {{-- <th class="text-center" style="width:50px;">Options</th> --}}
-                                <th class="text-center" style="width:150px;">Keterangan</th>
+                                <th class="text-center" style="width:50px;">Options</th>
+                                <th class="text-center" style="width:200px;">Keterangan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,23 +69,29 @@
                                         
                                         {{-- <i class="fa {{ ($kegiatan->status==1) ? "fa-check text-success" : "fa-times text-danger" }} inline"></i> --}}
                                     </td>
-                                    {{-- <td>@if(!$kegiatan->keterangan)
+                                    <td>@if($kegiatan->status==0)
+                                        <button class="btn btn-sm btn-block btn-success" data-toggle="modal"
+                                            data-target="#m-s-{{ $kegiatan->id }}" ui-toggle-class="bounce"
+                                            ui-target="#animate" style="margin-bottom: 5px">
+                                            <small> Submit</small>
+                                        </button>
+                                        @include('permohonan._proker_submit')
                                         <button class="btn btn-sm btn-block btn-primary" data-toggle="modal"
                                                 data-target="#m-e-{{ $kegiatan->id }}" ui-toggle-class="bounce"
                                                 ui-target="#animate" style="margin-bottom: 5px">
                                             <small> Edit</small>
                                         </button>
-                                        @include('kegiatan._edit_kegiatan')
+                                        @include('permohonan._proker_edit')
                                         <button class="btn btn-sm btn-block btn-danger" data-toggle="modal"
                                                 data-target="#m-{{ $kegiatan->id }}" ui-toggle-class="bounce"
                                                 ui-target="#animate">
                                             <small> Hapus</small>
                                         </button>
-                                        @include('kegiatan._delete_kegiatan')
+                                        @include('permohonan._proker_delete')
                                         @else
-                                        -
+                                        <center>-</center>
                                         @endif
-                                    </td> --}}
+                                    </td>
                                     <td>@if(!$kegiatan->keterangan)
                                         Proker Belum Disubmit
                                         @else
@@ -103,13 +108,21 @@
         </div>
     </div>
 @endsection
-{{-- @section('add_js')
+@section('add_js')
 <script>
 @if (count($errors) > 0 && Session::get('error_code') == 'create')
     $(document).ready(function(){
         $('#m-c').modal('show'); 
     });
 @endif
+
+$(document).ready(function($){
+    $("#maksimaldana").mask("000.000.000.000", {reverse: true});
+        $("#myForm").submit(function() {
+            $("#maksimaldana").unmask();
+        });
+});
+
 @foreach ($kegiatans as $kegiatan)
     @if (count($errors) > 0 && Session::get('error_code') == $kegiatan->id)
         $(document).ready(function(){
@@ -118,15 +131,11 @@
     @endif
 
 $(document).ready(function($){
-    $("#maksimaldana").mask("000.000.000.000", {reverse: true});
     $("#maksimaldana{{ $kegiatan->id }}").mask("000.000.000.000", {reverse: true});
-        $("#myForm").submit(function() {
-            $("#maksimaldana").unmask();
-        });
         $("#myForm{{ $kegiatan->id }}").submit(function() {
              $("#maksimaldana{{ $kegiatan->id }}").unmask();
         });
 });
 @endforeach
 </script>
-@endsection --}}
+@endsection

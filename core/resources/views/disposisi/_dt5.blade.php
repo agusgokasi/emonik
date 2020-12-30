@@ -8,6 +8,33 @@
             <form method="post" role="form" action="{{ route('dis5Tolak' , ['permohonan' => $permohonan->slug]) }}" enctype="multipart/form-data" id="myForm">
                 {{ csrf_field() }}
                 <div class="modal-body text-left p-lg">
+                    {{-- nama --}}
+                    <div class="form-group row">
+                        <label for="nama" class="col-md-4 col-form-label text-md-left">{{ __('Nama Kegiatan') }}</label>
+                        <div class="col-md-8">
+                            <input id="nama" type="text" class="form-control{{ $errors->has('nama') ? ' is-invalid' : '' }}" name="nama" value="{{ $permohonan->nama }}" disabled="disabled" autofocus>
+
+                            @if ($errors->has('nama'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('nama') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    {{-- Dibuat Oleh --}}
+                    <div class="form-group row">
+                        <label for="pemohon" class="col-md-4 col-form-label text-md-left">{{ __('Dibuat Oleh') }}</label>
+                        <div class="col-md-8">
+                            <input id="pemohon" type="text" class="form-control{{ $errors->has('pemohon') ? ' is-invalid' : '' }}" name="pemohon" value="{{ $permohonan->pemohon }}" disabled="disabled" autofocus>
+
+                            @if ($errors->has('pemohon'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('pemohon') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    {{--  --}}
                     <div class="form-group row">
                         <label for="keterangan" class="col-md-4 col-form-label text-md-left">{{ __('Alasan ditolak') }}</label>
                         <div class="col-md-8">
@@ -32,7 +59,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn dark-white p-x-md"
+                    <button type="button" class="btn btn-outline-secondary p-x-md"
                             data-dismiss="modal">Tidak</button>
                     <button type="submit" class="btn btn-danger p-x-md">
                             {{ __('Tolak' ) }}

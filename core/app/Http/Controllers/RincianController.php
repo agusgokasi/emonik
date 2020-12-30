@@ -8,7 +8,7 @@ use Auth;
 use File;
 use Illuminate\Http\Request;
 use Redirect;
-use App\Kategori;
+// use App\Kategori;
 use App\Kegiatan;
 use App\Unit;
 use App\Permohonan;
@@ -173,9 +173,9 @@ class RincianController extends Controller
             return back()->withErrors($validator)->withInput(['tab'=>'profile'])->with('error_code', $id);
         }
         //file
-        if(is_file('file/'.$rincian->file)){
-        unlink(public_path('file/'.$rincian->file));
-        }
+        // if(is_file('file/'.$rincian->file)){
+        // unlink(public_path('file/'.$rincian->file));
+        // }
         $filename = $request->file('file');
         $file = time().rand(1000,9999).'.'.$filename->getClientOriginalExtension();
         $request->file('file')->move(public_path('/file'), $file);
@@ -217,10 +217,6 @@ class RincianController extends Controller
             return back()->withErrors($validator)->withInput(['tab'=>'profile'])->with('error_code', $id);
         }
 
-        if(is_file('file/'.$rincian->file)){
-        unlink(public_path('file/'.$rincian->file));
-        }
-
         $permohonan->danaterpakai = $permohonan->danaterpakai-$rincian->biayaterpakai;
         $permohonan->sisadana = $permohonan->sisadana+$rincian->biayaterpakai;
         $permohonan->sisarincian = $permohonan->sisarincian+$rincian->biayaterpakai;
@@ -231,6 +227,9 @@ class RincianController extends Controller
 
         //file
         if($request->file('file')){
+            if(is_file('file/'.$rincian->file)){
+            unlink(public_path('file/'.$rincian->file));
+            }
             $filename = $request->file('file');
             $file = time().rand(1000,9999).'.'.$filename->getClientOriginalExtension();
             $request->file('file')->move(public_path('/file'), $file);

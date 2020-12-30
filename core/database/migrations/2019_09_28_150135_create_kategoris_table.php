@@ -13,6 +13,7 @@ class CreateKategorisTable extends Migration
      */
     public function up()
     {
+        /* 
         Schema::create('kategoris', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama');
@@ -20,7 +21,8 @@ class CreateKategorisTable extends Migration
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();
-        });
+        }); 
+        */
     }
 
     /**

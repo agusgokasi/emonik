@@ -23,15 +23,15 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                            	<th>No</th>
-                            	<th>Nama Permohonan</th>
+                            	<th style="width:5px;">No</th>
+                                <th>Nama Kegiatan</th>
                                 <th>Dibuat Oleh</th>
-                                <th>Tanggal Dibuat</th>
-                                <th>Tanggal Diedit</th>
-                                <th>Status</th>
-                                <th>Detail</th>
-                                <th>Options</th>
-                                <th>Keterangan</th>
+                                {{-- <th>Tanggal Dibuat</th> --}}
+                                <th>Tanggal Masuk</th>
+                                <th style="width:30px;">Status</th>
+                                <th style="width:30px;">Detail</th>
+                                <th style="width:30px;">Options</th>
+                                <th style="width:200px;">Keterangan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,10 +41,10 @@
                                     <td>{{++$key}}</td>
                                     <td><small>{{$permohonan->nama}}</small></td>
                                     <td><small>{{$permohonan->pemohon}}</small></td>
-                                    <td><small>{{date('d-m-Y, H:i:s', strtotime($permohonan->created_at))}}</small></td>
+                                    {{-- <td><small>{{date('d-m-Y, H:i:s', strtotime($permohonan->created_at))}}</small></td> --}}
                                     <td><small>{{date('d-m-Y, H:i:s', strtotime($permohonan->updated_at))}}</small></td>
-                                    <td>
-                                    @if($permohonan->status == 5)
+                                    <td class="text-center">
+                                    {{-- @if($permohonan->status == 5)
                                     <span class="bg-secondary text-light rounded" style="padding: 5px">Pending</span>
                                     @elseif($permohonan->status == 6)
                                     <span class="bg-primary text-light rounded" style="padding: 5px">Submited</span>
@@ -54,19 +54,26 @@
                                     <span class="bg-success text-light rounded" style="padding: 5px">Success</span>
                                     @elseif($permohonan->status == 8)
                                     <span class="bg-danger text-light rounded" style="padding: 5px">Rejected</span>
-                                    @endif
+                                    @endif --}}
+                                    <i class="fa @if($permohonan->status==10)
+                                        fa-check text-success
+                                        @elseif($permohonan->status==6 || $permohonan->status==7)
+                                        fa-hourglass-half text-primary
+                                        @else
+                                        fa-times text-danger
+                                        @endif inline"></i>
                                     </td>
-                                    <td><a href="{{ route('dissShow' , ['permohonan' => $permohonan->slug]) }}" class="btn btn-outline-primary btn-sm">Lihat Detail SPJ</a></td>
+                                    <td><a href="{{ route('dissShow' , ['permohonan' => $permohonan->slug]) }}" class="btn btn-outline-primary btn-sm">Lihat Detail</a></td>
                                     <td>
                                         @if($permohonan->status==6)
-                                        <button class="btn btn-sm btn-danger btn-block" data-toggle="modal" data-target="#m-dt5{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: red; color: white; border-radius: 2em"><i class="far fa-times-circle" style="font-size: 15px"> Tolak</i></button>
-                                        @include('disposisi._dt5')
-                                        <button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#m-d5{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: green; color: white; border-radius: 2em"><i class="fa fa-forward" style="font-size: 15px"> Lanjutkan</i></button>
+                                        <button class="btn btn-sm btn-success btn-block" data-toggle="modal" data-target="#m-d5{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="margin-bottom: 5px"><i class="fa fa-forward" style="font-size: 15px"> Lanjutkan</i></button>
                                         @include('disposisi._d5')
+                                        <button class="btn btn-sm btn-danger btn-block" data-toggle="modal" data-target="#m-dt5{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate"><i class="far fa-times-circle" style="font-size: 15px"> Tolak</i></button>
+                                        @include('disposisi._dt5')
                                         @elseif($permohonan->status==7)
                                         {{-- <button class="btn btn-sm btn-danger btn-block" data-toggle="modal" data-target="#m-dt6{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: red; color: white; border-radius: 2em"><i class="far fa-times-circle" style="font-size: 15px"> Tolak</i></button> --}}
                                         {{-- @include('disposisi._dt6') --}}
-                                        <button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#m-d6{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: green; color: white; border-radius: 2em"><i class="fa fa-forward" style="font-size: 15px"> Lanjutkan</i></button>
+                                        <button class="btn btn-sm btn-success btn-block" data-toggle="modal" data-target="#m-d6{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate"><i class="fa fa-forward" style="font-size: 15px"> Lanjutkan</i></button>
                                         @include('disposisi._d6')
                                         @endif
                                     </td>
@@ -79,7 +86,7 @@
                                         <br>
                                         @if($permohonan->spj_tolak_kas == null)
                                         @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_kas/'.$permohonan->spj_tolak_kas) }}" download="{{$permohonan->spj_tolak_kas}}"><i class="fa fa-file-download "> Download penolakan 1</i></a>
+                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_kas/'.$permohonan->spj_tolak_kas) }}" download="{{$permohonan->spj_tolak_kas}}"><i class="fa fa-file-download "> Download File Penolakan SPJ</i></a>
                                         @endif
                                         {{-- @if($permohonan->spj_tolak_ppk == null)
                                         @else

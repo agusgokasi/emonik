@@ -51,6 +51,6 @@ class HistoriController extends Controller
         // return Excel::download($export::query()->whereYear('created_at', $this->year), 'rincians.xlsx');
         // return Excel::download($export, 'rincians.xlsx');
         // return Excel::download(new RinciansExport, 'rincians.xlsx');
-        return (new RinciansExport)->forId($id)->download($slug.'Rincian.xlsx');
+        return (new RinciansExport)->forId($id)->download($slug.' Laporan.xlsx');
     }
 }

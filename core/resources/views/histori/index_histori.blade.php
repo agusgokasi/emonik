@@ -24,14 +24,14 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Nama Permohonan</th>
+                                <th style="width:5px;">No</th>
+                                <th>Nama Kegiatan</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Tanggal Dibuat</th>
                                 <th>Tanggal Diedit</th>
-                                <th>Status</th>
-                                <th>Detail</th>
-                                <th>Keterangan</th>
+                                <th style="width:30px;">Status</th>
+                                <th style="width:30px;">Detail</th>
+                                <th style="width:180px;">Keterangan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,8 +43,8 @@
                                     <td><small>{{$permohonan->pemohon}}</small></td>
                                     <td><small>{{date('d-m-Y, H:i:s', strtotime($permohonan->created_at))}}</small></td>
                                     <td><small>{{date('d-m-Y, H:i:s', strtotime($permohonan->updated_at))}}</small></td>
-                                    <td>
-                                    @if($permohonan->status == 0)
+                                    <td class="text-center">
+                                    {{-- @if($permohonan->status == 0)
                                     <span class="bg-secondary text-light rounded" style="padding: 5px">Pending</span>
                                     @elseif($permohonan->status == 1)
                                     <span class="bg-primary text-light rounded" style="padding: 5px">Submited</span>
@@ -66,7 +66,15 @@
                                     <span class="bg-danger text-light rounded" style="padding: 5px">Rejected</span>
                                     @elseif($permohonan->status == 10)
                                     <span class="bg-success text-light rounded" style="padding: 5px">Success</span>
-                                    @endif
+                                    @endif --}}
+                                    <i class="fa @if($permohonan->status==4 || $permohonan->status==10)
+                                        fa-check text-success
+                                        @elseif($permohonan->status==1 || $permohonan->status==2 || $permohonan->status==3 || $permohonan->status==6 || $permohonan->status==7)
+                                        fa-hourglass-half text-primary
+                                        @else
+                                        fa-times text-danger
+                                        @endif inline"></i>
+                                    </td>
                                     </td>
                                     <td><a href="{{ route('historiShow' , ['permohonan' => $permohonan->slug]) }}" class="btn btn-outline-primary btn-sm">Lihat Detail</a></td>
                                     <td>
@@ -78,15 +86,15 @@
                                         <br>
                                         @if( $permohonan->revisi == null )
                                         @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi/'.$permohonan->revisi) }}" download="{{$permohonan->revisi}}"><i class="fa fa-file-download "> Download keterangan</i></a>
+                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi/'.$permohonan->revisi) }}" download="{{$permohonan->revisi}}"><i class="fa fa-file-download "> Download Keterangan PPK</i></a>
                                         @endif
                                         @if( $permohonan->revisi2 == null )
                                         @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi2/'.$permohonan->revisi2) }}" download="{{$permohonan->revisi2}}"><i class="fa fa-file-download "> Download Keterangan 2</i></a>
+                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi2/'.$permohonan->revisi2) }}" download="{{$permohonan->revisi2}}"><i class="fa fa-file-download "> Download Keterangan Kasubag</i></a>
                                         @endif
                                         @if($permohonan->spj_tolak_kas == null)
                                         @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_kas/'.$permohonan->spj_tolak_kas) }}" download="{{$permohonan->spj_tolak_kas}}"><i class="fa fa-file-download "> Download penolakan 1</i></a>
+                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_kas/'.$permohonan->spj_tolak_kas) }}" download="{{$permohonan->spj_tolak_kas}}"><i class="fa fa-file-download "> Download File Penolakan SPJ</i></a>
                                         @endif
                                         {{-- @if($permohonan->spj_tolak_ppk == null)
                                         @else

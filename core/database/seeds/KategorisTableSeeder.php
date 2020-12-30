@@ -11,7 +11,7 @@ class KategorisTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
+    {/*
         $Kategori = new Kategori();
         $Kategori->nama = "Seminar";
         $Kategori->status = 1;
@@ -23,5 +23,6 @@ class KategorisTableSeeder extends Seeder
         $Kategori->status = 1;
         $Kategori->created_by = 1;
         $Kategori->save();
+    */
     }
 }

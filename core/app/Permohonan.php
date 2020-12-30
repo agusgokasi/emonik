@@ -12,6 +12,11 @@ class Permohonan extends Model
     {
         return $this->belongsTo('App\Kegiatan', 'kegiatan_id');
     }
+    // relation with user
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'created_by');
+    }
     // relation with Kategori
     // public function kategori()
     // {

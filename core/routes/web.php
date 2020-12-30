@@ -66,25 +66,36 @@ Route::Group(['middleware' => ['auth']], function () {
     Route::post('/units/{id}/update', 'UnitController@update')->name('unitsUpdate');
     Route::get('/units/destroy/{id}', 'UnitController@destroy')->name('unitsDestroy');
 
-    // Kategori
+    /* // Kategori
     Route::get('/kategori', 'KategoriController@index')->name('kategori');
     Route::post('/kategori/create', 'KategoriController@post')->name('kategoriCreate');
     Route::post('/kategori/{id}/update', 'KategoriController@update')->name('kategoriUpdate');
     Route::get('/kategori/destroy/{id}', 'KategoriController@destroy')->name('kategoriDestroy');
+    */
 
-    // Kegiatan
+    // Proker&Kegiatan
     Route::get('/kegiatan', 'KegiatanController@index')->name('kegiatan');
-    Route::post('/kegiatan/create', 'KegiatanController@post')->name('kegiatanCreate');
+    Route::get('/proker', 'KegiatanController@proker')->name('proker');
+    Route::post('/proker/{id}/terima', 'KegiatanController@terima')->name('prokerTerima');
+    Route::post('/proker/{id}/tolak', 'KegiatanController@tolak')->name('prokerTolak');
+    /* Route::post('/kegiatan/create', 'KegiatanController@post')->name('kegiatanCreate');
     Route::post('/kegiatan/{id}/update', 'KegiatanController@update')->name('kegiatanUpdate');
     Route::get('/kegiatan/destroy/{id}', 'KegiatanController@destroy')->name('kegiatanDestroy');
-
+    */
+    //ProkerPermohonan
+    Route::get('/permohonan/getProkers/{id}', 'PermohonanController@getProkers');
+    Route::get('/prokerpermohonan', 'PermohonanController@indexProker')->name('prokerpermohonan');
+    Route::post('/prokerpermohonan/create', 'PermohonanController@postProker')->name('prokerCreate');
+    Route::post('/prokerpermohonan/{id}/update', 'PermohonanController@updateProker')->name('prokerUpdate');
+    Route::get('/prokerpermohonan/destroy/{id}', 'PermohonanController@destroyProker')->name('prokerDestroy');
+    Route::get('/prokerpermohonan/submit/{id}', 'PermohonanController@submitProker')->name('prokerSubmit');
     // Permohonan
-    Route::get('/kategoripermohonan', 'PermohonanController@indexkategori')->name('kategoripermohonan');
     Route::get('/permohonan', 'PermohonanController@index')->name('permohonan');
     Route::get('/permohonan/create', 'PermohonanController@create')->name('permohonanCreate');
     Route::post('/permohonan/store', 'PermohonanController@store')->name('permohonanStore');
     Route::get('/permohonan/{permohonan}', 'PermohonanController@show')->name('permohonanShow');
     Route::get('/permohonan/{permohonan}/edit', 'PermohonanController@edit')->name('permohonanEdit');
+    Route::get('/permohonan/{permohonan}/editp', 'PermohonanController@editp')->name('permohonanEditp');
     Route::post('/permohonan/{permohonan}/update', 'PermohonanController@update')->name('permohonanUpdate');
     Route::get('/permohonan/destroy/{permohonan}', 'PermohonanController@destroy')->name('permohonanDestroy');
     Route::get('/permohonan/submit/{permohonan}', 'PermohonanController@submit')->name('permohonanSubmit');

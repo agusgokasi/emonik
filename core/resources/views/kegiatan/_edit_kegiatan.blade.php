@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     {{-- kategori --}}
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label for="kategori" class="col-md-4 col-form-label text-md-left">{{ __('Kategori') }}</label>
 
                         <div class="col-md-8">
@@ -77,7 +77,7 @@
                                 </span>
                             @endif
                         </div>
-                    </div>
+                    </div> --}}
                     {{-- unit --}}
                     <div class="form-group row">
                         <label for="unit" class="col-md-4 col-form-label text-md-left">{{ __('Unit') }}</label>

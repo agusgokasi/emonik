@@ -29,6 +29,10 @@
                               <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('file') }}</strong>
                               </span>
+                          @else
+                              <span class="feedback" role="alert">
+                                  <small><strong>*Kosongkan bila tidak ingin mengubah</strong></small>
+                              </span>
                           @endif
                       </div>
                   </div>

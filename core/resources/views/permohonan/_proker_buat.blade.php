@@ -3,9 +3,9 @@
         <div class="modal-dialog" id="animate">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Buat Kegiatan</h5>
+                    <h5 class="modal-title">Buat Proker</h5>
                 </div>
-            <form method="post" role="form" action="{{ route('kegiatanCreate') }}" enctype="multipart/form-data" id="myForm">
+            <form method="post" role="form" action="{{ route('prokerCreate') }}" enctype="multipart/form-data" id="myForm">
                 {{ csrf_field() }}
                 <div class="modal-body text-left p-lg">
                     {{-- nama --}}
@@ -50,49 +50,13 @@
                     </div>
                     {{-- maksimaldana --}}
                     <div class="form-group row">
-                        <label for="maksimaldana" class="col-md-4 col-form-label text-md-left">{{ __('Maksimal Dana (Rp)') }}</label>
+                        <label for="maksimaldana" class="col-md-4 col-form-label text-md-left">{{ __('Usulan Dana (Rp)') }}</label>
                         <div class="col-md-8">
                             <input id="maksimaldana" type="text" class="form-control{{ $errors->has('maksimaldana') ? ' is-invalid' : '' }}" name="maksimaldana" value="{{ old('maksimaldana') }}" required autofocus>
 
                             @if ($errors->has('maksimaldana'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('maksimaldana') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-                    {{-- kategori --}}
-                    {{-- <div class="form-group row">
-                        <label for="kategori" class="col-md-4 col-form-label text-md-left">{{ __('Kategori') }}</label>
-
-                        <div class="col-md-8">
-                            <select name="kategori" class="form-control{{ $errors->has('kategori') ? ' is-invalid' : '' }}" id="kategori" value="{{ old('kategori') }}" required autofocus>
-                                <option hidden disabled selected value>--Pilih Kategori--</option>
-                                @foreach($kategoris as $kategori)
-                                <option value="{{$kategori->id}}" {!! old('kategori')==$kategori->id ? "selected='selected'":"" !!} data-id="{{$kategori->id}}">{{$kategori->nama}}</option>
-                                @endforeach
-                            </select>
-                            @if ($errors->has('kategori'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('kategori') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div> --}}
-                    {{-- unit --}}
-                    <div class="form-group row">
-                        <label for="unit" class="col-md-4 col-form-label text-md-left">{{ __('Unit') }}</label>
-
-                        <div class="col-md-8">
-                            <select name="unit" class="form-control{{ $errors->has('unit') ? ' is-invalid' : '' }}" id="unit" value="{{ old('unit') }}" required autofocus>
-                                <option hidden disabled selected value>--Pilih Unit--</option>
-                                @foreach($units as $unit)
-                                <option value="{{$unit->id}}" {!! old('unit')==$unit->id ? "selected='selected'":"" !!} data-id="{{$unit->id}}">{{$unit->nama}}</option>
-                                @endforeach
-                            </select>
-                            @if ($errors->has('unit'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('unit') }}</strong>
                                 </span>
                             @endif
                         </div>

@@ -7,9 +7,9 @@
                 </div>
                 <div class="modal-body text-center p-lg">
                     <p>
-                        Anda tidak mempunyai kegiatan permohonan baru!
+                        Anda tidak mempunyai Proker baru!
                         <br>
-                        <strong style="color: red">[ harap hubungi petugas jika ingin membuat permohonan lainnya. ]</strong>
+                        <strong style="color: red">[ harap membuat Proker jika ingin membuat permohonan lainnya. ]</strong>
                     </p>
                 </div>
                 <div class="modal-footer">

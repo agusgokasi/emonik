@@ -17,8 +17,8 @@ class CreateFakultasesTable extends Migration
             $table->bigIncrements('id');
             $table->string('nama');
             $table->tinyInteger('status');
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

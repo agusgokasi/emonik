@@ -27,37 +27,6 @@
         <form method="post" role="form" action="{{ route('permohonanUpdate', ['permohonan' => $permohonan->slug]) }}" enctype="multipart/form-data" id="myForm">
             
             {{ csrf_field() }}
-            {{-- nama --}}
-            <div class="form-group row">
-                <label for="nama" class="col-md-4 col-form-label text-md-left">{{ __('Nama Kegiatan') }}</label>
-                <div class="col-md-8">
-                    <input id="nama" type="text" class="form-control{{ $errors->has('nama') ? ' is-invalid' : '' }}" name="nama" value="{{ $permohonan->nama }}" required autofocus> 
-                    @if ($errors->has('nama'))
-                        <span class="invalid-feedback text-danger" role="alert">
-                            <strong>{{ $errors->first('nama') }}</strong>
-                        </span> 
-                    @endif
-                </div>
-            </div>
-
-            {{-- kegiatan --}}
-            <div class="form-group row">
-                <label for="role" class="col-md-4 col-form-label text-md-left">{{ __('Kategori') }}</label>
-
-                <div class="col-md-8">
-                    <select name="kegiatan" class="form-control{{ $errors->has('kegiatan') ? ' is-invalid' : '' }}" id="kegiatan" value="{{ $permohonan->kegiatan_id }}" required>
-                        <option value="{{$permohonan->kegiatan_id}}" data-id="{{$permohonan->kegiatan_id}}" selected>{{$permohonan->kegiatan->nama}}</option>
-                        @foreach($kegiatans as $kegiatan)
-                        <option value="{{$kegiatan->id}}" data-id="{{$kegiatan->id}}">{{$kegiatan->nama}}</option>
-                        @endforeach
-                    </select>
-                    @if ($errors->has('kegiatan'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('kegiatan') }}</strong>
-                        </span>
-                    @endif
-                </div>
-            </div>
 
             {{-- pemohon --}}
             <div class="form-group row">
@@ -72,114 +41,136 @@
                 </div>
             </div>
 
-            {{-- nomorinduk --}}
+            {{-- nama --}}
             <div class="form-group row">
-                <label for="nomorinduk" class="col-md-4 col-form-label text-md-left">{{ __('Nomor Induk') }}</label>
+                <label for="nama" class="col-md-4 col-form-label text-md-left">{{ __('Nama Kegiatan') }}</label>
+                <div class="col-md-8">
+                    <input id="nama" type="text" class="form-control{{ $errors->has('nama') ? ' is-invalid' : '' }}" name="nama" value="{{ $permohonan->nama }}" required autofocus> 
+                    @if ($errors->has('nama'))
+                        <span class="invalid-feedback text-danger" role="alert">
+                            <strong>{{ $errors->first('nama') }}</strong>
+                        </span> 
+                    @endif
+                </div>
+            </div>
+
+            {{-- Proker --}}
+            <div class="form-group row">
+                <label for="role" class="col-md-4 col-form-label text-md-left">{{ __('Program Kerja') }}</label>
 
                 <div class="col-md-8">
-                    <input id="nomorinduk" type="text" class="form-control{{ $errors->has('nomorinduk') ? ' is-invalid' : '' }}" name="nomorinduk" value="{{ $permohonan->nomorinduk }}" required>
-
-                    @if ($errors->has('nomorinduk'))
+                    <select name="kegiatan" class="form-control{{ $errors->has('kegiatan') ? ' is-invalid' : '' }}" id="kegiatan" value="{{ old('kegiatan') }}" readonly>
+                        <option value="{{$permohonan->kegiatan_id}}" selected>{{$permohonan->kegiatan->nama}}</option>
+                    </select>
+                    @if ($errors->has('kegiatan'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('nomorinduk') }}</strong>
+                            <strong>{{ $errors->first('kegiatan') }}</strong>
                         </span>
                     @endif
                 </div>
             </div>
 
+            {{-- Maksimal Dana --}}
             <div class="form-group row">
-                <label for="latarbelakangkegiatan" class="col-md-4 col-form-label text-md-left">{{ __('Latar Belakang Kegiatan') }}</label>
+                <label class="col-sm-4 col-form-label text-md-left">{{ __('Maksimal Dana (Rp)') }}</label>
+                <div class="col-md-8">
+
+                    <input id="maksimaldana" type="text" class="form-control {{ $errors->has('maksimaldana') ? ' is-invalid' : '' }}" name="maksimaldana" value="{{ $permohonan->kegiatan->maksimaldana }}" disabled autofocus>
+                    @if ($errors->has('maksimaldana'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('maksimaldana') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
+
+            {{-- Latar Belakang --}}
+            <div class="form-group row">
+                <label for="latarbelakang" class="col-md-4 col-form-label text-md-left">{{ __('Latar Belakang') }}</label>
 
                 <div class="col-md-8">
-                    <textarea name="latarbelakangkegiatan" class="form-control{{ $errors->has('latarbelakangkegiatan') ? ' is-invalid' : '' }}" id="latarbelakangkegiatan" value="{{ $permohonan->latarbelakangkegiatan }}" required>{{ $permohonan->latarbelakangkegiatan }}</textarea>
-                    @if ($errors->has('latarbelakangkegiatan'))
+                    <textarea name="latarbelakang" class="form-control{{ $errors->has('latarbelakang') ? ' is-invalid' : '' }}" id="latarbelakang" value="{{ $permohonan->latarbelakang }}" required>{{ $permohonan->latarbelakang }}</textarea>
+                    @if ($errors->has('latarbelakang'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('latarbelakangkegiatan') }}</strong>
+                            <strong>{{ $errors->first('latarbelakang') }}</strong>
                         </span>
                     @endif
                 </div>
             </div>
 
+            {{-- Tujuan / Penerima Manfaat --}}
             <div class="form-group row">
-                <label for="role" class="col-md-4 col-form-label text-md-left">{{ __('Tujuan Kegiatan') }}</label>
+                <label for="role" class="col-md-4 col-form-label text-md-left">{{ __('Tujuan / Penerima Manfaat') }}</label>
 
                 <div class="col-md-8">
-                    <textarea name="tujuankegiatan" class="form-control{{ $errors->has('tujuankegiatan') ? ' is-invalid' : '' }}" id="tujuankegiatan" value="{{ $permohonan->tujuankegiatan }}" required>{{ $permohonan->tujuankegiatan }}</textarea>
-                    @if ($errors->has('tujuankegiatan'))
+                    <textarea name="tujuan" class="form-control{{ $errors->has('tujuan') ? ' is-invalid' : '' }}" id="tujuan" value="{{ $permohonan->tujuan }}" required>{{ $permohonan->tujuan }}</textarea>
+                    @if ($errors->has('tujuan'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('tujuankegiatan') }}</strong>
+                            <strong>{{ $errors->first('tujuan') }}</strong>
                         </span>
                     @endif
                 </div>
             </div>
 
+            {{-- Ruang Lingkup / Strategi Pencapaian Keluaran --}}
             <div class="form-group row">
-                <label for="tempatkegiatan" class="col-md-4 col-form-label text-md-left">{{ __('Tempat Kegiatan') }}</label>
+                <label for="ruanglingkup" class="col-md-4 col-form-label text-md-left">{{ __('Ruang Lingkup / Strategi Pencapaian Keluaran') }}</label>
 
                 <div class="col-md-8">
-                    <input type="text" name="tempatkegiatan" class="form-control{{ $errors->has('tempatkegiatan') ? ' is-invalid' : '' }}" id="tempatkegiatan" value="{{ $permohonan->tempatkegiatan }}" required>
-                    @if ($errors->has('tempatkegiatan'))
+                    <textarea name="ruanglingkup" class="form-control{{ $errors->has('ruanglingkup') ? ' is-invalid' : '' }}" id="ruanglingkup" value="{{ $permohonan->ruanglingkup }}" required>{{ $permohonan->ruanglingkup }}</textarea>
+                    @if ($errors->has('ruanglingkup'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('tempatkegiatan') }}</strong>
+                            <strong>{{ $errors->first('ruanglingkup') }}</strong>
                         </span>
                     @endif
                 </div>
             </div>
 
+            {{-- Waktu Pencapaian Keluaran --}}
             <div class="form-group row">
-                <label for="tanggalkegiatan" class="col-md-4 col-form-label text-md-left">{{ __('Tanggal Kegiatan') }}</label>
+                <label for="waktupencapaian" class="col-md-4 col-form-label text-md-left">{{ __('Waktu Pencapaian Keluaran') }}</label>
 
                 <div class="col-md-8">
-                    <input type="date" name="tanggalkegiatan" class="form-control{{ $errors->has('tanggalkegiatan') ? ' is-invalid' : '' }}" id="tanggalkegiatan" value="{{ $permohonan->tanggalkegiatan }}" required>
-                    @if ($errors->has('tanggalkegiatan'))
+                    <textarea name="waktupencapaian" class="form-control{{ $errors->has('waktupencapaian') ? ' is-invalid' : '' }}" id="waktupencapaian" value="{{ $permohonan->waktupencapaian }}" required>{{ $permohonan->waktupencapaian }}</textarea>
+
+
+                    @if ($errors->has('waktupencapaian'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('tanggalkegiatan') }}</strong>
+                            <strong>{{ $errors->first('waktupencapaian') }}</strong>
                         </span>
                     @endif
                 </div>
             </div>
 
+            {{-- Susunan Acara / Luaran --}}
             <div class="form-group row">
-                <label for="pesertakegiatan" class="col-md-4 col-form-label text-md-left">{{ __('Peserta Kegiatan') }}</label>
+                <label for="luaran" class="col-md-4 col-form-label text-md-left">{{ __('Susunan Acara / Luaran') }}</label>
 
                 <div class="col-md-8">
-                    <textarea name="pesertakegiatan" class="form-control{{ $errors->has('pesertakegiatan') ? ' is-invalid' : '' }}" id="pesertakegiatan" value="{{ $permohonan->pesertakegiatan }}" required>{{ $permohonan->pesertakegiatan }}</textarea>
-                    @if ($errors->has('pesertakegiatan'))
+                    <textarea name="luaran" class="form-control{{ $errors->has('luaran') ? ' is-invalid' : '' }}" id="luaran" value="{{ $permohonan->luaran }}" required>{{ $permohonan->luaran }}</textarea>
+                    @if ($errors->has('luaran'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('pesertakegiatan') }}</strong>
+                            <strong>{{ $errors->first('luaran') }}</strong>
                         </span>
                     @endif
                 </div>
             </div>
 
+            {{-- Pembiayaan / Rencana Anggaran --}}
             <div class="form-group row">
-                <label for="strategipencapaiankeluaran" class="col-md-4 col-form-label text-md-left">{{ __('Strategi Pencapaian Keluaran') }}</label>
+                <label for="pembiayaan" class="col-md-4 col-form-label text-md-left">{{ __('Pembiayaan / Rencana Anggaran') }}</label>
 
                 <div class="col-md-8">
-                    <textarea name="strategipencapaiankeluaran" class="form-control{{ $errors->has('strategipencapaiankeluaran') ? ' is-invalid' : '' }}" id="strategipencapaiankeluaran" value="{{ $permohonan->strategipencapaiankeluaran }}" required>{{ $permohonan->strategipencapaiankeluaran }}</textarea>
-
-
-                    @if ($errors->has('strategipencapaiankeluaran'))
+                    <textarea name="pembiayaan" class="form-control{{ $errors->has('pembiayaan') ? ' is-invalid' : '' }}" id="pembiayaan" value="{{ $permohonan->pembiayaan }}" required>{{ $permohonan->pembiayaan }}</textarea>
+                    @if ($errors->has('pembiayaan'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('strategipencapaiankeluaran') }}</strong>
+                            <strong>{{ $errors->first('pembiayaan') }}</strong>
                         </span>
                     @endif
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label for="susunanpanitia" class="col-md-4 col-form-label text-md-left">{{ __('Susunan Panitia') }}</label>
-
-                <div class="col-md-8">
-                    <textarea name="susunanpanitia" class="form-control{{ $errors->has('susunanpanitia') ? ' is-invalid' : '' }}" id="susunanpanitia" value="{{ $permohonan->susunanpanitia }}" required>{{ $permohonan->susunanpanitia }}</textarea>
-                    @if ($errors->has('susunanpanitia'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('susunanpanitia') }}</strong>
-                        </span>
-                    @endif
-                </div>
-            </div>
-
+            {{-- File TOR --}}
             <div class="form-group row">
                 <label for="filetor" class="col-md-4 col-form-label text-md-left">{{ __('File TOR') }}</label>
                 <div class="col-md-8">
@@ -187,6 +178,10 @@
                     @if ($errors->has('filetor'))
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('filetor') }}</strong>
+                        </span>
+                    @else
+                        <span class="feedback" role="alert">
+                            <small><strong>*Kosongkan bila tidak ingin mengubah</strong></small>
                         </span>
                     @endif
                 </div>
@@ -211,12 +206,49 @@
 @endsection
 @section('add_js')
 <script>
-    // jQuery(function($){
-    $(document).ready(function($){
-    $("#nomorinduk").mask("0000 0000 0000 0000 0000 0000", {reverse: false});
-    $("#myForm").submit(function() {
-        $("#nomorinduk").unmask();
-        });
+    $(document).ready(function() {
+    $('select[name="kegiatan"]').on('change', function(){
+        var kegiatanID = $(this).val();
+        if(kegiatanID) {
+            $.ajax({
+                url: '/emonik/permohonan/getProkers/'+kegiatanID,
+                type:"GET",
+                dataType:"json",
+                beforeSend: function(){
+                    $('input[name="maksimaldana"]').val('--Please Wait--');
+                },
+                success:function(data) {
+                    // console.log(data);
+                    $('input[name="maksimaldana"]').empty();
+                    if(data == ''){
+                        // console.log(data);
+                        $('input[name="maksimaldana"]').val('--Tidak Ada--');
+                    }
+                    else{
+                    $.each(data, function(){
+                        // console.log(data);
+                            $('input[name="maksimaldana"]').mask("000.000.000.000", {reverse: true}).val(data).trigger('input');
+                        });
+                    }
+                },
+                complete: function(){
+                    $('#loader').css("visibility", "hidden");
+                }
+            });
+        }
+        else {
+            $('input[name="maksimaldana"]').empty();
+            $('input[name="maksimaldana"]').val('--Tidak Ada--');
+        }
+
     });
+
+});
+$(document).ready(function($){
+    $("#maksimaldana").mask("000.000.000.000", {reverse: true});
+        $("#myForm").submit(function() {
+            $("#maksimaldana").unmask();
+        });
+});
 </script>
 @endsection

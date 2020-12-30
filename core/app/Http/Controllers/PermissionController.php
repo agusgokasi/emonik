@@ -38,7 +38,7 @@ class PermissionController extends Controller
             'view_status'       => 'required|in:1,0',
             'permission_status'      => 'required|in:1,0',
             'unit_status'      => 'required|in:1,0',
-            'kategori_status'      => 'required|in:1,0',
+            // 'kategori_status'      => 'required|in:1,0',
             'kegiatan_status'   => 'required|in:1,0',
             'exception_status'   => 'required|in:1,0',
             'permohonan_status'         => 'required|in:1,0',
@@ -56,7 +56,7 @@ class PermissionController extends Controller
             'view_status.required'=>'Membaca Data harus diisi',
             'permission_status.required'=>'CRUD User & permission harus diisi',
             'unit_status.required'=>'CRUD Unit harus diisi',
-            'kategori_status.required'=>'CRUD Kategori harus diisi',
+            // 'kategori_status.required'=>'CRUD Kategori harus diisi',
             'kegiatan_status.required'=>'CRUD Kegiatan harus diisi',
             'exception_status.required'=>'Membuka Pengajuan Pemohon harus diisi',
             'permohonan_status.required'=>'CRUD Permohonan & SPJ harus diisi',
@@ -74,7 +74,7 @@ class PermissionController extends Controller
         $Permissions->view_status = $request['view_status'];
         $Permissions->permission_status = $request['permission_status'];
         $Permissions->unit_status = $request['unit_status'];
-        $Permissions->kategori_status = $request['kategori_status'];
+        // $Permissions->kategori_status = $request['kategori_status'];
         $Permissions->kegiatan_status = $request['kegiatan_status'];
         $Permissions->exception_status = $request['exception_status'];
         $Permissions->permohonan_status = $request['permohonan_status'];
@@ -105,7 +105,7 @@ class PermissionController extends Controller
             'view_status'       => 'required|in:1,0',
             'permission_status'      => 'required|in:1,0',
             'unit_status'      => 'required|in:1,0',
-            'kategori_status'      => 'required|in:1,0',
+            // 'kategori_status'      => 'required|in:1,0',
             'kegiatan_status'   => 'required|in:1,0',
             'exception_status'   => 'required|in:1,0',
             'permohonan_status'         => 'required|in:1,0',
@@ -123,7 +123,7 @@ class PermissionController extends Controller
             'view_status.required'=>'Membaca Data harus diisi',
             'permission_status.required'=>'CRUD User & permission harus diisi',
             'unit_status.required'=>'CRUD Unit harus diisi',
-            'kategori_status.required'=>'CRUD Kategori harus diisi',
+            // 'kategori_status.required'=>'CRUD Kategori harus diisi',
             'kegiatan_status.required'=>'CRUD Kegiatan harus diisi',
             'exception_status.required'=>'Membuka Pengajuan Pemohon harus diisi',
             'permohonan_status.required'=>'CRUD Permohonan & SPJ harus diisi',
@@ -139,7 +139,7 @@ class PermissionController extends Controller
         $Permissions->view_status = $request['view_status'];
         $Permissions->permission_status = $request['permission_status'];
         $Permissions->unit_status = $request['unit_status'];
-        $Permissions->kategori_status = $request['kategori_status'];
+        // $Permissions->kategori_status = $request['kategori_status'];
         $Permissions->kegiatan_status = $request['kegiatan_status'];
         $Permissions->exception_status = $request['exception_status'];
         $Permissions->permohonan_status = $request['permohonan_status'];

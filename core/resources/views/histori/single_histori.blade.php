@@ -44,69 +44,71 @@
                     <br>
                     <form>
                         <div class="form-group">
-                            <label for="pemohon"><i class="fa fa-user"> Nama Pemohon</i></label>
-                            <input type="text" class="form-control" id="pemohon" placeholder="{{ $permohonan->pemohon }}" disabled>
+                            <label for="created"><i class="fa fa-id-card"> Dibuat Oleh</i></label>
+                            <input type="text" class="form-control" id="created" placeholder="{{ $permohonan->pemohon }}" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="nomorinduk"><i class="fa fa-id-card"> Nomor Induk</i></label>
-                            <input type="text" class="form-control" id="nomorinduk" placeholder="{{ $permohonan->nomorinduk }}" disabled>
+                            <label for="pemohon"><i class="fa fa-chevron-circle-right"> Nama Kegiatan</i></label>
+                            <input type="text" class="form-control" id="pemohon" placeholder="{{ $permohonan->nama }}" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="kegiatan"><i class="fa fa-place-of-worship"> Kategori Permohonan</i></label>
-                            <input type="text" class="form-control" id="kegiatan" placeholder="{{ $permohonan->kegiatan->nama }}" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="latarbelakangkegiatan"><i class="fa fa-edit"> Latar Belakang Kegiatan</i></label>
-                            <textarea type="text" class="form-control" id="latarbelakangkegiatan" placeholder="{{ $permohonan->latarbelakangkegiatan }}" disabled></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="latarbelakangkegiatan"><i class="fa fa-pen"> Tujuan Kegiatan</i></label>
-                            <textarea type="text" class="form-control" id="latarbelakangkegiatan" placeholder="{{ $permohonan->tujuankegiatan }}" disabled></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="pesertakegiatan"><i class="fa fa-users"> Peserta Kegiatan</i></label>
-                            <textarea type="text" class="form-control" id="pesertakegiatan" placeholder="{{ $permohonan->pesertakegiatan }}" disabled></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="strategipencapaiankeluaran"><i class="fa fa-stream"> Strategi pencapaian keluaran</i></label>
-                            <textarea type="text" class="form-control" id="strategipencapaiankeluaran" placeholder="{{ $permohonan->strategipencapaiankeluaran }}" disabled></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="susunanpanitia"><i class="fa fa-users"> Susunan panitia</i></label>
-                            <textarea type="text" class="form-control" id="susunanpanitia" placeholder="{{ $permohonan->susunanpanitia }}" disabled></textarea>
+                            <label for="kegiatan"><i class="fa fa-place-of-worship"> Program Kerja</i></label>
+                            <input type="text" class="form-control" id="kegiatan" placeholder="{{ $permohonan->kegiatan->nama }}" readonly>
                         </div>
                         <div class="form-group">
                             <label for="biayarincian"><i class="fa fa-money-bill-wave"> Total Usulan</i></label>
-                            <input type="text" class="form-control" id="biayarincian" placeholder="Rp{{format_uang($permohonan->biayarincian)}}" disabled>
+                            <input type="text" class="form-control" id="biayarincian" placeholder="Rp{{format_uang($permohonan->biayarincian)}}" readonly>
                         </div>
                         <div class="form-group">
                             <label for="totalbiaya"><i class="fa fa-money-bill-alt"> Biaya Perencanaan</i></label>
-                            <input type="text" class="form-control" id="totalbiaya" placeholder="Rp{{format_uang($permohonan->totalbiaya)}}" disabled>
+                            <input type="text" class="form-control" id="totalbiaya" placeholder="Rp{{format_uang($permohonan->totalbiaya)}}" readonly>
                         </div>
                         <div class="form-group">
                             <label for="danaterpakai"><i class="fa fa-money-bill-alt"> Total Realisasi</i></label>
-                            <input type="text" class="form-control" id="danaterpakai" placeholder="Rp{{format_uang($permohonan->danaterpakai)}}" disabled>
+                            <input type="text" class="form-control" id="danaterpakai" placeholder="Rp{{format_uang($permohonan->danaterpakai)}}" readonly>
                         </div>
                         <div class="form-group">
                             <label for="sisarincian"><i class="fa fa-money-bill-alt"> Total Sisa Usulan</i></label>
-                            <input type="text" class="form-control" id="sisarincian" placeholder="Rp{{format_uang($permohonan->sisarincian)}}" disabled>
+                            <input type="text" class="form-control" id="sisarincian" placeholder="Rp{{format_uang($permohonan->sisarincian)}}" readonly>
                         </div>
                         <div class="form-group">
                             <label for="sisadana"><i class="fa fa-money-bill-alt"> Total Sisa Perencanaan</i></label>
-                            <input type="text" class="form-control" id="sisadana" placeholder="Rp{{format_uang($permohonan->sisadana)}}" disabled>
+                            <input type="text" class="form-control" id="sisadana" placeholder="Rp{{format_uang($permohonan->sisadana)}}" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="tanggalkegiatan"><i class="fa fa-calendar"> Tanggal Kegiatan</i></label>
-                            <input type="text" class="form-control" id="tanggalkegiatan" placeholder="{{date('d-m-Y', strtotime($permohonan->tanggalkegiatan))}}" disabled>
+                            <label for="latarbelakang"><i class="fa fa-edit"> Latar Belakang Kegiatan</i></label>
+                            <textarea type="text" class="form-control" id="latarbelakang" placeholder="{{ $permohonan->latarbelakang }}" readonly></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="tempatkegiatan"><i class="fa fa-map-marker"> Tempat Kegiatan</i></label>
-                            <input type="text" class="form-control" id="tempatkegiatan" placeholder="{{($permohonan->tempatkegiatan)}}" disabled>
+                            <label for="tujuan"><i class="fa fa-pen"> Tujuan / Penerima Manfaat</i></label>
+                            <textarea type="text" class="form-control" id="tujuan" placeholder="{{ $permohonan->tujuan }}" readonly></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="ruanglingkup"><i class="fa fa-stream"> Ruang Lingkup / Strategi Pencapaian Keluaran</i></label>
+                            <textarea type="text" class="form-control" id="ruanglingkup" placeholder="{{ $permohonan->ruanglingkup }}" readonly></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="waktupencapaian"><i class="fas fa-calendar-day"> Waktu Pencapaian Keluaran</i></label>
+                            <textarea type="text" class="form-control" id="waktupencapaian" placeholder="{{ $permohonan->waktupencapaian }}" readonly></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="luaran"><i class="fas fa-calendar-check"> Susunan Acara / Luaran</i></label>
+                            <textarea type="text" class="form-control" id="luaran" placeholder="{{ $permohonan->luaran }}" readonly></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="pembiayaan"><i class="fas fa-money-check"> Pembiayaan / Rencana Anggaran</i></label>
+                            <textarea type="text" class="form-control" id="pembiayaan" placeholder="{{ $permohonan->pembiayaan }}" readonly></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="created_at"><i class="fa fa-calendar"> Tanggal Dibuat</i></label>
+                            <input type="text" class="form-control" id="created_at" placeholder="{{date('d-m-Y, H:i:s', strtotime($permohonan->created_at))}}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="updated_at"><i class="fas fa-calendar-week"> Tanggal Diedit</i></label>
+                            <input type="text" class="form-control" id="updated_at" placeholder="{{date('d-m-Y, H:i:s', strtotime($permohonan->updated_at))}}" readonly>
                         </div>
 
                     </form>
-
-
 
                 </div>
                 <div class="tab-pane" id="profile" role="tabpanel">

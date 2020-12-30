@@ -7,7 +7,7 @@
             <a href="{{ route('home') }}">Dashboard</a>
         </li>
         <li class="breadcrumb-item active">
-            Kalender Kegiatan
+            Program Kerja
         </li>
     </ol>
 
@@ -22,7 +22,7 @@
     <div class="card border border-info">
         <div class="card mb-3">
             <div class="card-header">
-            <i class="fas fa-table">&nbsp;Kalender Kegiatan</i>
+            <i class="fas fa-table">&nbsp;Manajemen Program Kerja</i>
             </div>
 
             <div class="card-body">
@@ -37,7 +37,7 @@
                             	{{-- <th>Kategori</th> --}}
                                 <th>Unit</th>
                                 <th class="text-center" style="width:50px;">Status</th>
-                                {{-- <th class="text-center" style="width:50px;">Options</th> --}}
+                                <th class="text-center" style="width:50px;">Options</th>
                                 <th class="text-center" style="width:150px;">Keterangan</th>
                             </tr>
                         </thead>
@@ -70,23 +70,20 @@
                                         
                                         {{-- <i class="fa {{ ($kegiatan->status==1) ? "fa-check text-success" : "fa-times text-danger" }} inline"></i> --}}
                                     </td>
-                                    {{-- <td>@if(!$kegiatan->keterangan)
-                                        <button class="btn btn-sm btn-block btn-primary" data-toggle="modal"
-                                                data-target="#m-e-{{ $kegiatan->id }}" ui-toggle-class="bounce"
+                                    <td>
+                                        <button class="btn btn-sm btn-block btn-success" data-toggle="modal"
+                                                data-target="#m-te-{{ $kegiatan->id }}" ui-toggle-class="bounce"
                                                 ui-target="#animate" style="margin-bottom: 5px">
-                                            <small> Edit</small>
+                                            <small> Terima</small>
                                         </button>
-                                        @include('kegiatan._edit_kegiatan')
+                                        @include('kegiatan._terima_proker')
                                         <button class="btn btn-sm btn-block btn-danger" data-toggle="modal"
-                                                data-target="#m-{{ $kegiatan->id }}" ui-toggle-class="bounce"
+                                                data-target="#m-to-{{ $kegiatan->id }}" ui-toggle-class="bounce"
                                                 ui-target="#animate">
-                                            <small> Hapus</small>
+                                            <small> Tolak</small>
                                         </button>
-                                        @include('kegiatan._delete_kegiatan')
-                                        @else
-                                        -
-                                        @endif
-                                    </td> --}}
+                                        @include('kegiatan._tolak_proker')
+                                    </td>
                                     <td>@if(!$kegiatan->keterangan)
                                         Proker Belum Disubmit
                                         @else
@@ -103,30 +100,33 @@
         </div>
     </div>
 @endsection
-{{-- @section('add_js')
+@section('add_js')
 <script>
-@if (count($errors) > 0 && Session::get('error_code') == 'create')
-    $(document).ready(function(){
-        $('#m-c').modal('show'); 
-    });
-@endif
 @foreach ($kegiatans as $kegiatan)
     @if (count($errors) > 0 && Session::get('error_code') == $kegiatan->id)
         $(document).ready(function(){
-            $('#m-e-{{ $kegiatan->id }}').modal('show');
+            $('#m-te-{{ $kegiatan->id }}').modal('show');
         });
+    @elseif (count($errors) > 0 && Session::get('error_code') == 'tolak'.$kegiatan->id)
+    $(document).ready(function(){
+        $('#m-to-{{ $kegiatan->id }}').modal('show'); 
+    });
     @endif
 
 $(document).ready(function($){
     $("#maksimaldana").mask("000.000.000.000", {reverse: true});
     $("#maksimaldana{{ $kegiatan->id }}").mask("000.000.000.000", {reverse: true});
+    $("#maksimaldana-d{{ $kegiatan->id }}").mask("000.000.000.000", {reverse: true});
         $("#myForm").submit(function() {
             $("#maksimaldana").unmask();
         });
         $("#myForm{{ $kegiatan->id }}").submit(function() {
              $("#maksimaldana{{ $kegiatan->id }}").unmask();
         });
+        $("#myForm{{ $kegiatan->id }}").submit(function() {
+             $("#maksimaldana-d{{ $kegiatan->id }}").unmask();
+        });
 });
 @endforeach
 </script>
-@endsection --}}
+@endsection

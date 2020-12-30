@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Kegiatan extends Model
 {
     // relation with Kategori
-    public function kategori()
+    /*public function kategori()
     {
         return $this->belongsTo('App\Kategori', 'kategori_id');
-    }
+    }*/
     // relation with Unit
     public function unit()
     {

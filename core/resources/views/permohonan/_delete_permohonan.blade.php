@@ -11,7 +11,7 @@
                         <br>
                         <strong>[ {{ $permohonan->nama }} ]</strong>
                         <br>
-                        <small>*tindakan ini akan menghapus semua rincian biaya di permohonan ini id permohonan yang berhubungan!</small>
+                        <small>*tindakan ini akan menghapus semua rincian biaya di permohonan ini!</small>
                     </p>
                 </div>
                 <div class="modal-footer">

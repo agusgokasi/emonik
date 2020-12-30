@@ -65,7 +65,7 @@
             {{-- permission_status --}}
             <div class="form-group row">
 
-                <label for="permission_status" class="col-md-4 col-form-label text-md-left">{{ __('CRUD User & permission') }}</label>
+                <label for="permission_status" class="col-md-4 col-form-label text-md-left">{{ __('Mengelola User & permission') }}</label>
 
                 <div class="col-md-8">
                     <div class="form-check form-check-inline">
@@ -90,7 +90,7 @@
             {{-- unit_status --}}
             <div class="form-group row">
 
-                <label for="unit_status" class="col-md-4 col-form-label text-md-left">{{ __('CRUD Unit') }}</label>
+                <label for="unit_status" class="col-md-4 col-form-label text-md-left">{{ __('Mengelola Unit') }}</label>
 
                 <div class="col-md-8">
                     <div class="form-check form-check-inline">
@@ -112,34 +112,10 @@
                 </div>
             </div>
 
-            {{-- kategori_status --}}
-            <div class="form-group row">
-                <label for="kategori_status" class="col-md-4 col-form-label text-md-left">{{ __('CRUD Kategori') }}</label>
-
-                <div class="col-md-8">
-                    <div class="form-check form-check-inline">
-                        <input id="kategori_status" style="border: 0px;width: 15px;margin-bottom: 0px;margin-right: 5px;height: 15px;" type="radio" class=" form-control{{ $errors->has('kategori_status') ? ' is-invalid' : '' }}" name="kategori_status" value="1" {{ $permission->kategori_status == '1' ? 'checked' : '' }} required>
-                        <label> Ya</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input id="kategori_status" style="border: 0px;width: 15px;margin-bottom: 0px;margin-right: 5px;height: 15px;" type="radio" class="form-control{{ $errors->has('kategori_status') ? ' is-invalid' : '' }}" name="kategori_status" value="0" {{ $permission->kategori_status == '0' ? 'checked' : '' }} required>
-                        <label> Tidak</label>
-                    </div>
-
-                    @if ($errors->has('kategori_status'))
-                        <div role="alert">
-                            <small>
-                                <strong class="text-danger">{{ $errors->first('kategori_status') }}</strong>
-                            </small>
-                        </div>
-                    @endif
-                </div>
-            </div>
-
             {{-- kegiatan_status --}}
             <div class="form-group row">
 
-                <label for="kegiatan_status" class="col-md-4 col-form-label text-md-left">{{ __('CRUD Kegiatan') }}</label>
+                <label for="kegiatan_status" class="col-md-4 col-form-label text-md-left">{{ __('Mengelola Kegiatan') }}</label>
 
                 <div class="col-md-8">
                     <div class="form-check form-check-inline">
@@ -187,7 +163,7 @@
 
             {{-- permohonan_status --}}
             <div class="form-group row">
-                <label for="permohonan_status" class="col-md-4 col-form-label text-md-left">{{ __('CRUD Permohonan & SPJ') }}</label>
+                <label for="permohonan_status" class="col-md-4 col-form-label text-md-left">{{ __('Membuat Pengajuan Permohonan') }}</label>
 
                 <div class="col-md-8">
                     <div class="form-check form-check-inline">

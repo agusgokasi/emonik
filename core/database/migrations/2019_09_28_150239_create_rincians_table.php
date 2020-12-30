@@ -27,8 +27,8 @@ class CreateRinciansTable extends Migration
             $table->text('Keterangan')->nullable();
             $table->string('file')->nullable();
             $table->smallInteger('status')->default(1);
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

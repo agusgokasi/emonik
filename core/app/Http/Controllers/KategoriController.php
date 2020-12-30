@@ -13,7 +13,8 @@ use App\Kegiatan;
 use Illuminate\Support\Facades\Validator;
 
 class KategoriController extends Controller
-{
+{/*
+
     public function __construct() {
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user()->permission_id;
@@ -80,4 +81,5 @@ class KategoriController extends Controller
         $kategoris->delete();
         return redirect()->action('KategoriController@index')->with('msg', 'Kategori berhasil dihapus!');
     }
+*/
 }

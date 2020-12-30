@@ -1,23 +1,20 @@
 <!-- .modal -->
-    <div id="r-d-{{$rincian->id}}" class="modal fade" data-backdrop="true">
+    <div id="m-ep" class="modal fade" data-backdrop="true">
         <div class="modal-dialog" id="animate">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Konfirmasi</h5>
+                    <h5 class="modal-title"><strong style="color: red">Peringatan Mengedit Permohonan!</strong></h5>
                 </div>
                 <div class="modal-body text-center p-lg">
                     <p>
-                        Anda yakin ingin menghapus?
+                        Anda mempunyai rincian biaya!
                         <br>
-                        <strong>[ {{ $rincian->jenisbelanja }} ]</strong>
-                        <br>
+                        <strong style="color: red">[ harap menghapus rincian biaya sebelum mengedit proker pada permohonan ini. ]</strong>
                     </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary p-x-md"
-                            data-dismiss="modal">Tidak</button>
-                    <a href="{{ route('rincianDestroy' , ['id' => $rincian->id]) }}"
-                       class="btn btn-danger p-x-md">&nbsp;Hapus&nbsp;</a>
+                            data-dismiss="modal">Close</button>
                 </div>
             </div><!-- /.modal-content -->
         </div>

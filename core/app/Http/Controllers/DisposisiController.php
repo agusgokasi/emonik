@@ -8,7 +8,7 @@ use Auth;
 use File;
 use Illuminate\Http\Request;
 use Redirect;
-use App\Kategori;
+// use App\Kategori;
 use App\Kegiatan;
 use App\Unit;
 use App\Permohonan;
@@ -33,7 +33,7 @@ class DisposisiController extends Controller
     public function dis1(){
     	if (Auth::user()->permissionsGroup->dispo1p_status) {
     	$permohonans = permohonan::where('status', 1)->orderBy('updated_at', 'desc')->get();
-        $users = User::where('id', '!=', 1)->get();
+        $users = User::where('id', '!=', 1)->where('status', 1)->get();
         if (auth()->user()->permissionsGroup->dispo1p_status == 1) {
             foreach ($users as $user) {
                 $user->unreadNotifications->where('type', 'App\Notifications\SubmitPermohonan')->markAsRead();
@@ -46,7 +46,7 @@ class DisposisiController extends Controller
 
     public function di1(Request $request, $slug) {
     	if (Auth::user()->permissionsGroup->dispo1p_status) {
-        $users = User::where('id', '!=', 1)->get();
+        $users = User::where('id', '!=', 1)->where('status', 1)->get();
         $permohonan = Permohonan::where('slug',$slug)->first();
         $permohonan->status = 2;
         $permohonan->keterangan = 'permohonan sedang berada di PPK';
@@ -64,7 +64,7 @@ class DisposisiController extends Controller
     public function dis2(){
     	if (Auth::user()->permissionsGroup->dispo2p_status) {
     	$permohonans = permohonan::where('status', 2)->orderBy('updated_at', 'desc')->get();
-        $users = User::where('id', '!=', 1)->get();
+        $users = User::where('id', '!=', 1)->where('status', 1)->get();
         if (auth()->user()->permissionsGroup->dispo2p_status == 1) {
             foreach ($users as $user) {
                 $user->unreadNotifications->where('type', 'App\Notifications\Dis1Permohonan')->markAsRead();
@@ -119,7 +119,7 @@ class DisposisiController extends Controller
 
     public function di2(Request $request, $slug) {
     	if (Auth::user()->permissionsGroup->dispo2p_status) {
-        $users = User::where('id', '!=', 1)->get();
+        $users = User::where('id', '!=', 1)->where('status', 1)->get();
         $permohonan = Permohonan::where('slug',$slug)->first();
         $permohonan->status = 3;
         $permohonan->keterangan = 'permohonan sedang berada di kasubag';
@@ -137,7 +137,7 @@ class DisposisiController extends Controller
     public function dis3(){
     	if (Auth::user()->permissionsGroup->dispo3p_status) {
     	$permohonans = permohonan::where('status', 3)->orderBy('updated_at', 'desc')->get();
-        $users = User::where('id', '!=', 1)->get();
+        $users = User::where('id', '!=', 1)->where('status', 1)->get();
         if (auth()->user()->permissionsGroup->dispo3p_status == 1) {
             foreach ($users as $user) {
                 $user->unreadNotifications->where('type', 'App\Notifications\Dis2Permohonan')->markAsRead();
@@ -178,7 +178,7 @@ class DisposisiController extends Controller
             }
         }
 
-        $permohonan->status = 9;
+        $permohonan->status = 11;
         $permohonan->revisi2 = $revisi2;
         $permohonan->keterangan = $request['keterangan'];
         $permohonan->save();
@@ -192,7 +192,7 @@ class DisposisiController extends Controller
 
     public function di3(Request $request, $slug) {
     	if (Auth::user()->permissionsGroup->dispo3p_status) {
-        $users = User::where('id', '!=', 1)->get();
+        $users = User::where('id', '!=', 1)->where('status', 1)->get();
         $permohonan = Permohonan::where('slug',$slug)->first();
         $pemohon = User::where('id', $permohonan->created_by)->first();
         $permohonan->status = 4;
@@ -214,7 +214,7 @@ class DisposisiController extends Controller
     public function dis4(){
     	if (Auth::user()->permissionsGroup->dispo4p_status) {
     	$permohonans = permohonan::where('status', 4)->orderBy('updated_at', 'desc')->get();
-        $users = User::where('id', '!=', 1)->get();
+        $users = User::where('id', '!=', 1)->where('status', 1)->get();
         if (auth()->user()->permissionsGroup->dispo4p_status == 1) {
             foreach ($users as $user) {
                 $user->unreadNotifications->where('type', 'App\Notifications\Dis3Permohonan')->markAsRead();
@@ -251,7 +251,7 @@ class DisposisiController extends Controller
     public function dis5(){
         if (Auth::user()->permissionsGroup->dispo1s_status) {
         $permohonans = permohonan::where('status', 6)->orderBy('updated_at', 'desc')->get();
-        $users = User::where('id', '!=', 1)->get();
+        $users = User::where('id', '!=', 1)->where('status', 1)->get();
         if (auth()->user()->permissionsGroup->dispo1s_status == 1) {
             foreach ($users as $user) {
                 $user->unreadNotifications->where('type', 'App\Notifications\SubmitSPJ')->markAsRead();
@@ -307,7 +307,7 @@ class DisposisiController extends Controller
     public function di5(Request $request, $slug) {
         if (Auth::user()->permissionsGroup->dispo1s_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
-        $users = User::where('id', '!=', 1)->get();
+        $users = User::where('id', '!=', 1)->where('status', 1)->get();
         $permohonan->status = 7;
         $permohonan->keterangan = 'spj sedang berada di BPP';
         $permohonan->save();
@@ -324,7 +324,7 @@ class DisposisiController extends Controller
     public function dis6(){
         if (Auth::user()->permissionsGroup->dispo2s_status) {
         $permohonans = permohonan::where('status', 7)->orderBy('updated_at', 'desc')->get();
-        $users = User::where('id', '!=', 1)->get();
+        $users = User::where('id', '!=', 1)->where('status', 1)->get();
         if (auth()->user()->permissionsGroup->dispo2s_status == 1) {
             foreach ($users as $user) {
                 $user->unreadNotifications->where('type', 'App\Notifications\Dis1SPJ')->markAsRead();

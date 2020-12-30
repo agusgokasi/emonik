@@ -15,15 +15,15 @@ class CreateKegiatansTable extends Migration
     {
         Schema::create('kegiatans', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('kategori_id')->nullable();
+            // $table->integer('kategori_id')->nullable();
             $table->integer('unit_id')->nullable();
             $table->string('nama');
             $table->string('bulan');
             $table->bigInteger('maksimaldana');
             $table->smallInteger('status');
             $table->text('keterangan')->nullable();
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

@@ -18,16 +18,15 @@ class CreatePermohonansTable extends Migration
             // $table->integer('kategori_id')->nullable();
             $table->integer('kegiatan_id')->nullable();
             $table->string('nama');
-            $table->string('slug', 250)->unique();
+            $table->string('slug', 270)->unique();
             $table->string('pemohon');
-            $table->string('nomorinduk');
-            $table->text('latarbelakangkegiatan');
-            $table->text('tujuankegiatan');
-            $table->string('tempatkegiatan');
-            $table->string('tanggalkegiatan');
-            $table->text('pesertakegiatan');
-            $table->text('strategipencapaiankeluaran');
-            $table->text('susunanpanitia');
+            // $table->string('nomorinduk');
+            $table->text('latarbelakang');
+            $table->text('tujuan');
+            $table->text('ruanglingkup');
+            $table->text('waktupencapaian');
+            $table->text('luaran');
+            $table->text('pembiayaan');
             $table->string('filetor');
             // $table->string('filespj')->nullable();
             $table->smallInteger('status')->default(0);
@@ -43,8 +42,8 @@ class CreatePermohonansTable extends Migration
             $table->string('revisi2')->nullable();
             $table->string('spj_tolak_kas')->nullable();
             // $table->string('spj_tolak_ppk')->nullable();
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

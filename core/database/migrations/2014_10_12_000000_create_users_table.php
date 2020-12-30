@@ -25,8 +25,8 @@ class CreateUsersTable extends Migration
             $table->integer('permission_id')->nullable();
             $table->tinyInteger('status');
             $table->rememberToken();
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

@@ -1,4 +1,4 @@
-<?php
+bigInteger<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -19,8 +19,8 @@ class CreateUnitsTable extends Migration
             $table->Integer('fakultas_id')->nullable();
             $table->Integer('prodi_id')->nullable();
             $table->tinyInteger('status');
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

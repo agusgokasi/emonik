@@ -18,7 +18,7 @@ class PermissionsTableSeeder extends Seeder
         $Permissions->view_status = true;
         $Permissions->permission_status = true;
         $Permissions->unit_status = true;
-        $Permissions->kategori_status = true;
+        // $Permissions->kategori_status = true;
         $Permissions->kegiatan_status = true;
         $Permissions->exception_status = true;
         $Permissions->permohonan_status = true;
@@ -37,7 +37,7 @@ class PermissionsTableSeeder extends Seeder
         $Permissions->view_status = true;
         $Permissions->permission_status = true;
         $Permissions->unit_status = true;
-        $Permissions->kategori_status = true;
+        // $Permissions->kategori_status = true;
         $Permissions->kegiatan_status = false;
         $Permissions->exception_status = true;
         $Permissions->permohonan_status = false;
@@ -56,7 +56,7 @@ class PermissionsTableSeeder extends Seeder
         $Permissions->view_status = true;
         $Permissions->permission_status = false;
         $Permissions->unit_status = false;
-        $Permissions->kategori_status = false;
+        // $Permissions->kategori_status = false;
         $Permissions->kegiatan_status = true;
         $Permissions->exception_status = false;
         $Permissions->permohonan_status = false;
@@ -75,7 +75,7 @@ class PermissionsTableSeeder extends Seeder
         $Permissions->view_status = true;
         $Permissions->permission_status = false;
         $Permissions->unit_status = false;
-        $Permissions->kategori_status = false;
+        // $Permissions->kategori_status = false;
         $Permissions->kegiatan_status = false;
         $Permissions->exception_status = false;
         $Permissions->permohonan_status = false;
@@ -94,7 +94,7 @@ class PermissionsTableSeeder extends Seeder
         $Permissions->view_status = true;
         $Permissions->permission_status = false;
         $Permissions->unit_status = false;
-        $Permissions->kategori_status = false;
+        // $Permissions->kategori_status = false;
         $Permissions->kegiatan_status = false;
         $Permissions->exception_status = false;
         $Permissions->permohonan_status = false;
@@ -113,7 +113,7 @@ class PermissionsTableSeeder extends Seeder
         $Permissions->view_status = true;
         $Permissions->permission_status = false;
         $Permissions->unit_status = false;
-        $Permissions->kategori_status = false;
+        // $Permissions->kategori_status = false;
         $Permissions->kegiatan_status = false;
         $Permissions->exception_status = false;
         $Permissions->permohonan_status = false;
@@ -132,7 +132,7 @@ class PermissionsTableSeeder extends Seeder
         $Permissions->view_status = false;
         $Permissions->permission_status = false;
         $Permissions->unit_status = false;
-        $Permissions->kategori_status = false;
+        // $Permissions->kategori_status = false;
         $Permissions->kegiatan_status = false;
         $Permissions->exception_status = false;
         $Permissions->permohonan_status = true;

@@ -130,7 +130,7 @@ class RinciansExport implements FromQuery, WithHeadings, WithMapping, ShouldAuto
 	            // $event->sheet->mergeCells(sprintf('A%d:%s%d',$last_row,$last_column,$last_row));
 
 	            // assign cell values
-	            $event->sheet->setCellValue('A1','E-Monitoring');
+	            $event->sheet->setCellValue('A1','E-Monitoring Keuangan Fakultas MIPA UNJ');
 	            $event->sheet->setCellValue('A2','Laporan Keuangan: '.$permohonan->nama);
 	            $event->sheet->setCellValue(sprintf('A%d',$last_row),'Biaya Perencanaan: Rp'.format_uang($permohonan->totalbiaya));
 	            $event->sheet->setCellValue(sprintf('D%d',$last_row),'Total Usulan: Rp'.format_uang($permohonan->biayarincian));

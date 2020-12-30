@@ -8,12 +8,15 @@ use Auth;
 use File;
 use Illuminate\Http\Request;
 use Redirect;
-use App\Kategori;
+// use App\Kategori;
 use App\Kegiatan;
 use App\Unit;
 use App\Permohonan;
 use App\Rincian;
+use App\Notifications\SubmitProker;
 use App\Notifications\SubmitPermohonan;
+use App\Notifications\Dis1Permohonan;
+use App\Notifications\Dis2Permohonan;
 use App\Notifications\Dt2Permohonan;
 use App\Notifications\Dt3Permohonan;
 use App\Notifications\Dp3Permohonan;
@@ -30,10 +33,107 @@ class PermohonanController extends Controller
         });
     }
 
-    public function index() {
+    public function indexProker() {
     	$user = Auth::user();
-    	$kegiatans = Kegiatan::where('unit_id', $user->unit_id)->where('status', 1)->where('keterangan', null)->get();
-    	$permohonans = permohonan::where('created_by', $user->id)->where('status', '!=' ,5)->where('status', '!=' ,6)->where('status', '!=' ,7)->where('status', '!=' ,8)->where('status', '!=' ,10)->orderBy('updated_at', 'desc')->get();
+        $units = Unit::get();
+    	$kegiatans = Kegiatan::where('unit_id', $user->unit_id)->orderBy('updated_at', 'desc')->get();
+        if (auth()->user()->id != 1) {
+            $user->unreadNotifications->where('type', 'App\Notifications\TerimaProker')->markAsRead();
+            $user->unreadNotifications->where('type', 'App\Notifications\TolakProker')->markAsRead();
+        }
+        return view('permohonan.proker_permohonan', compact('kegiatans', 'user', 'units'));
+    }
+
+    public function postProker(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'nama' => ['required', 'string','max:150'],
+            'bulan' => ['required', 'string','max:150'],
+            'maksimaldana' => 'required|numeric|min:10000|max:100000000000',
+        ],[
+            'nama.required'=>'Nama harus diisi',
+            'nama.max'=>'Nama maksimal 150 huruf',
+            'bulan.required'=>'Bulan harus diisi',
+            'bulan.max'=>'Bulan maksimal 150 huruf',
+            'maksimaldana.required'=>'Usulan dana harus diisi',
+            'maksimaldana.min'=>'dana minimal Rp10.000',
+            'maksimaldana.max'=>'dana maksimal Rp100.000.000.000',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput()->with('error_code', 'create');
+        }
+        $kegiatans = new Kegiatan();
+        $kegiatans->nama = $request['nama'];
+        $kegiatans->bulan = $request['bulan'];
+        $kegiatans->maksimaldana = $request['maksimaldana'];
+        $kegiatans->unit_id = Auth::user()->unit_id;
+        $kegiatans->status = 0;
+        $kegiatans->created_by = Auth::user()->id;
+        $kegiatans->save();
+        return back()->with('msg', 'Proker berhasil disimpan!');
+    }
+
+    public function updateProker(Request $request, $id) {
+        $kegiatans = Kegiatan::findOrFail($id);
+        $validator = Validator::make($request->all(), [
+            'nama' => ['required', 'string','max:150'],
+            'bulan' => ['required', 'string','max:150'],
+        ],[
+            'nama.required'=>'Nama harus diisi',
+            'nama.max'=>'Nama maksimal 150 huruf',
+            'bulan.required'=>'Bulan harus diisi',
+            'bulan.max'=>'Bulan maksimal 150 huruf',
+        ]);
+        if (!$kegiatans->status){
+            $validator = Validator::make($request->all(), [
+            'maksimaldana' => 'required|numeric|min:10000|max:100000000000',
+        ],[
+            'maksimaldana.required'=>'Usulan dana harus diisi',
+            'maksimaldana.min'=>'dana minimal Rp10.000',
+            'maksimaldana.max'=>'dana maksimal Rp100.000.000.000',
+        ]);
+        }
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput()->with('error_code', $id);
+        }
+        $kegiatans->nama = $request['nama'];
+        $kegiatans->bulan = $request['bulan'];
+        if (!$kegiatans->status){
+            $kegiatans->maksimaldana = $request['maksimaldana'];
+        }
+        $kegiatans->updated_by = Auth::user()->id;
+        $kegiatans->save();
+        return back()->with('msg', 'Proker berhasil diedit!');
+    }
+
+    public function destroyProker($id) 
+    {
+        $kegiatans = Kegiatan::find($id);
+        $kegiatans->delete();
+        return redirect()->action('PermohonanController@indexProker')->with('msg', 'Proker berhasil dihapus!');
+    }
+
+    public function submitProker(Request $request, $id){
+        $users = User::where('id', '!=', 1)->where('status', 1)->get();
+        $kegiatan = Kegiatan::where('id',$id)->first();
+        $kegiatan->status = 9;
+        $kegiatan->keterangan = "Proker sedang di proses";
+        $kegiatan->save();
+        foreach ($users as $user) {
+            if ($user->permissionsGroup->kegiatan_status == 1) {
+                $user->notify(new SubmitProker);
+            }
+        }
+        return redirect()->action('PermohonanController@indexProker')->with('msg', 'Proker berhasil disubmit!');
+    }
+
+
+
+    public function index() {
+        $user = Auth::user();
+        $kegiatans = Kegiatan::where('unit_id', $user->unit_id)->where('status', 1)->get();
+        $permohonans = permohonan::where('created_by', $user->id)->where('status', '!=' ,5)->where('status', '!=' ,6)->where('status', '!=' ,7)->where('status', '!=' ,8)->where('status', '!=' ,10)->orderBy('updated_at', 'desc')->get();
         if (auth()->user()->id != 1) {
             $user->unreadNotifications->where('type', 'App\Notifications\Dt2Permohonan')->markAsRead();
             $user->unreadNotifications->where('type', 'App\Notifications\Dt3Permohonan')->markAsRead();
@@ -42,77 +142,77 @@ class PermohonanController extends Controller
         return view('permohonan.index_permohonan', compact('kegiatans', 'user', 'permohonans'));
     }
 
-    public function indexkategori() {
-    	$user = Auth::user();
-    	$kegiatans = Kegiatan::where('unit_id', $user->unit_id)->where('status', 1)->get();
-        return view('permohonan.kategori_permohonan', compact('kegiatans', 'user'));
-    }
-
     public function create() {
         if (auth()->user()->tor == null) {
         	$user = Auth::user();
-        	$kegiatans = Kegiatan::where('unit_id', $user->unit_id)->where('status', 1)->where('keterangan', null)->get();
+        	$kegiatans = Kegiatan::where('unit_id', $user->unit_id)->where('status', 1)->where('keterangan', '!=' ,'Sudah Dibuat')->get();
         	return view('permohonan.create_permohonan', compact('kegiatans'));
         }
         return abort(403);
     }
 
+    public function getProkers($id) {
+        $kegiatans = Kegiatan::Where('id', $id)->where('status', 1)->pluck('maksimaldana');
+        return json_encode($kegiatans);
+    }
+
     public function store(Request $request)
     {
 
+        
         $this->validate($request, [
             'nama'                		   => 'required|min:3|max:150',
             'kegiatan' 				 	   => 'required',
             'pemohon'                  	   => 'required|min:3|max:150',
-            'nomorinduk'                   => 'required|min:3|max:150',
-            'latarbelakangkegiatan'        => 'required|min:3|max:1000',
-            'tujuankegiatan'               => 'required|min:3|max:1000',
-            'tempatkegiatan'               => 'required|min:3|max:150',
-            'tanggalkegiatan'              => 'required|date',
-            'pesertakegiatan'              => 'required|min:3|max:1000',
-            'strategipencapaiankeluaran'   => 'required|min:3|max:1000',
-            'susunanpanitia'               => 'required|min:3|max:1000',
+            // 'nomorinduk'                   => 'required|min:3|max:150',
+            'latarbelakang'                => 'required|min:3|max:1000',
+            'tujuan'                       => 'required|min:3|max:1000',
+            'ruanglingkup'                 => 'required|min:3|max:150',
+            // 'tanggalkegiatan'              => 'required|date',
+            'waktupencapaian'              => 'required|min:3|max:1000',
+            'luaran'                       => 'required|min:3|max:1000',
+            'pembiayaan'                   => 'required|min:3|max:1000',
             'filetor'                      => 'required|mimes:pdf|max:10000kb',
         ],[
-            'nama.required'=>'Nama Permohonan harus diisi',
-            'nama.min'=>'Nama Permohonan minimal 3 huruf',
-            'nama.max'=>'Nama Permohonan maksimal 150 huruf',
+            'nama.required'=>'Nama Kegiatan harus diisi',
+            'nama.min'=>'Nama Kegiatan minimal 3 huruf',
+            'nama.max'=>'Nama Kegiatan maksimal 150 huruf',
 
-            'kegiatan.required'=>'Kategori harus diisi',
+            'kegiatan.required'=>'Program Kerja harus diisi',
 
             'pemohon.required'=>'Nama Pemohon harus diisi',
             'pemohon.min'=>'Nama Pemohon minimal 3 huruf',
             'pemohon.max'=>'Nama Pemohon maksimal 150 huruf',
 
-            'nomorinduk.required'=>'Nomor induk harus diisi',
-            'nomorinduk.min'=>'Nomor induk minimal 3 angka',
-            'nomorinduk.max'=>'Nomor induk maksimal 150 angka',
+            // 'nomorinduk.required'=>'Nomor induk harus diisi',
+            // 'nomorinduk.min'=>'Nomor induk minimal 3 angka',
+            // 'nomorinduk.max'=>'Nomor induk maksimal 150 angka',
 
-            'latarbelakangkegiatan.required'=>'Latar Belakang Kegiatan harus diisi',
-            'latarbelakangkegiatan.min'=>'Latar Belakang Kegiatan minimal 3 huruf',
-            'latarbelakangkegiatan.max'=>'Latar Belakang Kegiatan maksimal 1000 huruf',
+            'latarbelakang.required'=>'Latar Belakang harus diisi',
+            'latarbelakang.min'=>'Latar Belakang minimal 3 huruf',
+            'latarbelakang.max'=>'Latar Belakang maksimal 1000 huruf',
 
-            'tujuankegiatan.required'=>'Tujuan Kegiatan harus diisi',
-            'tujuankegiatan.min'=>'Tujuan Kegiatan minimal 3 huruf',
-            'tujuankegiatan.max'=>'Tujuan Kegiatan maksimal 1000 huruf',
+            'tujuan.required'=>'Tujuan / Penerima Manfaat harus diisi',
+            'tujuan.min'=>'Tujuan / Penerima Manfaat minimal 3 huruf',
+            'tujuan.max'=>'Tujuan / Penerima Manfaat maksimal 1000 huruf',
 
-            'tempatkegiatan.required'=>'Tempat Kegiatan harus diisi',
-            'tempatkegiatan.min'=>'Tempat Kegiatan minimal 3 huruf',
-            'tempatkegiatan.max'=>'Tempat Kegiatan maksimal 150 huruf',
+            'ruanglingkup.required'=>'Ruang Lingkup / Strategi Pencapaian Keluaran harus diisi',
+            'ruanglingkup.min'=>'Ruang Lingkup / Strategi Pencapaian Keluaran minimal 3 huruf',
+            'ruanglingkup.max'=>'Ruang Lingkup / Strategi Pencapaian Keluaran maksimal 150 huruf',
 
-            'tanggalkegiatan.required'=>'Tanggal Kegiatan harus diisi',
+            // 'tanggalkegiatan.required'=>'Tanggal Kegiatan harus diisi',
 
-            'pesertakegiatan.required'=>'Peserta Kegiatan harus diisi',
-            'pesertakegiatan.min'=>'Peserta Kegiatan minimal 3 huruf',
-            'pesertakegiatan.max'=>'Peserta Kegiatan maksimal 1000 huruf',
+            'waktupencapaian.required'=>'Waktu Pencapaian Keluaran harus diisi',
+            'waktupencapaian.min'=>'Waktu Pencapaian Keluaran minimal 3 huruf',
+            'waktupencapaian.max'=>'Waktu Pencapaian Keluaran maksimal 1000 huruf',
 
-            'strategipencapaiankeluaran.required'=>'Strategi Pencapaian Keluaran harus diisi',
-            'strategipencapaiankeluaran.min'=>'Strategi Pencapaian Keluaran minimal 3 huruf',
-            'strategipencapaiankeluaran.max'=>'Strategi Pencapaian Keluaran maksimal 1000 huruf',
+            'luaran.required'=>'Susunan Acara / Luaran harus diisi',
+            'luaran.min'=>'Susunan Acara / Luaran minimal 3 huruf',
+            'luaran.max'=>'Susunan Acara / Luaran maksimal 1000 huruf',
 
-            'susunanpanitia.required'=>'Susunan Panitia harus diisi',
-            'susunanpanitia.min'=>'Susunan Panitia minimal 3 huruf',
-            'susunanpanitia.max'=>'Susunan Panitia maksimal 1000 huruf',
+            'pembiayaan.required'=>'Pembiayaan / Rencana Anggaran harus diisi',
+            'pembiayaan.min'=>'Pembiayaan / Rencana Anggaran minimal 3 huruf',
+            'pembiayaan.max'=>'Pembiayaan / Rencana Anggaran maksimal 1000 huruf',
 
             'filetor.required'=>'File TOR harus diisi',
             'filetor.max'=>'File TOR maksimal 5Mb',
@@ -135,17 +235,17 @@ class PermohonanController extends Controller
         $permohonan->nama = $request['nama'];
         $permohonan->slug = $slug;
         $permohonan->pemohon = $request['pemohon'];
-        $permohonan->nomorinduk = $request['nomorinduk'];
+        // $permohonan->nomorinduk = $request['nomorinduk'];
         $permohonan->kegiatan_id = $request['kegiatan'];
         $permohonan->totalbiaya = $kegiatan->maksimaldana;
         $permohonan->sisadana = $kegiatan->maksimaldana;
-        $permohonan->latarbelakangkegiatan = $request['latarbelakangkegiatan'];
-        $permohonan->tujuankegiatan = $request['tujuankegiatan'];
-        $permohonan->tanggalkegiatan = $request['tanggalkegiatan'];
-        $permohonan->tempatkegiatan = $request['tempatkegiatan'];
-        $permohonan->pesertakegiatan = $request['pesertakegiatan'];
-        $permohonan->strategipencapaiankeluaran = $request['strategipencapaiankeluaran'];
-        $permohonan->susunanpanitia = $request['susunanpanitia'];
+        $permohonan->latarbelakang = $request['latarbelakang'];
+        $permohonan->tujuan = $request['tujuan'];
+        // $permohonan->tanggalkegiatan = $request['tanggalkegiatan'];
+        $permohonan->ruanglingkup = $request['ruanglingkup'];
+        $permohonan->waktupencapaian = $request['waktupencapaian'];
+        $permohonan->luaran = $request['luaran'];
+        $permohonan->pembiayaan = $request['pembiayaan'];
         $permohonan->filetor = $filetor;
         $permohonan->status = 0;
         $permohonan->created_by = Auth::user()->id;
@@ -163,6 +263,7 @@ class PermohonanController extends Controller
     	$permohonan = Permohonan::where('slug',$slug)->first();
     	if(empty($permohonan)) abort (404);
     	$rincians = Rincian::where('permohonan_id',$permohonan->id)->get();
+        // dd($permohonan->nama);
         return view('permohonan.single_permohonan', compact('user', 'permohonan', 'rincians'));
     }
 
@@ -170,75 +271,85 @@ class PermohonanController extends Controller
     	$user = Auth::user();
     	$permohonan = Permohonan::where('slug',$slug)->first();
     	if(empty($permohonan)) abort (404);
-    	$kegiatans = Kegiatan::where('unit_id', $user->unit_id)->where('status', 1)->where('keterangan', null)->get();
-        return view('permohonan.edit_permohonan', compact('user', 'permohonan', 'kegiatans'));
+    	$kegiatans = Kegiatan::where('unit_id', $user->unit_id)->where('status', 1)->where('keterangan', '!=' ,'Sudah Dibuat')->get();
+        return view('permohonan.edit_permohonan', compact('permohonan', 'kegiatans'));
+    }
+
+    public function editp($slug) {
+        $user = Auth::user();
+        $permohonan = Permohonan::where('slug',$slug)->first();
+        if(empty($permohonan)) abort (404);
+        $kegiatans = Kegiatan::where('unit_id', $user->unit_id)->where('status', 1)->where('keterangan', '!=' ,'Sudah Dibuat')->get();
+        return view('permohonan.editp_permohonan', compact('permohonan', 'kegiatans'));
     }
 
     public function update(Request $request, $slug)
     {
 
         $this->validate($request, [
-            'nama'                		   => 'required|min:3|max:150',
-            'kegiatan' 				 	   => 'required',
-            'pemohon'                  	   => 'required|min:3|max:150',
-            'nomorinduk'                   => 'required|min:3|max:150',
-            'latarbelakangkegiatan'        => 'required|min:3|max:1000',
-            'tujuankegiatan'               => 'required|min:3|max:1000',
-            'tempatkegiatan'               => 'required|min:3|max:150',
-            'tanggalkegiatan'              => 'required|date',
-            'pesertakegiatan'              => 'required|min:3|max:1000',
-            'strategipencapaiankeluaran'   => 'required|min:3|max:1000',
-            'susunanpanitia'               => 'required|min:3|max:1000',
+            'nama'                         => 'required|min:3|max:150',
+            'kegiatan'                     => 'required',
+            'pemohon'                       => 'required|min:3|max:150',
+            // 'nomorinduk'                   => 'required|min:3|max:150',
+            'latarbelakang'                => 'required|min:3|max:1000',
+            'tujuan'                       => 'required|min:3|max:1000',
+            'ruanglingkup'                 => 'required|min:3|max:150',
+            // 'tanggalkegiatan'              => 'required|date',
+            'waktupencapaian'              => 'required|min:3|max:1000',
+            'luaran'                       => 'required|min:3|max:1000',
+            'pembiayaan'                   => 'required|min:3|max:1000',
             'filetor'                      => 'nullable|mimes:pdf|max:10000kb',
         ],[
-            'nama.required'=>'Nama Permohonan harus diisi',
-            'nama.min'=>'Nama Permohonan minimal 3 huruf',
-            'nama.max'=>'Nama Permohonan maksimal 150 huruf',
+            'nama.required'=>'Nama Kegiatan harus diisi',
+            'nama.min'=>'Nama Kegiatan minimal 3 huruf',
+            'nama.max'=>'Nama Kegiatan maksimal 150 huruf',
 
-            'kegiatan.required'=>'Kategori harus diisi',
+            'kegiatan.required'=>'Program Kerja harus diisi',
 
             'pemohon.required'=>'Nama Pemohon harus diisi',
             'pemohon.min'=>'Nama Pemohon minimal 3 huruf',
             'pemohon.max'=>'Nama Pemohon maksimal 150 huruf',
 
-            'nomorinduk.required'=>'Nomor induk harus diisi',
-            'nomorinduk.min'=>'Nomor induk minimal 3 angka',
-            'nomorinduk.max'=>'Nomor induk maksimal 150 angka',
+            // 'nomorinduk.required'=>'Nomor induk harus diisi',
+            // 'nomorinduk.min'=>'Nomor induk minimal 3 angka',
+            // 'nomorinduk.max'=>'Nomor induk maksimal 150 angka',
 
-            'latarbelakangkegiatan.required'=>'Latar Belakang Kegiatan harus diisi',
-            'latarbelakangkegiatan.min'=>'Latar Belakang Kegiatan minimal 3 huruf',
-            'latarbelakangkegiatan.max'=>'Latar Belakang Kegiatan maksimal 1000 huruf',
+            'latarbelakang.required'=>'Latar Belakang harus diisi',
+            'latarbelakang.min'=>'Latar Belakang minimal 3 huruf',
+            'latarbelakang.max'=>'Latar Belakang maksimal 1000 huruf',
 
-            'tujuankegiatan.required'=>'Tujuan Kegiatan harus diisi',
-            'tujuankegiatan.min'=>'Tujuan Kegiatan minimal 3 huruf',
-            'tujuankegiatan.max'=>'Tujuan Kegiatan maksimal 1000 huruf',
+            'tujuan.required'=>'Tujuan / Penerima Manfaat harus diisi',
+            'tujuan.min'=>'Tujuan / Penerima Manfaat minimal 3 huruf',
+            'tujuan.max'=>'Tujuan / Penerima Manfaat maksimal 1000 huruf',
 
-            'tempatkegiatan.required'=>'Tempat Kegiatan harus diisi',
-            'tempatkegiatan.min'=>'Tempat Kegiatan minimal 3 huruf',
-            'tempatkegiatan.max'=>'Tempat Kegiatan maksimal 150 huruf',
+            'ruanglingkup.required'=>'Ruang Lingkup / Strategi Pencapaian Keluaran harus diisi',
+            'ruanglingkup.min'=>'Ruang Lingkup / Strategi Pencapaian Keluaran minimal 3 huruf',
+            'ruanglingkup.max'=>'Ruang Lingkup / Strategi Pencapaian Keluaran maksimal 150 huruf',
 
-            'tanggalkegiatan.required'=>'Tanggal Kegiatan harus diisi',
+            // 'tanggalkegiatan.required'=>'Tanggal Kegiatan harus diisi',
 
-            'pesertakegiatan.required'=>'Peserta Kegiatan harus diisi',
-            'pesertakegiatan.min'=>'Peserta Kegiatan minimal 3 huruf',
-            'pesertakegiatan.max'=>'Peserta Kegiatan maksimal 1000 huruf',
+            'waktupencapaian.required'=>'Waktu Pencapaian Keluaran harus diisi',
+            'waktupencapaian.min'=>'Waktu Pencapaian Keluaran minimal 3 huruf',
+            'waktupencapaian.max'=>'Waktu Pencapaian Keluaran maksimal 1000 huruf',
 
-            'strategipencapaiankeluaran.required'=>'Strategi Pencapaian Keluaran harus diisi',
-            'strategipencapaiankeluaran.min'=>'Strategi Pencapaian Keluaran minimal 3 huruf',
-            'strategipencapaiankeluaran.max'=>'Strategi Pencapaian Keluaran maksimal 1000 huruf',
+            'luaran.required'=>'Susunan Acara / Luaran harus diisi',
+            'luaran.min'=>'Susunan Acara / Luaran minimal 3 huruf',
+            'luaran.max'=>'Susunan Acara / Luaran maksimal 1000 huruf',
 
-            'susunanpanitia.required'=>'Susunan Panitia harus diisi',
-            'susunanpanitia.min'=>'Susunan Panitia minimal 3 huruf',
-            'susunanpanitia.max'=>'Susunan Panitia maksimal 1000 huruf',
+            'pembiayaan.required'=>'Pembiayaan / Rencana Anggaran harus diisi',
+            'pembiayaan.min'=>'Pembiayaan / Rencana Anggaran minimal 3 huruf',
+            'pembiayaan.max'=>'Pembiayaan / Rencana Anggaran maksimal 1000 huruf',
 
             'filetor.max'=>'File TOR maksimal 5Mb',
             'filetor.mimes'=>'File TOR harus berformat .pdf',
         ]);
 
         $permohonan = Permohonan::where('slug',$slug)->first();
-        $kegiatan = Kegiatan::where('id', $permohonan->kegiatan_id)->first();
-        $kegiatan->keterangan = null;
-        $kegiatan->save();
+        if($permohonan->kegiatan_id != $request['kegiatan']){
+            $kegiatan = Kegiatan::where('id', $permohonan->kegiatan_id)->first();
+            $kegiatan->keterangan = "Permohonan Belum Dibuat";
+            $kegiatan->save();
+        }
 
         $kegiatan = Kegiatan::where('id', $request['kegiatan'])->first();
         //slug
@@ -251,16 +362,17 @@ class PermohonanController extends Controller
         $permohonan->nama = $request['nama'];
         $permohonan->slug = $slug;
         $permohonan->pemohon = $request['pemohon'];
-        $permohonan->nomorinduk = $request['nomorinduk'];
+        // $permohonan->nomorinduk = $request['nomorinduk'];
         $permohonan->kegiatan_id = $request['kegiatan'];
         $permohonan->totalbiaya = $kegiatan->maksimaldana;
-        $permohonan->latarbelakangkegiatan = $request['latarbelakangkegiatan'];
-        $permohonan->tujuankegiatan = $request['tujuankegiatan'];
-        $permohonan->tanggalkegiatan = $request['tanggalkegiatan'];
-        $permohonan->tempatkegiatan = $request['tempatkegiatan'];
-        $permohonan->pesertakegiatan = $request['pesertakegiatan'];
-        $permohonan->strategipencapaiankeluaran = $request['strategipencapaiankeluaran'];
-        $permohonan->susunanpanitia = $request['susunanpanitia'];
+        $permohonan->sisadana = $kegiatan->maksimaldana;
+        $permohonan->latarbelakang = $request['latarbelakang'];
+        $permohonan->tujuan = $request['tujuan'];
+        // $permohonan->tanggalkegiatan = $request['tanggalkegiatan'];
+        $permohonan->ruanglingkup = $request['ruanglingkup'];
+        $permohonan->waktupencapaian = $request['waktupencapaian'];
+        $permohonan->luaran = $request['luaran'];
+        $permohonan->pembiayaan = $request['pembiayaan'];
         if($request->file('filetor')){
         //file
         if(is_file('filetor/'.$permohonan->filetor)){
@@ -275,7 +387,7 @@ class PermohonanController extends Controller
         $permohonan->save();
         $kegiatan->keterangan = 'Sudah Dibuat';
         $kegiatan->save();
-        Auth::user()->update(['tor'=>1]);
+        // Auth::user()->update(['tor'=>1]);
 
         return redirect()->action('PermohonanController@show', [$slug])->with('msg', 'Permohonan berhasil diedit!');
     }
@@ -286,7 +398,7 @@ class PermohonanController extends Controller
         if(is_file('filetor/'.$permohonan->filetor)){
         unlink(public_path('filetor/'.$permohonan->filetor));
         }
-        $kegiatan->keterangan = null;
+        $kegiatan->keterangan = "Permohonan Belum Dibuat";
         $kegiatan->save();
         Auth::user()->update(['tor'=>null]);
         $permohonan->delete();
@@ -294,16 +406,37 @@ class PermohonanController extends Controller
     }
 
     public function submit(Request $request, $slug){
-        $users = User::where('id', '!=', 1)->get();
+        $users = User::where('id', '!=', 1)->where('status', 1)->get();
         $permohonan = Permohonan::where('slug',$slug)->first();
-        $permohonan->status = 1;
-        $permohonan->keterangan = 'permohonan sedang berada di WD2';
-        $permohonan->save();
-        foreach ($users as $user) {
-            if ($user->permissionsGroup->dispo1p_status == 1) {
-                $user->notify(new SubmitPermohonan);
+        if($permohonan->status == 0){
+            $permohonan->status = 1;
+            $permohonan->keterangan = 'permohonan sedang berada di WD2';
+            $permohonan->save();
+            foreach ($users as $user) {
+                if ($user->permissionsGroup->dispo1p_status == 1) {
+                    $user->notify(new SubmitPermohonan);
+                }
+            }
+        }elseif($permohonan->status == 9){
+            $permohonan->status = 2;
+            $permohonan->keterangan = 'permohonan sedang berada di PPK';
+            $permohonan->save();
+            foreach ($users as $user) {
+                if ($user->permissionsGroup->dispo2p_status == 1) {
+                    $user->notify(new Dis1Permohonan);
+                }
+            }
+        }elseif($permohonan->status == 11){
+            $permohonan->status = 3;
+            $permohonan->keterangan = 'permohonan sedang berada di Kasubag';
+            $permohonan->save();
+            foreach ($users as $user) {
+                if ($user->permissionsGroup->dispo3p_status == 1) {
+                    $user->notify(new Dis2Permohonan);
+                }
             }
         }
+        
         return redirect()->action('PermohonanController@index')->with('msg', 'Permohonan berhasil disubmit!');
     }
 

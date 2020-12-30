@@ -45,19 +45,18 @@
                                     <td>
                                         <small>
                                             {{ $permission->view_status ? 'Membaca Data, ' : ''  }}
-                                            {{ $permission->permission_status ? 'CRUD User & permission, ' : ''  }}
-                                            {{ $permission->unit_status ? 'CRUD Unit, ' : ''  }}
-                                            {{ $permission->kategori_status ? 'CRUD Kategori, ' : ''  }}
-                                            {{ $permission->kegiatan_status ? 'CRUD Kegiatan, ' : ''  }}
+                                            {{ $permission->permission_status ? 'Mengelola User & permission, ' : ''  }}
+                                            {{ $permission->unit_status ? 'Mengelola Unit, ' : ''  }}
+                                            {{ $permission->kegiatan_status ? 'Mengelola Kegiatan, ' : ''  }}
                                             {{ $permission->exception_status ? 'Membuka Pengajuan Pemohon, ' : ''  }}
-                                            {{ $permission->permohonan_status ? 'CRUD Permohonan & SPJ, ' : ''  }}
+                                            {{ $permission->permohonan_status ? 'Membuat Pengajuan Permohonan, ' : ''  }}
                                             {{ $permission->dispo1p_status ? 'Disposisi 1 Permohonan, ' : ''  }}
                                             {{ $permission->dispo2p_status ? 'Disposisi 2 Permohonan, ' : ''  }}
                                             {{ $permission->dispo3p_status ? 'Disposisi 3 Permohonan, ' : ''  }}
                                             {{ $permission->dispo4p_status ? 'Disposisi 4 Permohonan, ' : ''  }}
                                             {{ $permission->dispo1s_status ? 'Disposisi 1 SPJ, ' : ''  }}
                                             {{ $permission->dispo2s_status ? 'Disposisi 2 SPJ, ' : ''  }}
-                                            @if(!$permission->view_status&&!$permission->permission_status&&!$permission->unit_status&&!$permission->kategori_status&&!$permission->kegiatan_status&&!$permission->exception_status&&!$permission->permohonan_status&&!$permission->dispo1p_status&&!$permission->dispo2p_status&&!$permission->dispo3p_status&&!$permission->dispo4p_status&&!$permission->dispo1s_status&&!$permission->dispo2s_status)
+                                            @if(!$permission->view_status&&!$permission->permission_status&&!$permission->unit_status&&!$permission->kegiatan_status&&!$permission->exception_status&&!$permission->permohonan_status&&!$permission->dispo1p_status&&!$permission->dispo2p_status&&!$permission->dispo3p_status&&!$permission->dispo4p_status&&!$permission->dispo1s_status&&!$permission->dispo2s_status)
                                             View Only
                                             @endif
                                         </small>
