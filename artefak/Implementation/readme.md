@@ -94,8 +94,8 @@ Target pada proses Implementation ini diharapkan sudah mencapai 20% pada iterasi
 - Tampilan Halaman Menu Rincian pada Hisori Permohonan.png
 - Tampilan Laporan Serapan Anggaran pada Excel.png
 
-Target pada proses Implementation ini diharapkan sudah mencapai 20% pada iterasi construction C2 ini dan mencapai target 90% pada target development plan. Iterasi 5 Implementation ditambahkan :
-- build.docx
+Target pada proses Implementation ini diharapkan sudah mencapai 20% pada iterasi construction C3 ini dan mencapai target 90% pada target development plan. Iterasi 5 Implementation ditambahkan :
+- Build.docx
 - lanjutan dari (Component.docx)
 - lanjutan dari (Implementation Model.docx)
 - Perubahan kode pada FakultasController.png
@@ -109,3 +109,33 @@ Target pada proses Implementation ini diharapkan sudah mencapai 20% pada iterasi
 - Tampilan Halaman Login tanpa footer.png
 - Tampilan Halaman Reset Password tanpa footer.png
 - Tampilan Halaman Dashboard Admin tanpa footer.png
+
+Target pada proses Implementation ini diharapkan sudah mencapai 10% pada iterasi transition T1 ini dan mencapai target 100% pada target development plan. Iterasi 6 Implementation ditambahkan :
+- lanjutan dari (Build.docx)
+- lanjutan dari (Component.docx)
+- lanjutan dari (Implementation Model.docx)
+- Perubahan kode pada RincianController.png
+- Perubahan kode pada PermohonanController.png
+- Perubahan kode pada KegiatanController.png
+- Perubahan kode pada DatabasePermohonan.png
+- Penambahan file PermohonanProker.png
+- Penambahan file BuatProker.png
+- Penambahan file EditProker.png
+- Penambahan file DeleteProker.png
+- Penambahan file SubmitProker.png
+- Penambahan file ManajemenProker.png
+- Penambahan file TerimaProker.png
+- Penambahan file TolakProker.png
+- Perubahan kode pada KalenderKegiatan.png
+- Penambahan file NotifSubmitProker.png
+- Penambahan file NotifTerimaProker.png
+- Penambahan file NotifTolakProker.png
+- Tampilan Halaman Menu Proker Pemohon.png
+- Tampilan Modal Buat Proker.png
+- Tampilan Modal Edit Proker.png
+- Tampilan Konfirmasi Hapus Proker.png
+- Tampilan Konfirmasi Submit Proker.png
+- Tampilan Halaman Menu Manajemen Proker PPK.png
+- Tampilan Konfirmasi Terima Proker.png
+- Tampilan Konfirmasi Tolak Proker.png
+- Tampilan Halaman Menu Kalender Kegiatan PPK.png
