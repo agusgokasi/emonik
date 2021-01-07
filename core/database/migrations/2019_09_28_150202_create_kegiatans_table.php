@@ -15,8 +15,8 @@ class CreateKegiatansTable extends Migration
     {
         Schema::create('kegiatans', function (Blueprint $table) {
             $table->bigIncrements('id');
-            // $table->integer('kategori_id')->nullable();
-            $table->integer('unit_id')->nullable();
+            // $table->bigInteger('kategori_id')->nullable();
+            $table->bigInteger('unit_id')->nullable();
             $table->string('nama');
             $table->string('bulan');
             $table->bigInteger('maksimaldana');

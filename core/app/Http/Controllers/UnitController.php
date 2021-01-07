@@ -39,10 +39,11 @@ class UnitController extends Controller
 
     public function post(Request $request) {
         $validator = Validator::make($request->all(), [
-            'nama' => ['required', 'string','max:150'],
+            'nama' => ['required', 'string','max:150', 'unique:units'],
         ],[
             'nama.required'=>'Nama harus diisi',
             'nama.max'=>'Nama maksimal 150 huruf',
+            'nama.unique'=>'Unit sudah ada',
         ]);
 
         if ($validator->fails()) {
@@ -68,6 +69,16 @@ class UnitController extends Controller
             'nama.max'=>'Nama maksimal 150 huruf',
             'status.required'=>'status harus diisi',
         ]);
+
+        if ($request->nama != $units->nama) {
+            $validator = Validator::make($request->all(), [
+            'nama' => ['required', 'string', 'max:150', 'unique:units'],
+            ],[
+            'nama.required'=>'Nama harus diisi',
+            'nama.max'=>'Nama maksimal 150 huruf',
+            'nama.unique'=>'Unit sudah ada',
+            ]);
+        }
 
         if ($validator->fails()) {
             // return back()->withErrors($validator)->withInput()->with('dgn', 'Unit gagal diedit, Harap periksa kesalahan!');

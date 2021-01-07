@@ -31,10 +31,11 @@ class FakultasController extends Controller
 
     public function post(Request $request) {
         $validator = Validator::make($request->all(), [
-            'nama' => ['required', 'string', 'min:3','max:150'],
+            'nama' => ['required', 'string','max:150', 'unique:fakultases'],
         ],[
             'nama.required'=>'Nama harus diisi',
             'nama.max'=>'Nama maksimal 150 huruf',
+            'nama.unique'=>'Fakultas sudah ada',
         ]);
 
         if ($validator->fails()) {
@@ -58,6 +59,16 @@ class FakultasController extends Controller
             'nama.max'=>'Nama maksimal 150 huruf',
             'status.required'=>'status harus diisi',
         ]);
+
+        if ($request->nama != $fakultases->nama) {
+            $validator = Validator::make($request->all(), [
+            'nama' => ['required', 'string', 'max:150', 'unique:fakultases'],
+            ],[
+            'nama.required'=>'Nama harus diisi',
+            'nama.max'=>'Nama maksimal 150 huruf',
+            'nama.unique'=>'Fakultas sudah ada',
+            ]);
+        }
 
         if ($validator->fails()) {
             // return back()->withErrors($validator)->withInput()->with('dgn', 'Fakultas gagal diedit, Harap periksa kesalahan!');

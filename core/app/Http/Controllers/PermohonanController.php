@@ -165,13 +165,13 @@ class PermohonanController extends Controller
             'kegiatan' 				 	   => 'required',
             'pemohon'                  	   => 'required|min:3|max:150',
             // 'nomorinduk'                   => 'required|min:3|max:150',
-            'latarbelakang'                => 'required|min:3|max:1000',
-            'tujuan'                       => 'required|min:3|max:1000',
-            'ruanglingkup'                 => 'required|min:3|max:150',
+            'latarbelakang'                => 'required|min:3|max:10000',
+            'tujuan'                       => 'required|min:3|max:10000',
+            'ruanglingkup'                 => 'required|min:3|max:10000',
             // 'tanggalkegiatan'              => 'required|date',
-            'waktupencapaian'              => 'required|min:3|max:1000',
-            'luaran'                       => 'required|min:3|max:1000',
-            'pembiayaan'                   => 'required|min:3|max:1000',
+            'waktupencapaian'              => 'required|min:3|max:10000',
+            'luaran'                       => 'required|min:3|max:10000',
+            'pembiayaan'                   => 'required|min:3|max:10000',
             'filetor'                      => 'required|mimes:pdf|max:10000kb',
         ],[
             'nama.required'=>'Nama Kegiatan harus diisi',
@@ -190,32 +190,32 @@ class PermohonanController extends Controller
 
             'latarbelakang.required'=>'Latar Belakang harus diisi',
             'latarbelakang.min'=>'Latar Belakang minimal 3 huruf',
-            'latarbelakang.max'=>'Latar Belakang maksimal 1000 huruf',
+            'latarbelakang.max'=>'Latar Belakang maksimal 10000 huruf',
 
             'tujuan.required'=>'Tujuan / Penerima Manfaat harus diisi',
             'tujuan.min'=>'Tujuan / Penerima Manfaat minimal 3 huruf',
-            'tujuan.max'=>'Tujuan / Penerima Manfaat maksimal 1000 huruf',
+            'tujuan.max'=>'Tujuan / Penerima Manfaat maksimal 10000 huruf',
 
             'ruanglingkup.required'=>'Ruang Lingkup / Strategi Pencapaian Keluaran harus diisi',
             'ruanglingkup.min'=>'Ruang Lingkup / Strategi Pencapaian Keluaran minimal 3 huruf',
-            'ruanglingkup.max'=>'Ruang Lingkup / Strategi Pencapaian Keluaran maksimal 150 huruf',
+            'ruanglingkup.max'=>'Ruang Lingkup / Strategi Pencapaian Keluaran maksimal 10000 huruf',
 
             // 'tanggalkegiatan.required'=>'Tanggal Kegiatan harus diisi',
 
             'waktupencapaian.required'=>'Waktu Pencapaian Keluaran harus diisi',
             'waktupencapaian.min'=>'Waktu Pencapaian Keluaran minimal 3 huruf',
-            'waktupencapaian.max'=>'Waktu Pencapaian Keluaran maksimal 1000 huruf',
+            'waktupencapaian.max'=>'Waktu Pencapaian Keluaran maksimal 10000 huruf',
 
             'luaran.required'=>'Susunan Acara / Luaran harus diisi',
             'luaran.min'=>'Susunan Acara / Luaran minimal 3 huruf',
-            'luaran.max'=>'Susunan Acara / Luaran maksimal 1000 huruf',
+            'luaran.max'=>'Susunan Acara / Luaran maksimal 10000 huruf',
 
             'pembiayaan.required'=>'Pembiayaan / Rencana Anggaran harus diisi',
             'pembiayaan.min'=>'Pembiayaan / Rencana Anggaran minimal 3 huruf',
-            'pembiayaan.max'=>'Pembiayaan / Rencana Anggaran maksimal 1000 huruf',
+            'pembiayaan.max'=>'Pembiayaan / Rencana Anggaran maksimal 10000 huruf',
 
             'filetor.required'=>'File TOR harus diisi',
-            'filetor.max'=>'File TOR maksimal 5Mb',
+            'filetor.max'=>'File TOR maksimal 10Mb',
             'filetor.mimes'=>'File TOR harus berformat .pdf',
         ]);
         //slug
@@ -291,13 +291,13 @@ class PermohonanController extends Controller
             'kegiatan'                     => 'required',
             'pemohon'                       => 'required|min:3|max:150',
             // 'nomorinduk'                   => 'required|min:3|max:150',
-            'latarbelakang'                => 'required|min:3|max:1000',
-            'tujuan'                       => 'required|min:3|max:1000',
-            'ruanglingkup'                 => 'required|min:3|max:150',
+            'latarbelakang'                => 'required|min:3|max:10000',
+            'tujuan'                       => 'required|min:3|max:10000',
+            'ruanglingkup'                 => 'required|min:3|max:10000',
             // 'tanggalkegiatan'              => 'required|date',
-            'waktupencapaian'              => 'required|min:3|max:1000',
-            'luaran'                       => 'required|min:3|max:1000',
-            'pembiayaan'                   => 'required|min:3|max:1000',
+            'waktupencapaian'              => 'required|min:3|max:10000',
+            'luaran'                       => 'required|min:3|max:10000',
+            'pembiayaan'                   => 'required|min:3|max:10000',
             'filetor'                      => 'nullable|mimes:pdf|max:10000kb',
         ],[
             'nama.required'=>'Nama Kegiatan harus diisi',
@@ -316,31 +316,31 @@ class PermohonanController extends Controller
 
             'latarbelakang.required'=>'Latar Belakang harus diisi',
             'latarbelakang.min'=>'Latar Belakang minimal 3 huruf',
-            'latarbelakang.max'=>'Latar Belakang maksimal 1000 huruf',
+            'latarbelakang.max'=>'Latar Belakang maksimal 10000 huruf',
 
             'tujuan.required'=>'Tujuan / Penerima Manfaat harus diisi',
             'tujuan.min'=>'Tujuan / Penerima Manfaat minimal 3 huruf',
-            'tujuan.max'=>'Tujuan / Penerima Manfaat maksimal 1000 huruf',
+            'tujuan.max'=>'Tujuan / Penerima Manfaat maksimal 10000 huruf',
 
             'ruanglingkup.required'=>'Ruang Lingkup / Strategi Pencapaian Keluaran harus diisi',
             'ruanglingkup.min'=>'Ruang Lingkup / Strategi Pencapaian Keluaran minimal 3 huruf',
-            'ruanglingkup.max'=>'Ruang Lingkup / Strategi Pencapaian Keluaran maksimal 150 huruf',
+            'ruanglingkup.max'=>'Ruang Lingkup / Strategi Pencapaian Keluaran maksimal 10000 huruf',
 
             // 'tanggalkegiatan.required'=>'Tanggal Kegiatan harus diisi',
 
             'waktupencapaian.required'=>'Waktu Pencapaian Keluaran harus diisi',
             'waktupencapaian.min'=>'Waktu Pencapaian Keluaran minimal 3 huruf',
-            'waktupencapaian.max'=>'Waktu Pencapaian Keluaran maksimal 1000 huruf',
+            'waktupencapaian.max'=>'Waktu Pencapaian Keluaran maksimal 10000 huruf',
 
             'luaran.required'=>'Susunan Acara / Luaran harus diisi',
             'luaran.min'=>'Susunan Acara / Luaran minimal 3 huruf',
-            'luaran.max'=>'Susunan Acara / Luaran maksimal 1000 huruf',
+            'luaran.max'=>'Susunan Acara / Luaran maksimal 10000 huruf',
 
             'pembiayaan.required'=>'Pembiayaan / Rencana Anggaran harus diisi',
             'pembiayaan.min'=>'Pembiayaan / Rencana Anggaran minimal 3 huruf',
-            'pembiayaan.max'=>'Pembiayaan / Rencana Anggaran maksimal 1000 huruf',
+            'pembiayaan.max'=>'Pembiayaan / Rencana Anggaran maksimal 10000 huruf',
 
-            'filetor.max'=>'File TOR maksimal 5Mb',
+            'filetor.max'=>'File TOR maksimal 10Mb',
             'filetor.mimes'=>'File TOR harus berformat .pdf',
         ]);
 

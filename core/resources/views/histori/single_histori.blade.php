@@ -7,7 +7,7 @@
             <a href="{{ route('home') }}">Dashboard</a>
         </li>
         <li class="breadcrumb-item">
-            <a href="{{ route('histori') }}">History Permohonan</a>
+            <a href="{{ route('histori') }}">Histori Permohonan</a>
         </li>
         <li class="breadcrumb-item active">
             {{$permohonan->nama}}

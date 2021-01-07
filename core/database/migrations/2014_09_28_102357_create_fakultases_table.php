@@ -15,7 +15,7 @@ class CreateFakultasesTable extends Migration
     {
         Schema::create('fakultases', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama');
+            $table->string('nama')->unique();
             $table->tinyInteger('status');
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();

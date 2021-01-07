@@ -32,11 +32,12 @@ class ProdisController extends Controller
 
     public function post(Request $request) {
         $validator = Validator::make($request->all(), [
-            'nama' => ['required', 'string', 'max:150'],
+            'nama' => ['required', 'string', 'max:150', 'unique:prodis'],
             'fakultas' => 'required',
         ],[
             'nama.required'=>'Nama harus diisi',
             'nama.max'=>'Nama maksimal 150 huruf',
+            'nama.unique'=>'Prodi sudah ada',
             'fakultas.required'=>'Fakultas harus diisi',
         ]);
 
@@ -64,6 +65,16 @@ class ProdisController extends Controller
             'fakultas.required'=>'Fakultas harus diisi',
             'status.required'=>'Status harus diisi',
         ]);
+
+        if ($request->nama != $prodis->nama) {
+            $validator = Validator::make($request->all(), [
+            'nama' => ['required', 'string', 'max:150', 'unique:prodis'],
+            ],[
+            'nama.required'=>'Nama harus diisi',
+            'nama.max'=>'Nama maksimal 150 huruf',
+            'nama.unique'=>'Prodi sudah ada',
+            ]);
+        }
 
         if ($validator->fails()) {
             // return back()->withErrors($validator)->withInput()->with('dgn', 'Prodi gagal diedit, Harap periksa kesalahan!');

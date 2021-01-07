@@ -30,11 +30,11 @@
                         <thead>
                             <tr>
                             	<th>No</th>
-                            	<th>Nama User</th>
-                                <th>Login Email</th>
-                                <th>Nomor Telepon</th>
+                            	<th>Nama</th>
+                                <th>Email</th>
+                                <th>No.Telepon</th>
                                 <th>Permission</th>
-                                <th>Jenis Unit</th>
+                                <th>Unit</th>
                                 <th>Status</th>
                                 <th>Options</th>
                             </tr>

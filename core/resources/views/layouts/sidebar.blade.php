@@ -65,8 +65,8 @@
     <div id="collapseTwo_1" class="collapse" aria-labelledby="headingTwo_1" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item {{ (request()->is('units')) ? 'active' : '' }}" href="{{ url('units') }}">Unit</a>
-            <a class="collapse-item {{ (request()->is('fakultas')) ? 'active' : '' }}" href="{{ url('fakultas') }}">Fakultas</a>
             <a class="collapse-item {{ (request()->is('prodis')) ? 'active' : '' }}" href="{{ url('prodis') }}">Prodi</a>
+            <a class="collapse-item {{ (request()->is('fakultas')) ? 'active' : '' }}" href="{{ url('fakultas') }}">Fakultas</a>
         </div>
     </div>
 </li>

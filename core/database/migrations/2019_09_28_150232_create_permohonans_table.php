@@ -15,8 +15,8 @@ class CreatePermohonansTable extends Migration
     {
         Schema::create('permohonans', function (Blueprint $table) {
             $table->bigIncrements('id');
-            // $table->integer('kategori_id')->nullable();
-            $table->integer('kegiatan_id')->nullable();
+            // $table->bigInteger('kategori_id')->nullable();
+            $table->bigInteger('kegiatan_id')->nullable();
             $table->string('nama');
             $table->string('slug', 270)->unique();
             $table->string('pemohon');

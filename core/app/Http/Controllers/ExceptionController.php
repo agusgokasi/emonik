@@ -25,7 +25,7 @@ class ExceptionController extends Controller
     }
 
     public function index() {
-    	$users = User::where('status', 1)->whereHas('permissionsGroup', function ($query) {$query->where('permohonan_status', 1);})->orderBy('updated_at', 'desc')->get();
+    	$users = User::where('status', 1)->where('id', '!=', 1)->whereHas('permissionsGroup', function ($query) {$query->where('permohonan_status', 1);})->orderBy('updated_at', 'desc')->get();
         return view('exception.index_exception', compact('users'));
     }
 
@@ -35,6 +35,6 @@ class ExceptionController extends Controller
         $user->tor = null;
         $user->updated_by = Auth::user()->id;
         $user->save();
-        return redirect()->action('ExceptionController@index')->with('msg', 'User akses telah buka!');
+        return redirect()->action('ExceptionController@index')->with('msg', 'User akses telah dibuka!');
     }
 }

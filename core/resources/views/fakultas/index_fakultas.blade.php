@@ -30,7 +30,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                            	<th>No</th>
+                            	<th style="width:10px;">No</th>
                             	<th>Nama Fakultas</th>
                                 <th class="text-center" style="width:80px;">Status</th>
                                 <th class="text-center" style="width:80px;">Options</th>

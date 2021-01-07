@@ -15,7 +15,7 @@ class CreateRinciansTable extends Migration
     {
         Schema::create('rincians', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('permohonan_id')->nullable();
+            $table->bigInteger('permohonan_id')->nullable();
             $table->string('namapermohonan');
             $table->string('jenisbelanja');
             $table->bigInteger('biayasatuan');

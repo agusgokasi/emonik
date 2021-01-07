@@ -30,7 +30,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                            	<th>No</th>
+                            	<th style="width:10px;">No</th>
                             	<th>Nama Unit</th>
                                 <th>Fakultas</th>
                                 <th>Prodi</th>
@@ -114,9 +114,10 @@
                     $('select[name="prodi"]').empty();
                     if(data == ''){
                         // console.log(data);
-                        $('select[name="prodi"]').append('<option hidden disabled selected value>Tidak Ada Prodi</option>');
+                        $('select[name="prodi"]').append('<option hidden disabled selected value>Tidak Punya Prodi</option>');
                     }
                     else{
+                    $('select[name="prodi"]').append('<option value>Tidak Punya Prodi</option>');
                     $.each(data, function(key, value){
                             $('select[name="prodi"]').append('<option value="'+ key +'">' + value + '</option>');
                         });
@@ -129,7 +130,7 @@
         }
         else {
             $('select[name="prodi"]').empty();
-            $('select[name="prodi"]').append('<option hidden disabled selected value>Tidak Ada Prodi</option>');
+            $('select[name="prodi"]').append('<option hidden disabled selected value>Tidak Punya Prodi</option>');
         }
 
     });

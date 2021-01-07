@@ -21,8 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->string('password');
             $table->integer('tor')->nullable();
-            $table->integer('unit_id')->nullable();
-            $table->integer('permission_id')->nullable();
+            $table->bigInteger('unit_id')->nullable();
+            $table->bigInteger('permission_id')->nullable();
             $table->tinyInteger('status');
             $table->rememberToken();
             $table->bigInteger('created_by')->nullable();

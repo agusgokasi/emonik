@@ -32,7 +32,7 @@ class DisposisiController extends Controller
 {
     public function dis1(){
     	if (Auth::user()->permissionsGroup->dispo1p_status) {
-    	$permohonans = permohonan::where('status', 1)->orderBy('updated_at', 'desc')->get();
+    	$permohonans = permohonan::where('status', 1)->orderBy('updated_at', 'asc')->get();
         $users = User::where('id', '!=', 1)->where('status', 1)->get();
         if (auth()->user()->permissionsGroup->dispo1p_status == 1) {
             foreach ($users as $user) {
@@ -63,7 +63,7 @@ class DisposisiController extends Controller
 
     public function dis2(){
     	if (Auth::user()->permissionsGroup->dispo2p_status) {
-    	$permohonans = permohonan::where('status', 2)->orderBy('updated_at', 'desc')->get();
+    	$permohonans = permohonan::where('status', 2)->orderBy('updated_at', 'asc')->get();
         $users = User::where('id', '!=', 1)->where('status', 1)->get();
         if (auth()->user()->permissionsGroup->dispo2p_status == 1) {
             foreach ($users as $user) {
@@ -136,7 +136,7 @@ class DisposisiController extends Controller
 
     public function dis3(){
     	if (Auth::user()->permissionsGroup->dispo3p_status) {
-    	$permohonans = permohonan::where('status', 3)->orderBy('updated_at', 'desc')->get();
+    	$permohonans = permohonan::where('status', 3)->orderBy('updated_at', 'asc')->get();
         $users = User::where('id', '!=', 1)->where('status', 1)->get();
         if (auth()->user()->permissionsGroup->dispo3p_status == 1) {
             foreach ($users as $user) {
@@ -213,7 +213,7 @@ class DisposisiController extends Controller
 
     public function dis4(){
     	if (Auth::user()->permissionsGroup->dispo4p_status) {
-    	$permohonans = permohonan::where('status', 4)->orderBy('updated_at', 'desc')->get();
+    	$permohonans = permohonan::where('status', 4)->orderBy('updated_at', 'asc')->get();
         $users = User::where('id', '!=', 1)->where('status', 1)->get();
         if (auth()->user()->permissionsGroup->dispo4p_status == 1) {
             foreach ($users as $user) {
@@ -250,7 +250,7 @@ class DisposisiController extends Controller
 
     public function dis5(){
         if (Auth::user()->permissionsGroup->dispo1s_status) {
-        $permohonans = permohonan::where('status', 6)->orderBy('updated_at', 'desc')->get();
+        $permohonans = permohonan::where('status', 6)->orderBy('updated_at', 'asc')->get();
         $users = User::where('id', '!=', 1)->where('status', 1)->get();
         if (auth()->user()->permissionsGroup->dispo1s_status == 1) {
             foreach ($users as $user) {
@@ -323,7 +323,7 @@ class DisposisiController extends Controller
 
     public function dis6(){
         if (Auth::user()->permissionsGroup->dispo2s_status) {
-        $permohonans = permohonan::where('status', 7)->orderBy('updated_at', 'desc')->get();
+        $permohonans = permohonan::where('status', 7)->orderBy('updated_at', 'asc')->get();
         $users = User::where('id', '!=', 1)->where('status', 1)->get();
         if (auth()->user()->permissionsGroup->dispo2s_status == 1) {
             foreach ($users as $user) {

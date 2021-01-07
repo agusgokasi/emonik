@@ -15,8 +15,8 @@ class CreateProdisTable extends Migration
     {
         Schema::create('prodis', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama');
-            $table->Integer('fakultas_id')->nullable();
+            $table->string('nama')->unique();
+            $table->bigInteger('fakultas_id')->nullable();
             $table->tinyInteger('status');
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
