@@ -12,6 +12,7 @@ Target pada proses Test ini diharapkan sudah mencapai 20% pada iterasi construct
 - Test Log.docx
 
 Target pada proses Test ini diharapkan sudah mencapai 30% pada iterasi transition T1 ini dan mencapai target 80% pada target development plan. Iterasi 5 Test ditambahkan :
+- Test Guideliness.docx
 - Test Case.docx
 - Test Data.docx
 - lanjutan dari (Test Log.docx)
