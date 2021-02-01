@@ -16,3 +16,10 @@ Target pada proses Test ini diharapkan sudah mencapai 30% pada iterasi transitio
 - Test Case.docx
 - Test Data.docx
 - lanjutan dari (Test Log.docx)
+
+Target pada proses Test ini diharapkan sudah mencapai 20% pada iterasi transition T2 ini dan mencapai target 100% pada target development plan. Iterasi 6 Test ditambahkan :
+- lanjutan dari (Test Guideliness.docx)
+- lanjutan dari (Test Case.docx)
+- lanjutan dari (Test Data.docx)
+- lanjutan dari (Test Log.docx)
+- Test Result.docx

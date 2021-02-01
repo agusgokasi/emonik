@@ -9,3 +9,6 @@ Target pada proses Deployment ini diharapkan sudah mencapai 10% pada iterasi con
 
 Target pada proses Deployment ini diharapkan sudah mencapai 30% pada iterasi transition T1 ini dan mencapai target 65% pada target development plan. Iterasi 4 Deployment ditambahkan :
 - lanjutan dari (Realease Notes.docx)
+
+Target pada proses Deployment ini diharapkan sudah mencapai 35% pada iterasi transition T2 ini dan mencapai target 100% pada target development plan. Iterasi 5 Deployment ditambahkan :
+- lanjutan dari (Realease Notes.docx)
