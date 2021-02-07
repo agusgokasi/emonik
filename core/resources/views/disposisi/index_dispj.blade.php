@@ -71,10 +71,10 @@
                                         <button class="btn btn-sm btn-danger btn-block" data-toggle="modal" data-target="#m-dt5{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate"><i class="far fa-times-circle" style="font-size: 15px"> Tolak</i></button>
                                         @include('disposisi._dt5')
                                         @elseif($permohonan->status==7)
-                                        {{-- <button class="btn btn-sm btn-danger btn-block" data-toggle="modal" data-target="#m-dt6{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="font-size: 15px; background-color: red; color: white; border-radius: 2em"><i class="far fa-times-circle" style="font-size: 15px"> Tolak</i></button> --}}
-                                        {{-- @include('disposisi._dt6') --}}
-                                        <button class="btn btn-sm btn-success btn-block" data-toggle="modal" data-target="#m-d6{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate"><i class="fa fa-forward" style="font-size: 15px"> Lanjutkan</i></button>
+                                        <button class="btn btn-sm btn-success btn-block" data-toggle="modal" data-target="#m-d6{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="margin-bottom: 5px"><i class="fa fa-forward" style="font-size: 15px"> Lanjutkan</i></button>
                                         @include('disposisi._d6')
+                                        <button class="btn btn-sm btn-danger btn-block" data-toggle="modal" data-target="#m-dt6{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate"><i class="far fa-times-circle" style="font-size: 15px"> Tolak</i></button>
+                                        @include('disposisi._dt6')
                                         @endif
                                     </td>
                                     <td>
@@ -83,14 +83,14 @@
                                         @else
                                         <small> {{ $permohonan->keterangan }} </small>
                                         @endif
-                                        <br>
+                                        {{-- <br>
                                         @if($permohonan->spj_tolak_kas == null)
                                         @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_kas/'.$permohonan->spj_tolak_kas) }}" download="{{$permohonan->spj_tolak_kas}}"><i class="fa fa-file-download "> Download File Penolakan SPJ</i></a>
+                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_kas/'.$permohonan->spj_tolak_kas) }}" download="{{$permohonan->spj_tolak_kas}}"><i class="fa fa-file-download "> Download File Penolakan Kas</i></a>
                                         @endif
-                                        {{-- @if($permohonan->spj_tolak_ppk == null)
+                                        @if($permohonan->spj_tolak_bpp == null)
                                         @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_ppk/'.$permohonan->spj_tolak_ppk) }}" download="{{$permohonan->spj_tolak_ppk}}"><i class="fa fa-file-download "> Download penolakan 2</i></a>
+                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_bpp/'.$permohonan->spj_tolak_bpp) }}" download="{{$permohonan->spj_tolak_bpp}}"><i class="fa fa-file-download "> Download File Penolakan BPP</i></a>
                                         @endif --}}
                                     </td>
                                 </tr>

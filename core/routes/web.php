@@ -130,7 +130,7 @@ Route::Group(['middleware' => ['auth']], function () {
     Route::post('/dis5/tolak/{permohonan}', 'DisposisiController@dt5')->name('dis5Tolak');
     Route::get('/dis5/submit/{permohonan}', 'DisposisiController@di5')->name('dis5Submit');
     Route::get('/dis6', 'DisposisiController@dis6')->name('dis6');
-    // Route::post('/dis6/tolak/{permohonan}', 'DisposisiController@dt6')->name('dis6Tolak');
+    Route::post('/dis6/tolak/{permohonan}', 'DisposisiController@dt6')->name('dis6Tolak');
     Route::post('/dis6/submit/{permohonan}', 'DisposisiController@di6')->name('dis6Submit');
     Route::get('/disposis/{permohonan}', 'DisposisiController@spjShow')->name('dissShow');
 

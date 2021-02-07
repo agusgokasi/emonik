@@ -107,12 +107,12 @@
                                         <br>
                                         @if($permohonan->spj_tolak_kas == null)
                                         @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_kas/'.$permohonan->spj_tolak_kas) }}" download="{{$permohonan->spj_tolak_kas}}"><i class="fa fa-file-download "> Download File Penolakan SPJ</i></a>
+                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_kas/'.$permohonan->spj_tolak_kas) }}" download="{{$permohonan->spj_tolak_kas}}"><i class="fa fa-file-download "> Download File Penolakan Kas</i></a>
                                         @endif
-                                        {{-- @if($permohonan->spj_tolak_ppk == null)
+                                        @if($permohonan->spj_tolak_bpp == null)
                                         @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_ppk/'.$permohonan->spj_tolak_ppk) }}" download="{{$permohonan->spj_tolak_ppk}}"><i class="fa fa-file-download "> Download penolakan 2</i></a>
-                                        @endif --}}
+                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_bpp/'.$permohonan->spj_tolak_bpp) }}" download="{{$permohonan->spj_tolak_bpp}}"><i class="fa fa-file-download "> Download File Penolakan BPP</i></a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

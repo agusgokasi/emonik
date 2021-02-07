@@ -25,7 +25,7 @@ use App\Notifications\SubmitSPJ;
 use App\Notifications\Dis1SPJ;
 use App\Notifications\Dt1SPJ;
 use App\Notifications\Dis2SPJ;
-// use App\Notifications\Dt2SPJ;
+use App\Notifications\Dt2SPJ;
 use Illuminate\Support\Facades\Validator;
 
 class DisposisiController extends Controller
@@ -335,6 +335,48 @@ class DisposisiController extends Controller
         return abort(403);
     }
 
+     public function dt6(Request $request, $slug) {
+        if (Auth::user()->permissionsGroup->dispo2s_status) {
+        $permohonan = Permohonan::where('slug',$slug)->first();
+        $pemohon = User::where('id', $permohonan->created_by)->first();
+        $validator = Validator::make($request->all(), [
+        'keterangan'              => 'required|min:3|max:1000',
+        'spj_tolak_bpp'           => 'required|mimes:pdf|max:10000kb'
+        ],[
+            'keterangan.required'=>'Alasan ditolak harus diisi',
+            'keterangan.min'=>'Alasan ditolak minimal 3 huruf',
+            'keterangan.max'=>'Alasan ditolak minimal 1000 huruf',
+
+            'spj_tolak_bpp.required'=>'Bukti Penolakan harus diisi',
+            'spj_tolak_bpp.mimes'=>'Bukti Penolakan berformat .pdf',
+            'spj_tolak_bpp.max'=>'Bukti Penolakan maksimal 10Mb',
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput()->with('error_code', $slug);
+        }
+
+        $file = $request->file('spj_tolak_bpp');
+        $spj_tolak_bpp = time().rand(1000,9999).'.'.$file->getClientOriginalExtension();
+        $request->file('spj_tolak_bpp')->move(public_path('/spj_tolak_bpp'), $spj_tolak_bpp);
+
+        if ($permohonan->spj_tolak_bpp) {
+            if(is_file('spj_tolak_bpp/'.$permohonan->spj_tolak_bpp)){
+            unlink(public_path('spj_tolak_bpp/'.$permohonan->spj_tolak_bpp));
+            }
+        }
+        
+        $permohonan->status = 8;
+        $permohonan->spj_tolak_bpp = $spj_tolak_bpp;
+        $permohonan->keterangan = $request['keterangan'];
+        $permohonan->save();
+        if ($pemohon->permissionsGroup->permohonan_status == 1) {
+            $pemohon->notify(new Dt2SPJ);
+        }
+        return redirect()->action('DisposisiController@dis6')->with('msg', 'SPJ berhasil ditolak!');
+        }
+        return abort(403);
+    } 
+
     public function di6(Request $request, $slug) {
         if (Auth::user()->permissionsGroup->dispo2s_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
@@ -371,46 +413,4 @@ class DisposisiController extends Controller
         $rincians = Rincian::where('permohonan_id',$permohonan->id)->get();
         return view('disposisi.single_dispj', compact('user', 'permohonan', 'rincians'));
     }
-
-    /* public function dt6(Request $request, $slug) {
-        if (Auth::user()->permissionsGroup->dispo2s_status) {
-        $permohonan = Permohonan::where('slug',$slug)->first();
-        $pemohon = User::where('id', $permohonan->created_by)->first();
-        $validator = Validator::make($request->all(), [
-        'keterangan'              => 'required|min:3|max:1000',
-        'spj_tolak_ppk'                 => 'required|mimes:pdf|max:10000kb'
-        ],[
-            'keterangan.required'=>'Alasan ditolak harus diisi',
-            'keterangan.min'=>'Alasan ditolak minimal 3 huruf',
-            'keterangan.max'=>'Alasan ditolak minimal 1000 huruf',
-
-            'spj_tolak_ppk.required'=>'Bukti Penolakan harus diisi',
-            'spj_tolak_ppk.mimes'=>'Bukti Penolakan berformat .pdf',
-            'spj_tolak_ppk.max'=>'Bukti Penolakan maksimal 10Mb',
-        ]);
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput()->with('error_code', $slug);
-        }
-
-        $file = $request->file('spj_tolak_ppk');
-        $spj_tolak_ppk = time().rand(1000,9999).'.'.$file->getClientOriginalExtension();
-        $request->file('spj_tolak_ppk')->move(public_path('/spj_tolak_ppk'), $spj_tolak_ppk);
-
-        if ($permohonan->spj_tolak_ppk) {
-            if(is_file('spj_tolak_ppk/'.$permohonan->spj_tolak_ppk)){
-            unlink(public_path('spj_tolak_ppk/'.$permohonan->spj_tolak_ppk));
-            }
-        }
-        
-        $permohonan->status = 8;
-        $permohonan->spj_tolak_ppk = $spj_tolak_ppk;
-        $permohonan->keterangan = $request['keterangan'];
-        $permohonan->save();
-        if ($pemohon->permissionsGroup->permohonan_status == 1) {
-            $pemohon->notify(new Dt2SPJ);
-        }
-        return redirect()->action('DisposisiController@dis6')->with('msg', 'SPJ berhasil ditolak!');
-        }
-        return abort(403);
-    } */
 }

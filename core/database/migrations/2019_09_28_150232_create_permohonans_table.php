@@ -41,7 +41,7 @@ class CreatePermohonansTable extends Migration
             $table->string('revisi')->nullable();
             $table->string('revisi2')->nullable();
             $table->string('spj_tolak_kas')->nullable();
-            // $table->string('spj_tolak_ppk')->nullable();
+            $table->string('spj_tolak_bpp')->nullable();
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();

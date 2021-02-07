@@ -29,7 +29,11 @@ class Dis2Permohonan extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', 'mail'];
+        if(config('mail.username')){
+            return ['database', 'mail'];
+        }else{
+            return ['database'];
+        }
     }
 
     /**

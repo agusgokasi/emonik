@@ -8,6 +8,33 @@
             <form method="post" role="form" action="{{ route('dis6Tolak' , ['permohonan' => $permohonan->slug]) }}" enctype="multipart/form-data" id="myForm">
                 {{ csrf_field() }}
                 <div class="modal-body text-left p-lg">
+                    {{-- nama --}}
+                    <div class="form-group row">
+                        <label for="nama" class="col-md-4 col-form-label text-md-left">{{ __('Nama Kegiatan') }}</label>
+                        <div class="col-md-8">
+                            <input id="nama" type="text" class="form-control{{ $errors->has('nama') ? ' is-invalid' : '' }}" name="nama" value="{{ $permohonan->nama }}" disabled="disabled" autofocus>
+
+                            @if ($errors->has('nama'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('nama') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    {{-- Dibuat Oleh --}}
+                    <div class="form-group row">
+                        <label for="pemohon" class="col-md-4 col-form-label text-md-left">{{ __('Dibuat Oleh') }}</label>
+                        <div class="col-md-8">
+                            <input id="pemohon" type="text" class="form-control{{ $errors->has('pemohon') ? ' is-invalid' : '' }}" name="pemohon" value="{{ $permohonan->pemohon }}" disabled="disabled" autofocus>
+
+                            @if ($errors->has('pemohon'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('pemohon') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    {{--  --}}
                     <div class="form-group row">
                         <label for="keterangan" class="col-md-4 col-form-label text-md-left">{{ __('Alasan ditolak') }}</label>
                         <div class="col-md-8">
@@ -20,12 +47,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="spj_tolak_ppk" class="col-md-4 col-form-label text-md-left">{{ __('Bukti Penolakan') }}</label>
+                        <label for="spj_tolak_bpp" class="col-md-4 col-form-label text-md-left">{{ __('Bukti Penolakan') }}</label>
                         <div class="col-md-8">
-                            <input type="file" name="spj_tolak_ppk" class="form-control{{ $errors->has('spj_tolak_ppk') ? ' is-invalid' : '' }}" id="spj_tolak_ppk" value="{{ old('spj_tolak_ppk') }}" required>
-                            @if ($errors->has('spj_tolak_ppk'))
+                            <input type="file" name="spj_tolak_bpp" class="form-control{{ $errors->has('spj_tolak_bpp') ? ' is-invalid' : '' }}" id="spj_tolak_bpp" value="{{ old('spj_tolak_bpp') }}" required>
+                            @if ($errors->has('spj_tolak_bpp'))
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('spj_tolak_ppk') }}</strong>
+                                    <strong>{{ $errors->first('spj_tolak_bpp') }}</strong>
                                 </span>
                             @endif
                         </div>

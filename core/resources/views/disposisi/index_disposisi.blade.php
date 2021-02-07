@@ -78,7 +78,7 @@
                                         @else
                                         <small> {{ $permohonan->keterangan }} </small>
                                         @endif
-                                        <br>
+                                        {{-- <br>
                                         @if( $permohonan->revisi == null )
                                         @else
                                         <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi/'.$permohonan->revisi) }}" download="{{$permohonan->revisi}}"><i class="fa fa-file-download "> Download Keterangan PPK</i></a>
@@ -86,7 +86,7 @@
                                         @if( $permohonan->revisi2 == null )
                                         @else
                                         <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi2/'.$permohonan->revisi2) }}" download="{{$permohonan->revisi2}}"><i class="fa fa-file-download "> Download Keterangan Kasubag</i></a>
-                                        @endif
+                                        @endif --}}
                                     </td>
                                 </tr>
                             @endforeach
