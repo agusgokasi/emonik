@@ -23,12 +23,12 @@ class UserController extends Controller
     }
 
     public function index() {
-    	$users = User::where('id', '!=', 1)->get();
+    	$users = User::get();
         return view('user.index_user', compact('users'));
     }
 
     public function create() {
-        $permissions = Permission::where('id', '!=', 1)->where('status', 1)->get();
+        $permissions = Permission::where('status', 1)->get();
         $units = Unit::get();
         return view('user.create_user', compact('permissions', 'units'));
     }
@@ -75,7 +75,7 @@ class UserController extends Controller
     }
 
     public function edit($id) {
-        $permissions = Permission::where('id', '!=', 1)->where('status', 1)->get();
+        $permissions = Permission::where('status', 1)->get();
         $units = Unit::get();
         $user = User::findOrFail($id);
         return view('user.edit_user', compact('permissions', 'units', 'user'));

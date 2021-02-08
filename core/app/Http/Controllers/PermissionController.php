@@ -21,8 +21,8 @@ class PermissionController extends Controller
     }
 
     public function index() {
-    	$users = User::where('id', '!=', 1)->get();
-        $permissions = Permission::where('id', '!=', 1)->get();
+    	$users = User::get();
+        $permissions = Permission::get();
         return view('permission.index_permission', compact('users', 'permissions'));
     }
 

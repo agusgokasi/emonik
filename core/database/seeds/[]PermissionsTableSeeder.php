@@ -12,6 +12,25 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
+    	
+        $Permissions = new Permission();
+        $Permissions->nama = "Webmaster";
+        $Permissions->view_status = true;
+        $Permissions->permission_status = true;
+        $Permissions->unit_status = true;
+        // $Permissions->kategori_status = true;
+        $Permissions->kegiatan_status = true;
+        $Permissions->exception_status = true;
+        $Permissions->permohonan_status = true;
+        $Permissions->dispo1p_status = true;
+        $Permissions->dispo2p_status = true;
+        $Permissions->dispo3p_status = true;
+        $Permissions->dispo4p_status = true;
+        $Permissions->dispo1s_status = true;
+        $Permissions->dispo2s_status = true;
+        $Permissions->status = true;
+        $Permissions->created_by = 1;
+        $Permissions->save();
 
         $Permissions = new Permission();
         $Permissions->nama = "Admin";
