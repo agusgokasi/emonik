@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'Auth\LoginController@showLoginForm');
 
 Auth::routes(['register'=>false]);
 

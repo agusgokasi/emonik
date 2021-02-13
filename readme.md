@@ -1,1 +1,1 @@
-Sistem Informasi E-Monitoring Keuangan Berbasis website dengan menggunakan metode Rational Unified Process
+Sistem Informasi E-Monitoring Keuangan Berbasis Website Dengan Menggunakan Metode Rational Unified Process
