@@ -112,8 +112,8 @@ class RinciansExport implements FromQuery, WithHeadings, WithMapping, ShouldAuto
                     'A3:J'.($last_row-1),
                     [
                         'borders' => [
-                            'outline' => [
-                                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+                            'allBorders' => [
+                                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
                                 'color' => ['argb' => '00000000'],
                             ],
                         ]
