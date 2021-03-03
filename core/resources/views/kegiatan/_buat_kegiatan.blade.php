@@ -48,6 +48,19 @@
                             @endif
                         </div>
                     </div>
+                    {{-- tahunform --}}
+                    <div class="form-group row">
+                        <label for="tahunform" class="col-md-4 col-form-label text-md-left">{{ __('Tahun') }}</label>
+                        <div class="col-md-8">
+                            <input id="tahunform" type="text" class="form-control{{ $errors->has('tahunform') ? ' is-invalid' : '' }}" name="tahunform" value="{{ old('tahunform') }}" required autofocus>
+
+                            @if ($errors->has('tahunform'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('tahunform') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
                     {{-- maksimaldana --}}
                     <div class="form-group row">
                         <label for="maksimaldana" class="col-md-4 col-form-label text-md-left">{{ __('Maksimal Dana (Rp)') }}</label>
@@ -61,24 +74,6 @@
                             @endif
                         </div>
                     </div>
-                    {{-- kategori --}}
-                    {{-- <div class="form-group row">
-                        <label for="kategori" class="col-md-4 col-form-label text-md-left">{{ __('Kategori') }}</label>
-
-                        <div class="col-md-8">
-                            <select name="kategori" class="form-control{{ $errors->has('kategori') ? ' is-invalid' : '' }}" id="kategori" value="{{ old('kategori') }}" required autofocus>
-                                <option hidden disabled selected value>--Pilih Kategori--</option>
-                                @foreach($kategoris as $kategori)
-                                <option value="{{$kategori->id}}" {!! old('kategori')==$kategori->id ? "selected='selected'":"" !!} data-id="{{$kategori->id}}">{{$kategori->nama}}</option>
-                                @endforeach
-                            </select>
-                            @if ($errors->has('kategori'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('kategori') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div> --}}
                     {{-- unit --}}
                     <div class="form-group row">
                         <label for="unit" class="col-md-4 col-form-label text-md-left">{{ __('Unit') }}</label>
@@ -111,4 +106,3 @@
         </div>
     </div>
     <!-- / .modal -->
-

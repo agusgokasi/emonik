@@ -10,7 +10,6 @@
                         Anda yakin ingin menghapus?
                         <br>
                         <strong>[ {{ $kegiatan->nama }} ]</strong> <br>
-                        <small>*tindakan ini akan menghapus semua id kegiatan yang berhubungan!</small>
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -19,7 +18,7 @@
                     <a href="{{ route("kegiatanDestroy",["id"=>$kegiatan->id]) }}"
                        class="btn btn-danger p-x-md">&nbsp;Ya&nbsp;</a>
                 </div>
-            </div><!-- /.modal-content -->
+            </div>
         </div>
     </div>
-    <!-- / .modal -->
+    <!-- / .modal

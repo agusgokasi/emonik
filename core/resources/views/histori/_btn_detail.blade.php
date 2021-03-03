@@ -1,0 +1,1 @@
+<a href="{{ route('historiShow' , ['permohonan' => $permohonan->slug]) }}" class="btn btn-outline-primary btn-sm">Lihat Detail</a>

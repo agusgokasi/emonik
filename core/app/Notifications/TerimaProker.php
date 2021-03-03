@@ -44,7 +44,7 @@ class TerimaProker extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = (config('app.url').'prokerpermohonan');
+        $url = (config('app.url').'prokerkegiatan');
         return (new MailMessage)
                     ->subject('Pengajuan Proker Diterima')
                     ->greeting('Hello!')

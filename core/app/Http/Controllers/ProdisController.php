@@ -50,7 +50,7 @@ class ProdisController extends Controller
         $prodis->status = 1;
         $prodis->created_by = Auth::user()->id;
         $prodis->save();
-        return back()->with('msg', 'Prodi berhasil disubmit!');
+        return back()->with('msg', 'Prodi berhasil dibuat!');
     }
 
     public function update(Request $request, $id) {

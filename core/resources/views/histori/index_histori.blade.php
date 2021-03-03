@@ -4,7 +4,7 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="{{ route('home') }}">Dashboard</a>
+            <a href="{{ route('home') }}"><i class="fas fa-fw fa-home"></i> Dashboard</a>
         </li>
         <li class="breadcrumb-item active">
             Histori Permohonan
@@ -20,93 +20,91 @@
             </div>
 
             <div class="card-body">
+                <div class="form-group row input-daterange">
+                    <div class="col-md-4">
+                        <input type="text" name="from_date" id="from_date" class="form-control" placeholder="Dari Tanggal" readonly />
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" name="to_date" id="to_date" class="form-control" placeholder="Ke Tanggal" readonly />
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" name="filter" id="filter" class="btn btn-primary">Filter</button>
+                        <button type="button" name="refresh" id="refresh" class="btn btn-outline-secondary">Refresh</button>
+                    </div>
+                </div>
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-striped table-bordered" id="table_histori" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th style="width:5px;">No</th>
                                 <th>Nama Kegiatan</th>
                                 <th>Dibuat Oleh</th>
                                 <th>Tanggal Dibuat</th>
-                                <th>Tanggal Diedit</th>
+                                <th>Aktivitas Terakhir</th>
                                 <th style="width:30px;">Status</th>
                                 <th style="width:30px;">Detail</th>
-                                <th style="width:180px;">Keterangan</th>
+                                <th style="width:150px;">Keterangan</th>
                             </tr>
                         </thead>
-                        <tbody>
-                        @if($permohonans->count())
-                            @foreach($permohonans as $key => $permohonan)
-                                <tr>
-                                    <td>{{++$key}}</td>
-                                    <td><small>{{$permohonan->nama}}</small></td>
-                                    <td><small>{{$permohonan->pemohon}}</small></td>
-                                    <td><small>{{date('d-m-Y, H:i:s', strtotime($permohonan->created_at))}}</small></td>
-                                    <td><small>{{date('d-m-Y, H:i:s', strtotime($permohonan->updated_at))}}</small></td>
-                                    <td class="text-center">
-                                    {{-- @if($permohonan->status == 0)
-                                    <span class="bg-secondary text-light rounded" style="padding: 5px">Pending</span>
-                                    @elseif($permohonan->status == 1)
-                                    <span class="bg-primary text-light rounded" style="padding: 5px">Submited</span>
-                                    @elseif($permohonan->status == 2)
-                                    <span class="bg-primary text-light rounded" style="padding: 5px">Confirmed</span>
-                                    @elseif($permohonan->status == 3)
-                                    <span class="bg-success text-light rounded" style="padding: 5px">Accepted</span>
-                                    @elseif($permohonan->status == 4)
-                                    <span class="bg-success text-light rounded" style="padding: 5px">Success</span>
-                                    @elseif($permohonan->status == 5)
-                                    <span class="bg-secondary text-light rounded" style="padding: 5px">Pending</span>
-                                    @elseif($permohonan->status == 6)
-                                    <span class="bg-primary text-light rounded" style="padding: 5px">Submited</span>
-                                    @elseif($permohonan->status == 7)
-                                    <span class="bg-success text-light rounded" style="padding: 5px">Accepted</span>
-                                    @elseif($permohonan->status == 8)
-                                    <span class="bg-danger text-light rounded" style="padding: 5px">Rejected</span>
-                                    @elseif($permohonan->status == 9)
-                                    <span class="bg-danger text-light rounded" style="padding: 5px">Rejected</span>
-                                    @elseif($permohonan->status == 10)
-                                    <span class="bg-success text-light rounded" style="padding: 5px">Success</span>
-                                    @endif --}}
-                                    <i class="fa @if($permohonan->status==4 || $permohonan->status==10)
-                                        fa-check text-success
-                                        @elseif($permohonan->status==1 || $permohonan->status==2 || $permohonan->status==3 || $permohonan->status==6 || $permohonan->status==7)
-                                        fa-hourglass-half text-primary
-                                        @else
-                                        fa-times text-danger
-                                        @endif inline"></i>
-                                    </td>
-                                    </td>
-                                    <td><a href="{{ route('historiShow' , ['permohonan' => $permohonan->slug]) }}" class="btn btn-outline-primary btn-sm">Lihat Detail</a></td>
-                                    <td>
-                                        @if( $permohonan->keterangan == null )
-                                        <small>-</small>
-                                        @else
-                                        <small> {{ $permohonan->keterangan }} </small>
-                                        @endif
-                                        {{-- <br>
-                                        @if( $permohonan->revisi == null )
-                                        @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi/'.$permohonan->revisi) }}" download="{{$permohonan->revisi}}"><i class="fa fa-file-download "> Download Keterangan PPK</i></a>
-                                        @endif
-                                        @if( $permohonan->revisi2 == null )
-                                        @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi2/'.$permohonan->revisi2) }}" download="{{$permohonan->revisi2}}"><i class="fa fa-file-download "> Download Keterangan Kasubag</i></a>
-                                        @endif
-                                        @if($permohonan->spj_tolak_kas == null)
-                                        @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_kas/'.$permohonan->spj_tolak_kas) }}" download="{{$permohonan->spj_tolak_kas}}"><i class="fa fa-file-download "> Download File Penolakan SPJ</i></a>
-                                        @endif
-                                        @if($permohonan->spj_tolak_bpp == null)
-                                        @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_bpp/'.$permohonan->spj_tolak_bpp) }}" download="{{$permohonan->spj_tolak_bpp}}"><i class="fa fa-file-download "> Download File Penolakan BPP</i></a> --}}
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @endif
-                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('add_js')
+    <script type="text/javascript">
+        $(function () {
+            $.fn.datepicker.defaults.language = 'id';
+         $('.input-daterange').datepicker({
+          todayBtn:'linked',
+          format:'dd-mm-yyyy',
+          autoclose:true,
+         });
+            load_data();
+            function load_data(from_date = '', to_date = ''){
+                $('#table_histori').DataTable({
+                processing: true,
+                serverSide: true,
+                // autoWidth: false,
+                // ajax: ""+apiHistori,
+                ajax: {
+                    url:'{{ route("apiHistori") }}',
+                    data:{from_date:from_date, to_date:to_date}
+                },
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'nama', name: 'nama'},
+                    {data: 'pemohon', name: 'pemohon'},
+                    {data: 'created_at', name: 'created_at'},
+                    {data: 'updated_at', name: 'updated_at'},
+                    {data: 'status', name: 'status'},
+                    {data: 'detail', name: 'detail'},
+                    {data: 'keterangan', name: 'keterangan'},
+                ],
+                });
+            }
+            $('#filter').click(function(){
+              var from_date = $('#from_date').val();
+              var to_date = $('#to_date').val();
+              if(from_date != '' &&  to_date != '')
+              {
+               $('#table_histori').DataTable().destroy();
+               load_data(from_date, to_date);
+              }
+              else
+              {
+               alert('Semua tanggal harus diisi');
+              }
+             });
+             $('#refresh').click(function(){
+              $('#from_date').val('');
+              $('#to_date').val('');
+              $('#table_histori').DataTable().destroy();
+              load_data();
+             });
+            
+        });
+    </script>
 @endsection

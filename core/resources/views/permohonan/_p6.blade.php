@@ -9,7 +9,7 @@
                     <p>
                         Permohonan Anda Telah Selesai Diproses
                         <br>
-                        <strong>[ Silahkan ambil dana di BPP! ]</strong>
+                        <strong>[ Dana telah tersedia, Silahkan ambil dana! ]</strong>
                     </p>
                 </div>
                 <div class="modal-footer">

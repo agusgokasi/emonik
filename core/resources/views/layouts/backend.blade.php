@@ -21,6 +21,9 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('sb2/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css" /> --}}
+    <link href="{{ asset('css/bootstrap-datepicker.css') }}" rel="stylesheet">
+
 
 
     <!-- CSRF Token -->
@@ -47,7 +50,7 @@
 
 <body id="page-top">
 
-    <div id="wrapper">
+    <div id="wrapper" class="toggled">
 
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -155,6 +158,9 @@
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('js/jquery.js')}}"></script>
     <script src="{{ asset('sb2/vendor/jquery/jquery.min.js')}}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script> --}}
+    <script src="{{ asset('js/bootstrap-datepicker.js')}}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.id.js')}}"></script>
     <script src="{{ asset('sb2/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ asset('js/jquery.mask.js')}}"></script>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>

@@ -56,7 +56,7 @@ class UnitController extends Controller
         $units->status = 1;
         $units->created_by = Auth::user()->id;
         $units->save();
-        return back()->with('msg', 'Unit berhasil disubmit!');
+        return back()->with('msg', 'Unit berhasil dibuat!');
     }
 
     public function update(Request $request, $id) {

@@ -48,7 +48,7 @@ class Dp3Permohonan extends Notification
         return (new MailMessage)
                     ->subject('Permohonan Diterima')
                     ->greeting('Hello!')
-                    ->line('Permohonan sudah disetujui Kasubag, silahkan ambil dana di BPP.')
+                    ->line('Dana sudah tersedia, silahkan ambil dana.')
                     ->action('Lihat Website', $url)
                     ->line('Thank you for using our application!');
     }

@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\User;
 use Auth;
+use App\Kegiatan;
+use App\Permohonan;
 
 class HomeController extends Controller
 {
@@ -26,7 +28,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = Auth::user();
+        $proker = Kegiatan::where('status', '!=' , 1)->where('unit_id', $user->unit_id)->count();
+        $kegiatan = Kegiatan::where('status', 1)->where('unit_id', $user->unit_id)->where('keterangan', 'Permohonan Belum Dibuat')->count();
+        $permohonan = Permohonan::where('created_by', $user->id)->where('status', '!=' ,5)->where('status', '!=' ,6)->where('status', '!=' ,7)->where('status', '!=' ,8)->where('status', '!=' ,10)->count();
+        $spj = Permohonan::where('created_by', $user->id)->where('status', '!=' ,0)->where('status', '!=' ,1)->where('status', '!=' ,2)->where('status', '!=' ,3)->where('status', '!=' ,4)->where('status', '!=' ,9)->where('status', '!=' ,10)->where('status', '!=' ,11)->count();
+        $disp1 = Permohonan::where('status', 1)->count();
+        $disp2 = Permohonan::where('status', 2)->count();
+        $disp3 = Permohonan::where('status', 3)->count();
+        $disp4 = Permohonan::where('status', 4)->count();
+        $dispj1 = Permohonan::where('status', 6)->count();
+        $dispj2 = Permohonan::where('status', 7)->count();
+        $pproker = Kegiatan::where('status', 9)->count();
+        return view('home', compact('kegiatan', 'proker', 'permohonan', 'spj', 'disp1', 'disp2', 'disp3', 'disp4', 'dispj1', 'dispj2', 'pproker'));
     }
 
     public function edit($id) {
@@ -51,7 +65,7 @@ class HomeController extends Controller
 
             'phone.digits_between'=>'Nomor telepon field 8 sampai 15 digit angka',
 
-            'password.min'=>'email maksimal 6 karakter',
+            'password.min'=>'password minimal 6 karakter',
 
         ]);
 

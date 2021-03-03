@@ -4,7 +4,7 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="{{ route('home') }}">Dashboard</a>
+            <a href="{{ route('home') }}"><i class="fas fa-fw fa-home"></i> Dashboard</a>
         </li>
         <li class="breadcrumb-item active">
             Unit

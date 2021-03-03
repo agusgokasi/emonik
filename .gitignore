@@ -1,7 +1,7 @@
 core/storage
-filetor
-file
-revisi
-revisi2
-spj_tolak_kas
-spj_tolak_bpp
+core/gmail.env
+uploadfile/file
+uploadfile/revisi
+uploadfile/revisi2
+uploadfile/spj_tolak_kas
+uploadfile/spj_tolak_bpp

@@ -4,7 +4,7 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="{{ route('home') }}">Dashboard</a>
+            <a href="{{ route('home') }}"><i class="fas fa-fw fa-home"></i> Dashboard</a>
         </li>
         <li class="breadcrumb-item active">
             Manajemen SPJ
@@ -21,7 +21,7 @@
 
             <div class="card-body">
             	<div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                             	<th style="width:5px;">No</th>
@@ -107,11 +107,11 @@
                                         <br>
                                         @if($permohonan->spj_tolak_kas == null)
                                         @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_kas/'.$permohonan->spj_tolak_kas) }}" download="{{$permohonan->spj_tolak_kas}}"><i class="fa fa-file-download "> Download File Penolakan Kas</i></a>
+                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('uploadfile/spj_tolak_kas/'.$permohonan->spj_tolak_kas) }}" download="{{$permohonan->spj_tolak_kas}}"><i class="fa fa-file-download "> Download File Penolakan Kasubag</i></a>
                                         @endif
                                         @if($permohonan->spj_tolak_bpp == null)
                                         @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('spj_tolak_bpp/'.$permohonan->spj_tolak_bpp) }}" download="{{$permohonan->spj_tolak_bpp}}"><i class="fa fa-file-download "> Download File Penolakan BPP</i></a>
+                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('uploadfile/spj_tolak_bpp/'.$permohonan->spj_tolak_bpp) }}" download="{{$permohonan->spj_tolak_bpp}}"><i class="fa fa-file-download "> Download File Penolakan BPP</i></a>
                                         @endif
                                     </td>
                                 </tr>

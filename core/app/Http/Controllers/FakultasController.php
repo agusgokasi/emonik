@@ -46,7 +46,7 @@ class FakultasController extends Controller
         $fakultases->status = 1;
         $fakultases->created_by = Auth::user()->id;
         $fakultases->save();
-        return back()->with('msg', 'Fakultas berhasil disubmit!');
+        return back()->with('msg', 'Fakultas berhasil dibuat!');
     }
 
     public function update(Request $request, $id) {

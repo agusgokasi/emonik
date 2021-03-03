@@ -26,19 +26,19 @@
                         <label for="bulan" class="col-md-4 col-form-label text-md-left">{{ __('Bulan') }}</label>
 
                         <div class="col-md-8">
-                            <select name="bulan" class="form-control{{ $errors->has('bulan') ? ' is-invalid' : '' }}" id="bulan" value="{{ $kegiatan->nama }}" required autofocus>
-                                <option value="Januari" {!! $kegiatan->nama=="Januari" ? "selected='selected'":"" !!} data-id="Januari">Januari</option>
-                                <option value="Februari" {!! $kegiatan->nama=="Februari" ? "selected='selected'":"" !!} data-id="Februari">Februari</option>
-                                <option value="Maret" {!! $kegiatan->nama=="Maret" ? "selected='selected'":"" !!} data-id="Maret">Maret</option>
-                                <option value="April" {!! $kegiatan->nama=="April" ? "selected='selected'":"" !!} data-id="April">April</option>
-                                <option value="Mei" {!! $kegiatan->nama=="Mei" ? "selected='selected'":"" !!} data-id="Mei">Mei</option>
-                                <option value="Juni" {!! $kegiatan->nama=="Juni" ? "selected='selected'":"" !!} data-id="Juni">Juni</option>
-                                <option value="Juli" {!! $kegiatan->nama=="Juli" ? "selected='selected'":"" !!} data-id="Juli">Juli</option>
-                                <option value="Agustus" {!! $kegiatan->nama=="Agustus" ? "selected='selected'":"" !!} data-id="Agustus">Agustus</option>
-                                <option value="September" {!! $kegiatan->nama=="September" ? "selected='selected'":"" !!} data-id="September">September</option>
-                                <option value="Oktober" {!! $kegiatan->nama=="Oktober" ? "selected='selected'":"" !!} data-id="Oktober">Oktober</option>
-                                <option value="November" {!! $kegiatan->nama=="November" ? "selected='selected'":"" !!} data-id="November">November</option>
-                                <option value="Desember" {!! $kegiatan->nama=="Desember" ? "selected='selected'":"" !!} data-id="Desember">Desember</option>
+                            <select name="bulan" class="form-control{{ $errors->has('bulan') ? ' is-invalid' : '' }}" id="bulan" value="{{ $kegiatan->bulan }}" required autofocus>
+                                <option value="Januari" {!! $kegiatan->bulan=="Januari" ? "selected='selected'":"" !!} data-id="Januari">Januari</option>
+                                <option value="Februari" {!! $kegiatan->bulan=="Februari" ? "selected='selected'":"" !!} data-id="Februari">Februari</option>
+                                <option value="Maret" {!! $kegiatan->bulan=="Maret" ? "selected='selected'":"" !!} data-id="Maret">Maret</option>
+                                <option value="April" {!! $kegiatan->bulan=="April" ? "selected='selected'":"" !!} data-id="April">April</option>
+                                <option value="Mei" {!! $kegiatan->bulan=="Mei" ? "selected='selected'":"" !!} data-id="Mei">Mei</option>
+                                <option value="Juni" {!! $kegiatan->bulan=="Juni" ? "selected='selected'":"" !!} data-id="Juni">Juni</option>
+                                <option value="Juli" {!! $kegiatan->bulan=="Juli" ? "selected='selected'":"" !!} data-id="Juli">Juli</option>
+                                <option value="Agustus" {!! $kegiatan->bulan=="Agustus" ? "selected='selected'":"" !!} data-id="Agustus">Agustus</option>
+                                <option value="September" {!! $kegiatan->bulan=="September" ? "selected='selected'":"" !!} data-id="September">September</option>
+                                <option value="Oktober" {!! $kegiatan->bulan=="Oktober" ? "selected='selected'":"" !!} data-id="Oktober">Oktober</option>
+                                <option value="November" {!! $kegiatan->bulan=="November" ? "selected='selected'":"" !!} data-id="November">November</option>
+                                <option value="Desember" {!! $kegiatan->bulan=="Desember" ? "selected='selected'":"" !!} data-id="Desember">Desember</option>
                             </select>
                             @if ($errors->has('bulan'))
                                 <span class="invalid-feedback" role="alert">
@@ -47,9 +47,22 @@
                             @endif
                         </div>
                     </div>
+                    {{-- tahunform --}}
+                    <div class="form-group row">
+                        <label for="tahunform" class="col-md-4 col-form-label text-md-left">{{ __('Tahun') }}</label>
+                        <div class="col-md-8">
+                            <input id="tahunform{{ $kegiatan->id }}" type="text" class="form-control{{ $errors->has('tahun') ? ' is-invalid' : '' }}" name="tahunform" value="{!! $kegiatan->tahun !!}" required autofocus>
+
+                            @if ($errors->has('tahunform'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('tahunform') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
                     {{-- maksimaldana --}}
                     <div class="form-group row">
-                        <label for="maksimaldana" class="col-md-4 col-form-label text-md-left">{{ __('Maksimal Dana (Rp)') }}</label>
+                        <label for="maksimaldana" class="col-md-4 col-form-label text-md-left">{{ __('Usulan Dana (Rp)') }}</label>
                         <div class="col-md-8">
                             <input id="maksimaldana{{ $kegiatan->id }}" type="text" class="form-control{{ $errors->has('maksimaldana') ? ' is-invalid' : '' }}" name="maksimaldana" value="{!! $kegiatan->maksimaldana !!}" required autofocus>
 
@@ -60,33 +73,14 @@
                             @endif
                         </div>
                     </div>
-                    {{-- kategori --}}
-                    {{-- <div class="form-group row">
-                        <label for="kategori" class="col-md-4 col-form-label text-md-left">{{ __('Kategori') }}</label>
-
-                        <div class="col-md-8">
-                            <select name="kategori" class="form-control{{ $errors->has('kategori') ? ' is-invalid' : '' }}" id="kategori" value="{{ $kegiatan->kategori_id }}" required autofocus>
-                                <option value="" {!! (!$kegiatan->kategori_id) ? "selected='selected'":"" !!}>Tidak Punya Kategori</option>
-                                @foreach($kategoris as $kategori)
-                                <option value="{{$kategori->id}}" {!! $kegiatan->kategori_id==$kategori->id ? "selected='selected'":"" !!} data-id="{{$kategori->id}}">{{$kategori->nama}}</option>
-                                @endforeach
-                            </select>
-                            @if ($errors->has('kategori'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('kategori') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div> --}}
                     {{-- unit --}}
                     <div class="form-group row">
                         <label for="unit" class="col-md-4 col-form-label text-md-left">{{ __('Unit') }}</label>
 
                         <div class="col-md-8">
                             <select name="unit" class="form-control{{ $errors->has('unit') ? ' is-invalid' : '' }}" id="unit" value="{{ $kegiatan->unit_id }}" required autofocus>
-                                <option value="" {!! (!$kegiatan->unit_id) ? "selected='selected'":"" !!}>Tidak Punya Unit</option>
                                 @foreach($units as $unit)
-                                <option value="{{$unit->id}}" {!! $kegiatan->unit_id==$unit->id ? "selected='selected'":"" !!} data-id="{{$unit->id}}">{{$unit->nama}}</option>
+                                <option value="{{$unit->id}}" {!! $kegiatan->id==$unit->id ? "selected='selected'":"" !!} data-id="{{$unit->id}}">{{$unit->nama}}</option>
                                 @endforeach
                             </select>
                             @if ($errors->has('unit'))
@@ -96,32 +90,9 @@
                             @endif
                         </div>
                     </div>
-                    {{-- status --}}
-                    <div class="form-group row">
-                        <label for="status" class="col-md-4 col-form-label text-md-left">{{ __('Status') }}</label>
-
-                        <div class="col-md-8">
-                            <div class="form-check form-check-inline">
-                                <input id="status" style="border: 0px;width: 15px;margin-bottom: 0px;margin-right: 5px;height: 15px;" type="radio" class=" form-control{{ $errors->has('status') ? ' is-invalid' : '' }}" name="status" value="1" {{ $kegiatan->status == '1' ? 'checked' : '' }} required autofocus>
-                                <label> Aktif</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input id="status" style="border: 0px;width: 15px;margin-bottom: 0px;margin-right: 5px;height: 15px;" type="radio" class="form-control{{ $errors->has('status') ? ' is-invalid' : '' }}" name="status" value="0" {{ $kegiatan->status == '0' ? 'checked' : '' }} required autofocus>
-                                <label> Tidak Aktif</label>
-                            </div>
-
-                            @if ($errors->has('status'))
-                                <div role="alert">
-                                    <small>
-                                        <strong class="text-danger">{{ $errors->first('status') }}</strong>
-                                    </small>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary p-x-md"
+                    <button type="button" class="btn btn-outline-secondary p-x-md tomboltutup"
                             data-dismiss="modal">Tidak</button>
                     <button type="submit" class="btn btn-primary p-x-md">
                             {{ __('Simpan' ) }}

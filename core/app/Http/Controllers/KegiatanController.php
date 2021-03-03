@@ -6,6 +6,7 @@ use App\Permission;
 use App\User;
 use Auth;
 use File;
+use DataTables;
 use Illuminate\Http\Request;
 use Redirect;
 // use App\Kategori;
@@ -28,10 +29,139 @@ class KegiatanController extends Controller
     }
 
     public function index() {
-    	$kegiatans = Kegiatan::where('status', 1)->orderBy('updated_at', 'desc')->get();
-    	// $kategoris = Kategori::where('status', 1)->get();
-    	// $units = Unit::where('status', 1)->get();
-        return view('kegiatan.index_kegiatan', compact('kegiatans'));
+        $kegiatans = Kegiatan::where('status', 1)->orderBy('updated_at', 'desc')->get();
+        $tahuns = Kegiatan::where('status', 1)->groupBy('tahun')->orderBy('tahun', 'desc')->pluck("tahun");
+        $units = Unit::where('status', 1)->get();
+        return view('kegiatan.index_kegiatan', compact('kegiatans', 'tahuns', 'units'));
+    }
+
+    public function apiKegiatan(Request $request)
+    {
+        if(request()->ajax()){
+            if(!empty($request->tahun)){
+                $data = Kegiatan::where('status', 1)->where('tahun', $request->tahun)->orderBy('updated_at', 'desc')->get();
+            }else{
+                $data = Kegiatan::where('status', 1)->orderBy('updated_at', 'desc')->get();
+            }
+        }
+        
+        return Datatables::of($data)
+                ->addIndexColumn()
+                ->editColumn('maksimaldana', function ($model) {
+                    return 'Rp'.format_uang($model->maksimaldana);
+                })
+                ->editColumn('unit_id', function ($model) {
+                    
+                    if (!$model->unit_id) {
+                        return 'Tidak Punya Unit';
+                    }else{
+                        return $model->unit->nama;
+                    }
+                })
+                ->editColumn('status', function ($model) {
+                    
+                    if ($model->status==1) {
+                        return '<center><i class="fa fa-check text-success"></i></center>';
+                    }elseif ($model->status==9) {
+                        return '<center><i class="fa fa-hourglass-half text-primary inline"></i></center>';
+                    }else{
+                        return '<center><i class="fa fa-times text-danger inline"></i></center>';
+                    }
+                })
+                ->editColumn('keterangan', function ($model) {
+                    
+                    if (!$model->keterangan) {
+                        return 'Proker Belum Disubmit';
+                    }else{
+                        return $model->keterangan;
+                    }
+                })
+                ->addColumn('options', function (Kegiatan $kegiatan) {
+                    $units = Unit::where('status', 1)->get();
+                    return view('kegiatan._btn_options', compact('kegiatan', 'units'));
+                })
+                ->rawColumns(['status', 'options'])
+                ->toJson();
+    }
+
+    public function post(Request $request) {
+       $validator = Validator::make($request->all(), [
+            'nama' => ['required', 'string','max:150'],
+            'bulan' => ['required', 'string','max:150'],
+            'tahunform' => ['required', 'numeric'],
+            'maksimaldana' => 'required|numeric|min:10000|max:100000000000000',
+            'unit' => ['required', 'string','max:150'],
+        ],[
+            'nama.required'=>'Nama harus diisi',
+            'nama.max'=>'Nama maksimal 150 huruf',
+            'bulan.required'=>'Bulan harus diisi',
+            'bulan.max'=>'Bulan maksimal 150 huruf',
+            'tahunform.required'=>'Tahun harus diisi',
+            'maksimaldana.required'=>'Usulan dana harus diisi',
+            'maksimaldana.min'=>'dana minimal Rp10.000',
+            'maksimaldana.max'=>'dana maksimal Rp100.000.000.000.000',
+            'unit.required'=>'Unit harus diisi',
+            'unit.max'=>'Unit maksimal 150 huruf',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput()->with('error_code', 'create');
+        }
+        $kegiatans = new Kegiatan();
+        $kegiatans->nama = $request['nama'];
+        $kegiatans->bulan = $request['bulan'];
+        $kegiatans->tahun = $request['tahunform'];
+        $kegiatans->maksimaldana = $request['maksimaldana'];
+        $kegiatans->unit_id = $request['unit'];
+        $kegiatans->status = 1;
+        $kegiatans->keterangan = "Permohonan Belum Dibuat";
+        $kegiatans->created_by = Auth::user()->id;
+        $kegiatans->save();
+        return back()->with('msg', 'Kegiatan berhasil disimpan!');
+    }
+
+    public function update(Request $request, $id) {
+        $kegiatans = Kegiatan::findOrFail($id);
+        $validator = Validator::make($request->all(), [
+            'nama' => ['required', 'string','max:150'],
+            'bulan' => ['required', 'string','max:150'],
+            'tahunform' => ['required', 'numeric'],
+            'maksimaldana' => 'required|numeric|min:10000|max:100000000000000',
+            'unit' => ['required', 'string','max:150'],
+        ],[
+            'nama.required'=>'Nama harus diisi',
+            'nama.max'=>'Nama maksimal 150 huruf',
+            'bulan.required'=>'Bulan harus diisi',
+            'bulan.max'=>'Bulan maksimal 150 huruf',
+            'tahunform.required'=>'Tahun harus diisi',
+            'maksimaldana.required'=>'Usulan dana harus diisi',
+            'maksimaldana.min'=>'dana minimal Rp10.000',
+            'maksimaldana.max'=>'dana maksimal Rp100.000.000.000.000',
+            'unit.required'=>'Unit harus diisi',
+            'unit.max'=>'Unit maksimal 150 huruf',
+        ]);
+
+        if ($validator->fails()) {
+            // return back()->withErrors($validator)->withInput()->with('dgn', 'Kegiatan gagal diedit, Harap periksa kesalahan!');
+            return back()->withErrors($validator)->withInput()->with('error_code', $id);
+            // return response()->json(['error'=>$validator->errors()->all()]);
+        }
+        $kegiatans->nama = $request['nama'];
+        $kegiatans->bulan = $request['bulan'];
+        $kegiatans->tahun = $request['tahunform'];
+        $kegiatans->maksimaldana = $request['maksimaldana'];
+        $kegiatans->unit_id = $request['unit'];
+        $kegiatans->updated_by = Auth::user()->id;
+        $kegiatans->save();
+        return back()->with('msg', 'Kegiatan berhasil diedit!');
+        // return response()->json(['success'=>'Kegiatan berhasil diedit!']);
+    }
+
+    public function destroy($id) 
+    {
+        $kegiatans = Kegiatan::find($id);
+        $kegiatans->delete();
+        return redirect()->action('KegiatanController@index')->with('msg', 'Kegiatan berhasil dihapus!');
     }
 
     public function proker() {
@@ -47,11 +177,11 @@ class KegiatanController extends Controller
         $kegiatans = Kegiatan::findOrFail($id);
         $user = User::where('id', $kegiatans->created_by)->first();
         $validator = Validator::make($request->all(), [
-            'maksimaldana' => 'required|numeric|min:10000|max:100000000000',
+            'maksimaldana' => 'required|numeric|min:10000|max:100000000000000',
         ],[
             'maksimaldana.required'=>'Maksimal dana harus diisi',
             'maksimaldana.min'=>'dana minimal Rp10.000',
-            'maksimaldana.max'=>'dana maksimal Rp100.000.000.000',
+            'maksimaldana.max'=>'dana maksimal Rp100.000.000.000.000',
         ]);
 
         if ($validator->fails()) {
@@ -92,81 +222,3 @@ class KegiatanController extends Controller
         return back()->with('msg', 'Proker berhasil ditolak!');
     }
 }
-
-/*
-    public function post(Request $request) {
-        $validator = Validator::make($request->all(), [
-            'nama' => ['required', 'string','max:150'],
-            'bulan' => ['required', 'string','max:150'],
-            // 'kategori' => 'required',
-            'unit' => 'required',
-            'maksimaldana' => 'required|numeric|min:10000|max:100000000000',
-        ],[
-            'nama.required'=>'Nama harus diisi',
-            'nama.max'=>'Nama maksimal 150 huruf',
-            'bulan.required'=>'Bulan harus diisi',
-            'bulan.max'=>'Bulan maksimal 150 huruf',
-            // 'kategori.required'=>'Kategori harus diisi',
-            'unit.required'=>'Unit harus diisi',
-            'maksimaldana.required'=>'Maksimal dana harus diisi',
-            'maksimaldana.min'=>'dana minimal Rp10.000',
-            'maksimaldana.max'=>'dana maksimal Rp100.000.000.000',
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput()->with('error_code', 'create');
-        }
-        $kegiatans = new Kegiatan();
-        $kegiatans->nama = $request['nama'];
-        $kegiatans->bulan = $request['bulan'];
-        $kegiatans->maksimaldana = $request['maksimaldana'];
-        // $kegiatans->kategori_id = $request['kategori'];
-        $kegiatans->unit_id = $request['unit'];
-        $kegiatans->status = 1;
-        $kegiatans->created_by = Auth::user()->id;
-        $kegiatans->save();
-        return back()->with('msg', 'Kegiatan berhasil disubmit!');
-    }
-
-    public function update(Request $request, $id) {
-        $kegiatans = Kegiatan::findOrFail($id);
-        $validator = Validator::make($request->all(), [
-            'nama' => ['required', 'string','max:150'],
-            'bulan' => ['required', 'string','max:150'],
-            // 'kategori' => 'required',
-            'unit' => 'required',
-            'maksimaldana' => 'required|numeric|min:10000|max:100000000000',
-        ],[
-            'nama.required'=>'Nama harus diisi',
-            'nama.max'=>'Nama maksimal 150 huruf',
-            'bulan.required'=>'Bulan harus diisi',
-            'bulan.max'=>'Bulan maksimal 150 huruf',
-            // 'kategori.required'=>'Kategori harus diisi',
-            'unit.required'=>'Unit harus diisi',
-            'maksimaldana.required'=>'Maksimal dana harus diisi',
-            'maksimaldana.min'=>'dana minimal Rp10.000',
-            'maksimaldana.max'=>'dana maksimal Rp100.000.000.000',
-        ]);
-
-        if ($validator->fails()) {
-            // return back()->withErrors($validator)->withInput()->with('dgn', 'Kegiatan gagal diedit, Harap periksa kesalahan!');
-            return back()->withErrors($validator)->withInput()->with('error_code', $id);
-        }
-        $kegiatans->nama = $request['nama'];
-        $kegiatans->bulan = $request['bulan'];
-        $kegiatans->maksimaldana = $request['maksimaldana'];
-        // $kegiatans->kategori_id = $request['kategori'];
-        $kegiatans->unit_id = $request['unit'];
-        $kegiatans->status = $request['status'];
-        $kegiatans->updated_by = Auth::user()->id;
-        $kegiatans->save();
-        return back()->with('msg', 'Kegiatan berhasil diedit!');
-    }
-
-    public function destroy($id) 
-    {
-        $kegiatans = Kegiatan::find($id);
-        $kegiatans->delete();
-        return redirect()->action('KegiatanController@index')->with('msg', 'Kegiatan berhasil dihapus!');
-    }
-    */ 

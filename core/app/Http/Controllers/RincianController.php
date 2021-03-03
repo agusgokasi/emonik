@@ -32,7 +32,7 @@ class RincianController extends Controller
         $validator = Validator::make($request->all(), [
         'jenisbelanja'              => 'required|min:3|max:150',
         'volume'                    => 'required|numeric|min:1|max:999',
-        'biayasatuan'               => 'required|numeric|min:1|max:100000000',
+        'biayasatuan'               => 'required|numeric|min:1|max:100000000000000',
         // 'biayasatuan'               => 'required|numeric|max:100000000',
         'satuan'                    => 'required|min:3|max:150',
         ],
@@ -47,7 +47,7 @@ class RincianController extends Controller
 
             'biayasatuan.required'=>'biaya satuan harus diisi',
             'biayasatuan.min'=>'biaya satuan minimal Rp1',
-            'biayasatuan.max'=>'biaya satuan maksimal Rp100.000.000',
+            'biayasatuan.max'=>'biaya satuan maksimal Rp100.000.000.000.000',
 
             'satuan.required'=>'tempat kegiatan harus diisi',
             'satuan.min'=>'tempat kegiatan minimal 3 huruf',
@@ -78,7 +78,7 @@ class RincianController extends Controller
         $permohonans->sisarincian = $permohonans->sisarincian+$rincian->biayatotal;
         $permohonans->save();
 
-        return back()->withInput(['tab'=>'profile'])->with('msg', 'Rincian berhasil di Submit!');
+        return back()->withInput(['tab'=>'profile'])->with('msg', 'Rincian berhasil dibuat!');
     }
 
     public function update(Request $request, $id)
@@ -91,7 +91,7 @@ class RincianController extends Controller
         $validator = Validator::make($request->all(), [
         'jenisbelanja'              => 'required|min:3|max:150',
         'volume'                    => 'required|numeric|min:1|max:999',
-        'biayasatuan'               => 'required|numeric|min:10000|max:100000000',
+        'biayasatuan'               => 'required|numeric|min:10000|max:100000000000000',
         'satuan'                    => 'required|min:3|max:150',
         ],[
             'jenisbelanja.required'=>'jenis belanja harus diisi',
@@ -104,7 +104,7 @@ class RincianController extends Controller
 
             'biayasatuan.required'=>'biaya satuan harus diisi',
             'biayasatuan.min'=>'biaya satuan minimal Rp10.000',
-            'biayasatuan.max'=>'biaya satuan maksimal Rp100.000.000',
+            'biayasatuan.max'=>'biaya satuan maksimal Rp100.000.000.000.000',
 
             'satuan.required'=>'tempat kegiatan harus diisi',
             'satuan.min'=>'tempat kegiatan minimal 3 huruf',
@@ -134,7 +134,7 @@ class RincianController extends Controller
         $permohonans->sisarincian = $permohonans->sisarincian+$rincians->biayatotal;
         $permohonans->save();
 
-        return back()->withInput(['tab'=>'profile'])->with('msg', 'Rincian Biaya berhasil di Edit!');
+        return back()->withInput(['tab'=>'profile'])->with('msg', 'Rincian Biaya berhasil diedit!');
     }
 
     //Hapus Rincian
@@ -146,7 +146,7 @@ class RincianController extends Controller
         $permohonans->sisarincian = $permohonans->sisarincian-$rincians->biayatotal;
         $permohonans->save();
         $rincians->delete();
-        return back()->withInput(['tab'=>'profile'])->with('msg', 'Rincian Biaya berhasil di Hapus!');
+        return back()->withInput(['tab'=>'profile'])->with('msg', 'Rincian Biaya berhasil dihapus!');
     }
 
     //File Bukti
@@ -172,13 +172,13 @@ class RincianController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput(['tab'=>'profile'])->with('error_code', $id);
         }
-        //file
-        // if(is_file('file/'.$rincian->file)){
-        // unlink(public_path('file/'.$rincian->file));
-        // }
+
         $filename = $request->file('file');
-        $file = time().rand(1000,9999).'.'.$filename->getClientOriginalExtension();
-        $request->file('file')->move(public_path('/file'), $file);
+        $file = $filename->getClientOriginalName();
+        if(Rincian::where('file',$file)->first() !=null) {
+            $file = time().rand(0,9).$filename->getClientOriginalName();
+        }
+        $request->file('file')->move(public_path('/uploadfile/file'), $file);
 
         $rincian->biayaterpakai = $request['biayaterpakai'];
         $rincian->sisabiaya = $rincian->sisabiaya-$request['biayaterpakai'];
@@ -227,12 +227,15 @@ class RincianController extends Controller
 
         //file
         if($request->file('file')){
-            if(is_file('file/'.$rincian->file)){
-            unlink(public_path('file/'.$rincian->file));
+            if(is_file('uploadfile/file/'.$rincian->file)){
+            unlink(public_path('uploadfile/file/'.$rincian->file));
             }
             $filename = $request->file('file');
-            $file = time().rand(1000,9999).'.'.$filename->getClientOriginalExtension();
-            $request->file('file')->move(public_path('/file'), $file);
+            $file = $filename->getClientOriginalName();
+            if(Rincian::where('file',$file)->first() !=null) {
+                $file = time().rand(0,9).$filename->getClientOriginalName();
+            }
+            $request->file('file')->move(public_path('/uploadfile/file'), $file);
             $rincian->file = $file;
         }
 
@@ -245,6 +248,6 @@ class RincianController extends Controller
         $permohonan->sisarincian = $permohonan->sisarincian-$rincian->biayaterpakai;
         $permohonan->save();
         
-        return back()->withInput(['tab'=>'profile'])->with('msg', 'Bukti berhasil di edit!');
+        return back()->withInput(['tab'=>'profile'])->with('msg', 'Bukti berhasil diedit!');
     }
 }

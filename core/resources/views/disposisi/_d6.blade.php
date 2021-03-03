@@ -36,7 +36,7 @@
                     </div>
                     {{--  --}}
                     <div class="form-group row">
-                        <label for="keterangan" class="col-md-4 col-form-label text-md-left">{{ __('Catatan Pemohon') }}</label>
+                        <label for="keterangan" class="col-md-4 col-form-label text-md-left">{{ __('Catatan') }}</label>
                         <div class="col-md-8">
                             <textarea name="keterangan" class="form-control{{ $errors->has('keterangan') ? ' is-invalid' : '' }}" id="keterangan" value="{{ old('keterangan') }}" required>{{ old('keterangan') }}</textarea>
                             @if ($errors->has('keterangan'))

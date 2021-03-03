@@ -4,7 +4,7 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a href="{{ route('home') }}">Dashboard</a>
+        <a href="{{ route('home') }}"><i class="fas fa-fw fa-home"></i> Dashboard</a>
     </li>
     <li class="breadcrumb-item">
         <a href="{{ route('permohonan') }}">Permohonan</a>
@@ -208,6 +208,7 @@
 </div>
 @endsection
 @section('add_js')
+@include('layouts.form_ckeditor')
 <script>
     $(document).ready(function() {
     $('select[name="kegiatan"]').on('change', function(){

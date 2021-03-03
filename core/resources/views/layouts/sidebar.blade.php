@@ -4,7 +4,7 @@
 <!-- Nav Item - Dashboard -->
 <li class="nav-item {{ request()->is('home') ? 'active' : '' }} {{ request()->is('/') ? 'active' : '' }}">
     <a class="nav-link" href="{{ url('home') }}">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <i class="fas fa-fw fa-home"></i>
         <span>Dashboard</span>
     </a>
 </li>
@@ -89,7 +89,7 @@
         @if (auth()->user()->unreadNotifications()->where("type", "App\Notifications\SubmitProker")->count() != 0)
             <span class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications()->where("type", "App\Notifications\SubmitProker")->count() }}</span>
         @endif
-</a>
+    </a>
     <div id="collapseTwo_4" class="collapse" aria-labelledby="headingTwo_4" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item {{ (request()->is('proker')) ? 'active' : '' }}" href="{{ url('proker') }}">Proker
@@ -121,8 +121,35 @@
 <div class="sidebar-heading">
     Manajemen Permohonan
 </div>
-
-<li class="nav-item {{ request()->is('prokerpermohonan') ? 'active' : '' }}">
+<li class="nav-item {{ request()->is('prokerpermohonan') ? 'active' : '' }} {{ (request()->is('prokerkegiatan')) ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo_4" aria-expanded="true" aria-controls="collapseTwo_4">
+        <i class="fas fa-fw fa-tasks"></i>
+        <span>Proker & Kegiatan</span>
+        @php
+        $terima = auth()->user()->unreadNotifications()->where("type", "App\Notifications\TerimaProker")->count();
+        $tolak = auth()->user()->unreadNotifications()->where("type", "App\Notifications\TolakProker")->count();
+        $badge_count = $terima+$tolak;
+        if ($badge_count != 0){
+          echo '<span class="badge badge-pill badge-danger">' . $badge_count . '</span>';
+        }
+        @endphp
+    </a>
+    <div id="collapseTwo_4" class="collapse" aria-labelledby="headingTwo_4" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item {{ (request()->is('prokerpermohonan')) ? 'active' : '' }}" href="{{ url('prokerpermohonan') }}">Proker
+            @if (auth()->user()->unreadNotifications()->where("type", "App\Notifications\TolakProker")->count() != 0)
+                <span class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications()->where("type", "App\Notifications\TolakProker")->count() }}</span>
+            @endif
+            </a>
+            <a class="collapse-item {{ (request()->is('prokerkegiatan')) ? 'active' : '' }}" href="{{ url('prokerkegiatan') }}">Kalender Kegiatan
+            @if (auth()->user()->unreadNotifications()->where("type", "App\Notifications\TerimaProker")->count() != 0)
+                <span class="badge badge-pill badge-danger">{{ auth()->user()->unreadNotifications()->where("type", "App\Notifications\TerimaProker")->count() }}</span>
+            @endif
+            </a>
+        </div>
+    </div>
+</li>
+{{-- <li class="nav-item {{ request()->is('prokerpermohonan') ? 'active' : '' }}">
     <a href="{{ url('prokerpermohonan') }}" class="nav-link">
       <i class="fas fa-fw fa-list"></i>
       <span>Proker</span>
@@ -135,7 +162,7 @@
         }
         @endphp
     </a>
-</li>
+</li> --}}
 
 <li class="nav-item {{ request()->is('permohonan') ? 'active' : '' }}">
     <a href="{{ url('permohonan') }}" class="nav-link">

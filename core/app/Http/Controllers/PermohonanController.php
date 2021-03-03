@@ -33,108 +33,11 @@ class PermohonanController extends Controller
         });
     }
 
-    public function indexProker() {
-    	$user = Auth::user();
-        $units = Unit::get();
-    	$kegiatans = Kegiatan::where('unit_id', $user->unit_id)->orderBy('updated_at', 'desc')->get();
-        if (auth()->user()->id != 1) {
-            $user->unreadNotifications->where('type', 'App\Notifications\TerimaProker')->markAsRead();
-            $user->unreadNotifications->where('type', 'App\Notifications\TolakProker')->markAsRead();
-        }
-        return view('permohonan.proker_permohonan', compact('kegiatans', 'user', 'units'));
-    }
-
-    public function postProker(Request $request) {
-        $validator = Validator::make($request->all(), [
-            'nama' => ['required', 'string','max:150'],
-            'bulan' => ['required', 'string','max:150'],
-            'maksimaldana' => 'required|numeric|min:10000|max:100000000000',
-        ],[
-            'nama.required'=>'Nama harus diisi',
-            'nama.max'=>'Nama maksimal 150 huruf',
-            'bulan.required'=>'Bulan harus diisi',
-            'bulan.max'=>'Bulan maksimal 150 huruf',
-            'maksimaldana.required'=>'Usulan dana harus diisi',
-            'maksimaldana.min'=>'dana minimal Rp10.000',
-            'maksimaldana.max'=>'dana maksimal Rp100.000.000.000',
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput()->with('error_code', 'create');
-        }
-        $kegiatans = new Kegiatan();
-        $kegiatans->nama = $request['nama'];
-        $kegiatans->bulan = $request['bulan'];
-        $kegiatans->maksimaldana = $request['maksimaldana'];
-        $kegiatans->unit_id = Auth::user()->unit_id;
-        $kegiatans->status = 0;
-        $kegiatans->created_by = Auth::user()->id;
-        $kegiatans->save();
-        return back()->with('msg', 'Proker berhasil disimpan!');
-    }
-
-    public function updateProker(Request $request, $id) {
-        $kegiatans = Kegiatan::findOrFail($id);
-        $validator = Validator::make($request->all(), [
-            'nama' => ['required', 'string','max:150'],
-            'bulan' => ['required', 'string','max:150'],
-        ],[
-            'nama.required'=>'Nama harus diisi',
-            'nama.max'=>'Nama maksimal 150 huruf',
-            'bulan.required'=>'Bulan harus diisi',
-            'bulan.max'=>'Bulan maksimal 150 huruf',
-        ]);
-        if (!$kegiatans->status){
-            $validator = Validator::make($request->all(), [
-            'maksimaldana' => 'required|numeric|min:10000|max:100000000000',
-        ],[
-            'maksimaldana.required'=>'Usulan dana harus diisi',
-            'maksimaldana.min'=>'dana minimal Rp10.000',
-            'maksimaldana.max'=>'dana maksimal Rp100.000.000.000',
-        ]);
-        }
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput()->with('error_code', $id);
-        }
-        $kegiatans->nama = $request['nama'];
-        $kegiatans->bulan = $request['bulan'];
-        if (!$kegiatans->status){
-            $kegiatans->maksimaldana = $request['maksimaldana'];
-        }
-        $kegiatans->updated_by = Auth::user()->id;
-        $kegiatans->save();
-        return back()->with('msg', 'Proker berhasil diedit!');
-    }
-
-    public function destroyProker($id) 
-    {
-        $kegiatans = Kegiatan::find($id);
-        $kegiatans->delete();
-        return redirect()->action('PermohonanController@indexProker')->with('msg', 'Proker berhasil dihapus!');
-    }
-
-    public function submitProker(Request $request, $id){
-        $users = User::where('id', '!=', 1)->where('status', 1)->get();
-        $kegiatan = Kegiatan::where('id',$id)->first();
-        $kegiatan->status = 9;
-        $kegiatan->keterangan = "Proker sedang di proses";
-        $kegiatan->save();
-        foreach ($users as $user) {
-            if ($user->permissionsGroup->kegiatan_status == 1) {
-                $user->notify(new SubmitProker);
-            }
-        }
-        return redirect()->action('PermohonanController@indexProker')->with('msg', 'Proker berhasil disubmit!');
-    }
-
-
-
     public function index() {
         $user = Auth::user();
         $kegiatans = Kegiatan::where('unit_id', $user->unit_id)->where('status', 1)->get();
-        $permohonans = permohonan::where('created_by', $user->id)->where('status', '!=' ,5)->where('status', '!=' ,6)->where('status', '!=' ,7)->where('status', '!=' ,8)->where('status', '!=' ,10)->orderBy('updated_at', 'desc')->get();
-        if (auth()->user()->id != 1) {
+        $permohonans = Permohonan::where('created_by', $user->id)->where('status', '!=' ,5)->where('status', '!=' ,6)->where('status', '!=' ,7)->where('status', '!=' ,8)->where('status', '!=' ,10)->orderBy('updated_at', 'desc')->get();
+        if (auth()->user()->id) {
             $user->unreadNotifications->where('type', 'App\Notifications\Dt2Permohonan')->markAsRead();
             $user->unreadNotifications->where('type', 'App\Notifications\Dt3Permohonan')->markAsRead();
             $user->unreadNotifications->where('type', 'App\Notifications\Dp3Permohonan')->markAsRead();
@@ -226,8 +129,11 @@ class PermohonanController extends Controller
 
         //file
         $file = $request->file('filetor');
-        $filetor = time().rand(1000,9999).'.'.$file->getClientOriginalExtension();
-        $request->file('filetor')->move(public_path('/filetor'), $filetor);
+        $filetor = $file->getClientOriginalName();
+        if(Permohonan::where('filetor',$filetor)->first() !=null) {
+            $filetor = time().rand(0,9).$file->getClientOriginalName();
+        }
+        $request->file('filetor')->move(public_path('/uploadfile/filetor'), $filetor);
 
         $kegiatan = Kegiatan::where('id', $request['kegiatan'])->first();
 
@@ -359,6 +265,19 @@ class PermohonanController extends Controller
 	            $slug = $slug . '-' .time();
 	        }
         }
+        if($request->file('filetor')){
+            //file
+            if(is_file('uploadfile/filetor/'.$permohonan->filetor)){
+                unlink(public_path('uploadfile/filetor/'.$permohonan->filetor));
+            }
+            $file = $request->file('filetor');
+            $filetor = $file->getClientOriginalName();
+            if(Permohonan::where('filetor',$filetor)->first() !=null) {
+                $filetor = time().rand(0,9).$file->getClientOriginalName();
+            }
+            $request->file('filetor')->move(public_path('/uploadfile/filetor'), $filetor);
+            $permohonan->filetor = $filetor;
+        }
         $permohonan->nama = $request['nama'];
         $permohonan->slug = $slug;
         $permohonan->pemohon = $request['pemohon'];
@@ -373,16 +292,6 @@ class PermohonanController extends Controller
         $permohonan->waktupencapaian = $request['waktupencapaian'];
         $permohonan->luaran = $request['luaran'];
         $permohonan->pembiayaan = $request['pembiayaan'];
-        if($request->file('filetor')){
-        //file
-        if(is_file('filetor/'.$permohonan->filetor)){
-        unlink(public_path('filetor/'.$permohonan->filetor));
-        }
-        $file = $request->file('filetor');
-        $filetor = time().rand(1000,9999).'.'.$file->getClientOriginalExtension();
-        $request->file('filetor')->move(public_path('/filetor'), $filetor);
-        $permohonan->filetor = $filetor;
-    	}
         $permohonan->updated_by = Auth::user()->id;
         $permohonan->save();
         $kegiatan->keterangan = 'Sudah Dibuat';
@@ -395,8 +304,8 @@ class PermohonanController extends Controller
     public function destroy($slug){
         $permohonan = Permohonan::where('slug',$slug)->first();
         $kegiatan = Kegiatan::where('id', $permohonan->kegiatan_id)->first();
-        if(is_file('filetor/'.$permohonan->filetor)){
-        unlink(public_path('filetor/'.$permohonan->filetor));
+        if(is_file('uploadfile/filetor/'.$permohonan->filetor)){
+        unlink(public_path('uploadfile/filetor/'.$permohonan->filetor));
         }
         $kegiatan->keterangan = "Permohonan Belum Dibuat";
         $kegiatan->save();
@@ -410,7 +319,7 @@ class PermohonanController extends Controller
         $permohonan = Permohonan::where('slug',$slug)->first();
         if($permohonan->status == 0){
             $permohonan->status = 1;
-            $permohonan->keterangan = 'permohonan sedang berada di WD2';
+            $permohonan->keterangan = 'Permohonan sedang berada di WD 2';
             $permohonan->save();
             foreach ($users as $user) {
                 if ($user->permissionsGroup->dispo1p_status == 1) {

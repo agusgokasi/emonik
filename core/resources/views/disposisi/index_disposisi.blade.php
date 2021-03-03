@@ -4,7 +4,7 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="{{ route('home') }}">Dashboard</a>
+            <a href="{{ route('home') }}"><i class="fas fa-fw fa-home"></i> Dashboard</a>
         </li>
         <li class="breadcrumb-item active">
             Disposisi Permohonan
@@ -68,7 +68,12 @@
                                         <button class="btn btn-sm btn-danger btn-block" data-toggle="modal" data-target="#m-dt3{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate"><i class="far fa-times-circle" style="font-size: 15px"> Tolak</i></button>
                                         @include('disposisi._dt3')
                                         @elseif($permohonan->status==4)
-                                        <button class="btn btn-sm btn-success btn-block" data-toggle="modal" data-target="#m-d4{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate"><i class="fa fa-forward" style="font-size: 15px"> Lanjutkan</i></button>
+                                        <button class="btn btn-sm btn-warning btn-block" data-toggle="modal" data-target="#m-dp4{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" style="margin-bottom: 5px"><i class="fas fa-bell" style="font-size: 15px"> Notifikasi</i></button>
+                                        @include('disposisi._dp4')
+                                        <button class="btn btn-sm btn-success btn-block" data-toggle="modal" data-target="#m-d4{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate" 
+                                            @if($permohonan->keterangan=='Permohonan sedang berada di BPP')
+                                            disabled="disabled"
+                                            @endif><i class="fa fa-forward" style="font-size: 15px"> Lanjutkan</i></button>
                                         @include('disposisi._d4')
                                         @endif
                                     </td>
@@ -78,15 +83,6 @@
                                         @else
                                         <small> {{ $permohonan->keterangan }} </small>
                                         @endif
-                                        {{-- <br>
-                                        @if( $permohonan->revisi == null )
-                                        @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi/'.$permohonan->revisi) }}" download="{{$permohonan->revisi}}"><i class="fa fa-file-download "> Download Keterangan PPK</i></a>
-                                        @endif
-                                        @if( $permohonan->revisi2 == null )
-                                        @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi2/'.$permohonan->revisi2) }}" download="{{$permohonan->revisi2}}"><i class="fa fa-file-download "> Download Keterangan Kasubag</i></a>
-                                        @endif --}}
                                     </td>
                                 </tr>
                             @endforeach

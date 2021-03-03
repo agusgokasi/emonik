@@ -34,7 +34,7 @@ class SpjController extends Controller
     	$user = Auth::user();
     	$kegiatans = Kegiatan::where('unit_id', $user->unit_id)->where('status', 1)->where('keterangan', null)->get();
     	$permohonans = permohonan::where('created_by', $user->id)->where('status', '!=' ,0)->where('status', '!=' ,1)->where('status', '!=' ,2)->where('status', '!=' ,3)->where('status', '!=' ,4)->where('status', '!=' ,9)->where('status', '!=' ,10)->where('status', '!=' ,11)->orderBy('updated_at', 'desc')->get();
-        if (auth()->user()->id != 1) {
+        if (auth()->user()->id) {
             $user->unreadNotifications->where('type', 'App\Notifications\Dis4Permohonan')->markAsRead();
             $user->unreadNotifications->where('type', 'App\Notifications\Dt1SPJ')->markAsRead();
             $user->unreadNotifications->where('type', 'App\Notifications\Dt2SPJ')->markAsRead();
@@ -64,6 +64,9 @@ class SpjController extends Controller
         return redirect()->action('SpjController@index')->with('msg', 'SPJ berhasil disubmit!');
     }
 
+}
+
+/*
     public function submitFile(Request $request, $slug)
     {
         $permohonan = Permohonan::where('slug',$slug)->first();
@@ -79,7 +82,6 @@ class SpjController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput(['tab'=>'spj'])->with('error_code', 'spj');
         }
-        //file
         $file = $request->file('filespj');
         $filespj = time().rand(1000,9999).'.'.$file->getClientOriginalExtension();
         $request->file('filespj')->move(public_path('/filespj'), $filespj);
@@ -90,4 +92,4 @@ class SpjController extends Controller
 
         return back()->withInput(['tab'=>'spj'])->with('msg', 'SPJ berhasil di submit!');
     }
-}
+*/

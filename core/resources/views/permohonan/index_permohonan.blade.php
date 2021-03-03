@@ -4,7 +4,7 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="{{ route('home') }}">Dashboard</a>
+            <a href="{{ route('home') }}"><i class="fas fa-fw fa-home"></i> Dashboard</a>
         </li>
         <li class="breadcrumb-item active">
             Manajemen Permohonan
@@ -83,7 +83,11 @@
                                     <span class="bg-danger text-light rounded" style="padding: 5px">Rejected</span>
                                     @endif --}}
                                     <i class="fa @if($permohonan->status==4)
+                                        @if($permohonan->keterangan=='Dana sudah tersedia, silahkan ambil dana')
                                         fa-check text-success
+                                        @else
+                                        fa-hourglass-half text-primary
+                                        @endif
                                         @elseif($permohonan->status==1 || $permohonan->status==2 || $permohonan->status==3)
                                         fa-hourglass-half text-primary
                                         @else
@@ -111,9 +115,13 @@
 
                                             @endif
                                         @elseif($permohonan->status==4)
-                                        <button class="btn btn-sm btn-success btn-block" data-toggle="modal" data-target="#m-p6{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate"><i class="far fa-check-circle" style="font-size: 15px"> Selesai</i></button>
-                                        @include('permohonan._p6')
-
+                                            @if($permohonan->keterangan=='Dana sudah tersedia, silahkan ambil dana')
+                                            <button class="btn btn-sm btn-success btn-block" data-toggle="modal" data-target="#m-p6{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate"><i class="far fa-check-circle" style="font-size: 15px"> Selesai</i></button>
+                                            @include('permohonan._p6')
+                                            @else
+                                            <button class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target="#m-p5{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate"><i class="fas fa-hourglass-half" style="font-size: 15px"> Diproses</i></button>
+                                            @include('permohonan._p5')
+                                            @endif
                                         @else
                                         <button class="btn btn-sm btn-primary btn-block" data-toggle="modal" data-target="#m-p5{{$permohonan->slug}}" ui-toggle-class="bounce" ui-target="#animate"><i class="fas fa-hourglass-half" style="font-size: 15px"> Diproses</i></button>
                                         @include('permohonan._p5')
@@ -129,11 +137,11 @@
                                         <br>
                                         @if( $permohonan->revisi == null )
                                         @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi/'.$permohonan->revisi) }}" download="{{$permohonan->revisi}}"><i class="fa fa-file-download "> Download Keterangan PPK</i></a>
+                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('uploadfile/revisi/'.$permohonan->revisi) }}" download="{{$permohonan->revisi}}"><i class="fa fa-file-download "> Download Keterangan PPK</i></a>
                                         @endif
                                         @if( $permohonan->revisi2 == null )
                                         @else
-                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('revisi2/'.$permohonan->revisi2) }}" download="{{$permohonan->revisi2}}"><i class="fa fa-file-download "> Download Keterangan Kasubag</i></a>
+                                        <a class="btn btn-sm btn-block btn-outline-dark" href="{{ asset('uploadfile/revisi2/'.$permohonan->revisi2) }}" download="{{$permohonan->revisi2}}"><i class="fa fa-file-download "> Download Keterangan Kasubag</i></a>
                                         @endif
                                     </td>
                                 </tr>

@@ -4,7 +4,7 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a href="{{ route('home') }}">Dashboard</a>
+        <a href="{{ route('home') }}"><i class="fas fa-fw fa-home"></i> Dashboard</a>
     </li>
     <li class="breadcrumb-item">
         <a href="{{ route('permohonan') }}">Permohonan</a>
@@ -29,7 +29,7 @@
             <div class="form-group row">
                 <label for="pemohon" class="col-md-4 col-form-label text-md-left">{{ __('Nama Pemohon') }}</label>
                 <div class="col-md-8">
-                    <input id="pemohon" type="text" class="form-control{{ $errors->has('pemohon') ? ' is-invalid' : '' }}" name="pemohon" value="{{ old('pemohon') }}" required autofocus> 
+                    <input id="pemohon" type="text" placeholder="Masukkan Nama Pemohon" class="form-control{{ $errors->has('pemohon') ? ' is-invalid' : '' }}" name="pemohon" value="{{ old('pemohon') }}" required autofocus> 
                     @if ($errors->has('pemohon'))
                         <span class="invalid-feedback text-danger" role="alert">
                             <strong>{{ $errors->first('pemohon') }}</strong>
@@ -42,7 +42,7 @@
             <div class="form-group row">
                 <label for="nama" class="col-md-4 col-form-label text-md-left">{{ __('Nama Kegiatan') }}</label>
                 <div class="col-md-8">
-                    <input id="nama" type="text" class="form-control{{ $errors->has('nama') ? ' is-invalid' : '' }}" name="nama" value="{{ old('nama') }}" required autofocus> 
+                    <input id="nama" type="text" placeholder="Masukkan Nama Kegiatan" class="form-control{{ $errors->has('nama') ? ' is-invalid' : '' }}" name="nama" value="{{ old('nama') }}" required autofocus> 
                     @if ($errors->has('nama'))
                         <span class="invalid-feedback text-danger" role="alert">
                             <strong>{{ $errors->first('nama') }}</strong>
@@ -241,12 +241,14 @@
 </div>
 @endsection
 @section('add_js')
+@include('layouts.form_ckeditor')
 <script>
     $(document).ready(function() {
     $('select[name="kegiatan"]').on('change', function(){
         var kegiatanID = $(this).val();
         if(kegiatanID) {
             $.ajax({
+                headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') },
                 url: 'getProkers/'+kegiatanID,
                 type:"GET",
                 dataType:"json",

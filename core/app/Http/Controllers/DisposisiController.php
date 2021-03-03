@@ -49,7 +49,7 @@ class DisposisiController extends Controller
         $users = User::where('id', '!=', 1)->where('status', 1)->get();
         $permohonan = Permohonan::where('slug',$slug)->first();
         $permohonan->status = 2;
-        $permohonan->keterangan = 'permohonan sedang berada di PPK';
+        $permohonan->keterangan = 'Permohonan sedang berada di PPK';
         $permohonan->save();
         foreach ($users as $user) {
             if ($user->permissionsGroup->dispo2p_status == 1) {
@@ -80,7 +80,7 @@ class DisposisiController extends Controller
         $permohonan = Permohonan::where('slug',$slug)->first();
         $pemohon = User::where('id', $permohonan->created_by)->first();
         $validator = Validator::make($request->all(), [
-        'keterangan'              => 'required|min:3|max:1000',
+        'keterangan'             => 'required|min:3|max:1000',
         'revisi'                 => 'required|mimes:pdf|max:10000kb'
         ],[
             'keterangan.required'=>'Alasan ditolak harus diisi',
@@ -96,12 +96,15 @@ class DisposisiController extends Controller
         }
         //file
         $file = $request->file('revisi');
-        $revisi = time().rand(1000,9999).'.'.$file->getClientOriginalExtension();
-        $request->file('revisi')->move(public_path('/revisi'), $revisi);
+        $revisi = $file->getClientOriginalName();
+        if(Permohonan::where('revisi',$revisi)->first() !=null) {
+            $revisi = time().rand(0,9).$file->getClientOriginalName();
+        }
+        $request->file('revisi')->move(public_path('/uploadfile/revisi'), $revisi);
 
         if ($permohonan->revisi) {
-            if(is_file('revisi/'.$permohonan->revisi)){
-            unlink(public_path('revisi/'.$permohonan->revisi));
+            if(is_file('uploadfile/revisi/'.$permohonan->revisi)){
+            unlink(public_path('uploadfile/revisi/'.$permohonan->revisi));
             }
         }
         
@@ -122,7 +125,7 @@ class DisposisiController extends Controller
         $users = User::where('id', '!=', 1)->where('status', 1)->get();
         $permohonan = Permohonan::where('slug',$slug)->first();
         $permohonan->status = 3;
-        $permohonan->keterangan = 'permohonan sedang berada di kasubag';
+        $permohonan->keterangan = 'Permohonan sedang berada di Kasubag';
         $permohonan->save();
         foreach ($users as $user) {
             if ($user->permissionsGroup->dispo3p_status == 1) {
@@ -169,12 +172,15 @@ class DisposisiController extends Controller
         }
         //file
         $file = $request->file('revisi2');
-        $revisi2 = time().rand(1000,9999).'.'.$file->getClientOriginalExtension();
-        $request->file('revisi2')->move(public_path('/revisi2'), $revisi2);
+        $revisi2 = $file->getClientOriginalName();
+        if(Permohonan::where('revisi2',$revisi2)->first() !=null) {
+            $revisi2 = time().rand(0,9).$file->getClientOriginalName();
+        }
+        $request->file('revisi2')->move(public_path('/uploadfile/revisi2'), $revisi2);
 
         if ($permohonan->revisi2) {
-            if(is_file('revisi2/'.$permohonan->revisi2)){
-            unlink(public_path('revisi2/'.$permohonan->revisi2));
+            if(is_file('uploadfile/revisi2/'.$permohonan->revisi2)){
+            unlink(public_path('uploadfile/revisi2/'.$permohonan->revisi2));
             }
         }
 
@@ -194,17 +200,13 @@ class DisposisiController extends Controller
     	if (Auth::user()->permissionsGroup->dispo3p_status) {
         $users = User::where('id', '!=', 1)->where('status', 1)->get();
         $permohonan = Permohonan::where('slug',$slug)->first();
-        $pemohon = User::where('id', $permohonan->created_by)->first();
         $permohonan->status = 4;
-        $permohonan->keterangan = 'Permohonan sudah disetujui Kasubag, silahkan ambil dana di BPP';
+        $permohonan->keterangan = 'Permohonan sedang berada di BPP';
         $permohonan->save();
         foreach ($users as $user) {
             if ($user->permissionsGroup->dispo4p_status == 1) {
                 $user->notify(new Dis3Permohonan);
             }
-        }
-        if ($pemohon->permissionsGroup->permohonan_status == 1) {
-            $pemohon->notify(new Dp3Permohonan);
         }
         return redirect()->action('DisposisiController@dis3')->with('msg', 'Permohonan berhasil dilanjutkan!');
     	}
@@ -225,12 +227,26 @@ class DisposisiController extends Controller
     	return abort(403);
     }
 
+    public function dp4(Request $request, $slug) {
+        if (Auth::user()->permissionsGroup->dispo4p_status) {
+        $permohonan = Permohonan::where('slug',$slug)->first();
+        $pemohon = User::where('id', $permohonan->created_by)->first();
+        $permohonan->keterangan = 'Dana sudah tersedia, silahkan ambil dana';
+        $permohonan->save();
+        if ($pemohon->permissionsGroup->permohonan_status == 1) {
+            $pemohon->notify(new Dp3Permohonan);
+        }
+        return redirect()->action('DisposisiController@dis4')->with('msg', 'Notifikasi pengambilan dana telah terkirim!');
+        }
+        return abort(403);
+    }
+
     public function di4(Request $request, $slug) {
     	if (Auth::user()->permissionsGroup->dispo4p_status) {
         $permohonan = Permohonan::where('slug',$slug)->first();
         $user = User::where('id', $permohonan->created_by)->first();
         $permohonan->status = 5;
-        $permohonan->keterangan = 'dana diterima, segera buat spj paling lambat 1 minggu setelah dana diterima';
+        $permohonan->keterangan = 'Dana diterima, segera buat spj paling lambat 1 minggu setelah dana diterima';
         $permohonan->save();
         if ($user->permissionsGroup->permohonan_status == 1) {
             $user->notify(new Dis4Permohonan);
@@ -283,12 +299,15 @@ class DisposisiController extends Controller
         }
         //file
         $file = $request->file('spj_tolak_kas');
-        $spj_tolak_kas = time().rand(1000,9999).'.'.$file->getClientOriginalExtension();
-        $request->file('spj_tolak_kas')->move(public_path('/spj_tolak_kas'), $spj_tolak_kas);
+        $spj_tolak_kas = $file->getClientOriginalName();
+        if(Permohonan::where('spj_tolak_kas',$spj_tolak_kas)->first() !=null) {
+            $spj_tolak_kas = time().rand(0,9).$file->getClientOriginalName();
+        }
+        $request->file('spj_tolak_kas')->move(public_path('/uploadfile/spj_tolak_kas'), $spj_tolak_kas);
 
         if ($permohonan->spj_tolak_kas) {
-            if(is_file('spj_tolak_kas/'.$permohonan->spj_tolak_kas)){
-            unlink(public_path('spj_tolak_kas/'.$permohonan->spj_tolak_kas));
+            if(is_file('uploadfile/spj_tolak_kas/'.$permohonan->spj_tolak_kas)){
+            unlink(public_path('uploadfile/spj_tolak_kas/'.$permohonan->spj_tolak_kas));
             }
         }
 
@@ -356,12 +375,15 @@ class DisposisiController extends Controller
         }
 
         $file = $request->file('spj_tolak_bpp');
-        $spj_tolak_bpp = time().rand(1000,9999).'.'.$file->getClientOriginalExtension();
-        $request->file('spj_tolak_bpp')->move(public_path('/spj_tolak_bpp'), $spj_tolak_bpp);
+        $spj_tolak_bpp = $file->getClientOriginalName();
+        if(Permohonan::where('spj_tolak_bpp',$spj_tolak_bpp)->first() !=null) {
+            $spj_tolak_bpp = time().rand(0,9).$file->getClientOriginalName();
+        }
+        $request->file('spj_tolak_bpp')->move(public_path('/uploadfile/spj_tolak_bpp'), $spj_tolak_bpp);
 
         if ($permohonan->spj_tolak_bpp) {
-            if(is_file('spj_tolak_bpp/'.$permohonan->spj_tolak_bpp)){
-            unlink(public_path('spj_tolak_bpp/'.$permohonan->spj_tolak_bpp));
+            if(is_file('uploadfile/spj_tolak_bpp/'.$permohonan->spj_tolak_bpp)){
+            unlink(public_path('uploadfile/spj_tolak_bpp/'.$permohonan->spj_tolak_bpp));
             }
         }
         
@@ -383,9 +405,9 @@ class DisposisiController extends Controller
         $validator = Validator::make($request->all(), [
         'keterangan'              => 'required|min:3|max:1000',
         ],[
-            'keterangan.required'=>'Catatan Untuk Pemohon harus diisi',
-            'keterangan.min'=>'Catatan Untuk Pemohon minimal 3 huruf',
-            'keterangan.max'=>'Catatan Untuk Pemohon minimal 1000 huruf',
+            'keterangan.required'=>'Catatan harus diisi',
+            'keterangan.min'=>'Catatan minimal 3 huruf',
+            'keterangan.max'=>'Catatan minimal 1000 huruf',
         ]);
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput()->with('error_code', $slug);

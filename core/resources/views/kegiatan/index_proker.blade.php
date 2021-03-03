@@ -4,7 +4,7 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="{{ route('home') }}">Dashboard</a>
+            <a href="{{ route('home') }}"><i class="fas fa-fw fa-home"></i> Dashboard</a>
         </li>
         <li class="breadcrumb-item active">
             Program Kerja
@@ -33,6 +33,7 @@
                             	<th>No</th>
                                 <th>Nama Kegiatan</th>
                                 <th>Bulan</th>
+                                <th>Tahun</th>
                                 <th>Maksimal Dana</th>
                             	{{-- <th>Kategori</th> --}}
                                 <th>Unit</th>
@@ -48,6 +49,7 @@
                                     <td>{{++$key}}</td>
                                     <td>{{$kegiatan->nama}}</td>
                                     <td>{{$kegiatan->bulan}}</td>
+                                    <td>{{$kegiatan->tahun}}</td>
                                     <td>Rp{{ format_uang($kegiatan->maksimaldana) }}</td>
                                     {{-- <td>@if(!$kegiatan->kategori_id)
                                         Tidak Punya Kategori

@@ -19,6 +19,7 @@ class CreateKegiatansTable extends Migration
             $table->bigInteger('unit_id')->nullable();
             $table->string('nama');
             $table->string('bulan');
+            $table->smallInteger('tahun');
             $table->bigInteger('maksimaldana');
             $table->smallInteger('status');
             $table->text('keterangan')->nullable();

@@ -74,22 +74,25 @@ Route::Group(['middleware' => ['auth']], function () {
     */
 
     // Proker&Kegiatan
-    Route::get('/kegiatan', 'KegiatanController@index')->name('kegiatan');
+    Route::get('/api/kegiatan', 'KegiatanController@apiKegiatan')->name('apiKegiatan');
     Route::get('/proker', 'KegiatanController@proker')->name('proker');
     Route::post('/proker/{id}/terima', 'KegiatanController@terima')->name('prokerTerima');
     Route::post('/proker/{id}/tolak', 'KegiatanController@tolak')->name('prokerTolak');
-    /* Route::post('/kegiatan/create', 'KegiatanController@post')->name('kegiatanCreate');
+    Route::get('/kegiatan', 'KegiatanController@index')->name('kegiatan');
+    Route::post('/kegiatan/create', 'KegiatanController@post')->name('kegiatanCreate');
     Route::post('/kegiatan/{id}/update', 'KegiatanController@update')->name('kegiatanUpdate');
     Route::get('/kegiatan/destroy/{id}', 'KegiatanController@destroy')->name('kegiatanDestroy');
-    */
+    
     //ProkerPermohonan
-    Route::get('/permohonan/getProkers/{id}', 'PermohonanController@getProkers');
-    Route::get('/prokerpermohonan', 'PermohonanController@indexProker')->name('prokerpermohonan');
-    Route::post('/prokerpermohonan/create', 'PermohonanController@postProker')->name('prokerCreate');
-    Route::post('/prokerpermohonan/{id}/update', 'PermohonanController@updateProker')->name('prokerUpdate');
-    Route::get('/prokerpermohonan/destroy/{id}', 'PermohonanController@destroyProker')->name('prokerDestroy');
-    Route::get('/prokerpermohonan/submit/{id}', 'PermohonanController@submitProker')->name('prokerSubmit');
+    Route::get('/prokerkegiatan', 'ProkerController@index')->name('prokerkegiatan');
+    Route::get('/api/prokerkegiatan', 'ProkerController@apiKegiatan')->name('apiProkerkegiatan');
+    Route::get('/prokerpermohonan', 'ProkerController@indexProker')->name('prokerpermohonan');
+    Route::post('/prokerpermohonan/create', 'ProkerController@postProker')->name('prokerCreate');
+    Route::post('/prokerpermohonan/{id}/update', 'ProkerController@updateProker')->name('prokerUpdate');
+    Route::get('/prokerpermohonan/destroy/{id}', 'ProkerController@destroyProker')->name('prokerDestroy');
+    Route::get('/prokerpermohonan/submit/{id}', 'ProkerController@submitProker')->name('prokerSubmit');
     // Permohonan
+    Route::get('/permohonan/getProkers/{id}', 'PermohonanController@getProkers');
     Route::get('/permohonan', 'PermohonanController@index')->name('permohonan');
     Route::get('/permohonan/create', 'PermohonanController@create')->name('permohonanCreate');
     Route::post('/permohonan/store', 'PermohonanController@store')->name('permohonanStore');
@@ -115,6 +118,7 @@ Route::Group(['middleware' => ['auth']], function () {
     Route::get('/dis3/submit/{permohonan}', 'DisposisiController@di3')->name('dis3Submit');
     Route::get('/dis4', 'DisposisiController@dis4')->name('dis4');
     Route::get('/dis4/submit/{permohonan}', 'DisposisiController@di4')->name('dis4Submit');
+    Route::get('/dis4/peringatan/{permohonan}', 'DisposisiController@dp4')->name('dp4');
     Route::get('/disposisi/{permohonan}', 'DisposisiController@show')->name('disShow');
 
     //SPJ
@@ -135,6 +139,7 @@ Route::Group(['middleware' => ['auth']], function () {
     Route::get('/disposis/{permohonan}', 'DisposisiController@spjShow')->name('dissShow');
 
     //History Permohonan
+    Route::get('/api/histori', 'HistoriController@apiHistori')->name('apiHistori');
     Route::get('/histori', 'HistoriController@index')->name('histori');
     Route::get('/histori/{permohonan}', 'HistoriController@show')->name('historiShow');
 
